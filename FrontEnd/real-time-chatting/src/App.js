@@ -1,12 +1,19 @@
-import logo from './logo.svg';
-import './App.css';
+import React, {  Component } from 'react';
+class App extends Component {
 
-function App() {
-  return (
-    <div className="App">
-      <h3>Real Time Chatting App</h3>
-    </div>
-  );
+  render() {
+
+    return (
+      <div className={''}>
+        <h2>Real Time Chatting APP</h2>
+      </div>
+      
+    );
+  }
 }
 
-export default App;
+export default App; 
+
+
+
+
