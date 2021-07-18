@@ -40,13 +40,27 @@ export const friendRequestMsg = (msg) => {
    };
 };
 
+export const friendRequesActiontMsg = (msg) => {
+   return {
+      type: actionTypes.FRIENDREQACTION,
+      friendRequesActiontMsg:msg
+   };
+};
+
+export const friendRequestList = (list) => {
+   return {
+      type: actionTypes.FRIENDREQLIST,
+      friendRequestList:list
+   };
+};
+
 
 export const filterMessage = (ReceiverID,SenderID) => {
    return (dispatch)=>{
       axios.get('/messages/'+ReceiverID+'/'+SenderID)
          .then(r=>{
             //console.log(r.data,' Messages');
-            if(r.data=='notFriend'){
+            if(r.data==='notFriend'){
                dispatch(notFriend(r.data));
             }
             else{
@@ -75,7 +89,6 @@ export const friendsNameList = (id) => {
       axios.get('/friendsList/'+id)
          .then(r=>{
            // console.log(r.data,' Firends');
-
             dispatch(saveFriendsNameList(r.data));
          })
    
@@ -88,8 +101,31 @@ export const friendReqSent = (FriendKey,SenderID) => {
       axios.post('/sentFriendReq/'+FriendKey+'/'+SenderID)
          .then(r=>{
            //console.log(r.data,' Req');
-
             dispatch(friendRequestMsg(r.data));
+         })
+   
+      }
+};
+
+export const friendReqSentList = (ReciverID) => {
+   return (dispatch)=>{
+      axios.get('/friendsRequstAction/'+ReciverID)
+         .then(r=>{
+            dispatch(friendRequestList(r.data));
+         })
+   
+      }
+};
+
+export const friendReqSentAction = (requstID,actionType) => {
+   return (dispatch)=>{
+      axios.post('/friendsRequstAction/'+actionType+'/'+requstID)
+         .then(r=>{
+            console.log(r.data,' Req');
+
+            dispatch(friendRequesActiontMsg(r.data));
+
+            dispatch(friendReqSentList(localStorage.getItem('UserID')));
          })
    
       }

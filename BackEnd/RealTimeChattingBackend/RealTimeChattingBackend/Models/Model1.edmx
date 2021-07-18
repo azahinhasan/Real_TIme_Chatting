@@ -9,7 +9,7 @@
           <Key>
             <PropertyRef Name="ID" />
           </Key>
-          <Property Name="ID" Type="int" Nullable="false" />
+          <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="RequstSender" Type="int" />
           <Property Name="RequstReciver" Type="int" />
           <Property Name="Time" Type="varchar" MaxLength="50" />

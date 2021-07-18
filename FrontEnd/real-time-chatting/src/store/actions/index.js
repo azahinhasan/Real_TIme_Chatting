@@ -11,5 +11,7 @@ export {
    filterMessage,
    friendsNameList,
    sentMessage,
-   friendReqSent
+   friendReqSent,
+   friendReqSentList,
+   friendReqSentAction,
    } from './chatting';

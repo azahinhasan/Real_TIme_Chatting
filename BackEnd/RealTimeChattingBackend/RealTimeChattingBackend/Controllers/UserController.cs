@@ -142,5 +142,27 @@ namespace RealTimeChattingBackend.Controllers
 
             return Ok("Friend Request Send!");
         }
+
+        [Route("api/friendsRequstAction/{ID}"), HttpGet]
+        public IHttpActionResult FirendsRequestActionList([FromUri] int ID)
+        {
+            var friendsReq = context.FriendRequests.Where(x => x.RequstReciver == ID).ToList();
+
+            return Ok(friendsReq);
+        }
+
+        [Route("api/friendsRequstAction/{ReqAction}/{RequstID}"), HttpPost]
+        public IHttpActionResult FirendsRequestAction([FromUri] int RequstID,[FromUri] string ReqAction)
+        {
+            var friends = context.FriendRequests.Where(x => x.ID == RequstID).FirstOrDefault();
+
+            if (ReqAction=="accept")
+            {
+                return Ok("Friend Request Accpted!");
+            }
+
+
+            return Ok("Friend Request Rejected!");
+        }
     }
 }
