@@ -8,15 +8,35 @@ import NavBar from '../navBar';
 const LoginPage=(props)=> {
    const history = useHistory();
 
+   const [msg,setMsg]=useState('');
+   const [resiverID,setresiverID]=useState('');
 
    useEffect(() => {
       props.friendsNameList(localStorage.getItem('UserID'));
 
    }, []);
 
+   useEffect(() => {
+      if(resiverID!=''){
+         const interval = setInterval(() => {
+        
+            props.filterMessage(resiverID,localStorage.getItem('UserID'));
+         }, 500000);
+         return () => clearInterval(interval);
+      }
+     
+    }, []);
 
-   const showMasage=(id)=>{
 
+
+   const showMasage=(ResiverID)=>{
+      setresiverID(ResiverID);
+      props.filterMessage(ResiverID,localStorage.getItem('UserID'));
+   }
+
+   const sentMasage=(Senderid)=>{
+      setMsg('');
+      props.sentMessage(Senderid,localStorage.getItem('UserID'),msg)
    }
    // console.log(props.friendsList)
 
@@ -26,17 +46,42 @@ const LoginPage=(props)=> {
 
          <div className={Classes.homePageData}>
             <p>friendsNameList Page</p>
-
-            <div className={Classes.friendsName}>
+         </div>
+         <div className={Classes.friendsNamePart}>
                {props.friendsList.map(data=>{
                   return(
                      <div>
-                        <button onClick={showMasage(data.UserInfo.ID)}>{data.UserInfo.Name}</button>
+                        <button className={Classes.friendsName} onClick={()=>showMasage(data.UserInfo.ID)}>{data.UserInfo.Name}</button>
                      </div>
                   )
                })}
             </div>
-         </div>
+
+            <div className={Classes.messagePart}>
+               <div className={Classes.allMessages}>
+                  {props.messages.map(data=>{
+                     return(
+                        <div>
+                           <span className={data.SenderID==localStorage.getItem('UserID')? Classes.messageSender:Classes.messageReciver}>
+                              {data.Msg}
+                           </span>
+                           <br/><br/>
+                        </div>
+                     )
+                  })}
+               </div>
+               <div className={Classes.msgTypingPart}>
+                  <textarea 
+                     placeholder="Type Your Message!" 
+                     onChange={e=>{setMsg(e.target.value)}}
+                     value={msg}
+                     />
+                     
+                  <button onClick={()=>sentMasage(resiverID)} disabled={msg.length<1? true: false}>SEND</button>
+               
+               </div>
+            
+            </div>
 
 
       </div>
@@ -56,7 +101,8 @@ const mapStateToProps=state=>{
 const mapDispatchToProps=dispatch=>{
    return{
       friendsNameList:(UserID)=>dispatch(action.friendsNameList(UserID)),
-      filterMessage:()=>dispatch(action.filterMessage()),
+      filterMessage:(SenderID,ReceiverID)=>dispatch(action.filterMessage(SenderID,ReceiverID)),
+      sentMessage:(SenderID,ReceiverID,Msg)=>dispatch(action.sentMessage(SenderID,ReceiverID,Msg)),
    }
 }
 export default  connect(mapStateToProps,mapDispatchToProps)(LoginPage); 

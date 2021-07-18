@@ -20,12 +20,22 @@ export const saveFriendsNameList = (data) => {
 };
 
 
-export const filterMessage = (SenderID,ReceiverID) => {
+export const filterMessage = (ReceiverID,SenderID) => {
    return (dispatch)=>{
       axios.get('/messages/'+ReceiverID+'/'+SenderID)
          .then(r=>{
-            console.log(r.data,' Messages');
+            //console.log(r.data,' Messages');
+            dispatch(saveMessage(r.data));
+         })
+   
+      }
+};
 
+export const sentMessage = (ReceiverID,SenderID,Msg) => {
+   return (dispatch)=>{
+      axios.post('/messages/'+ReceiverID+'/'+SenderID,{Msg:Msg})
+         .then(r=>{
+            //console.log(r.data,' Messages');
             dispatch(saveMessage(r.data));
          })
    

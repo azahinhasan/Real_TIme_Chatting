@@ -8,10 +8,10 @@ const initialState={
 const reducer = ( state = initialState, action ) => {
    switch ( action.type ) {
       case actionTypes.MESSAGE: 
-      return {
-         ...state,
-         messages:action.message,
-      };
+         return {
+            ...state,
+            messages:action.message,
+         };
 
       case actionTypes.FRIEDNS: 
          return {

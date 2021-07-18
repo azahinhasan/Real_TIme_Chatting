@@ -18,7 +18,7 @@ class App extends Component {
   }
 
   render() {
-    console.log(this.props.verifiedUser);
+    console.log(this.props.verifiedUser, "verifiedUser app,js");
     return (
       <div className={Classes.App}>
           {!this.props.verifiedUser?

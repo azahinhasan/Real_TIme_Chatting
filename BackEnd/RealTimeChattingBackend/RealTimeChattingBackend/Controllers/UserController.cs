@@ -62,6 +62,22 @@ namespace RealTimeChattingBackend.Controllers
             return Ok(messages);
         }
 
+        [Route("api/messages/{ReceiverID}/{SenderID}"), HttpPost]
+        public IHttpActionResult MessagesSent([FromUri] int ReceiverID, [FromUri] int SenderID, [FromBody]Message data)
+        {
+            Message newMsg = new Message();
+            newMsg.Msg = data.Msg;
+            newMsg.ReceiverID = ReceiverID;
+            newMsg.SenderID = SenderID;
+            context.Messages.Add(newMsg);
+            context.SaveChanges();
+
+
+            var messages = context.Messages.Where(x => x.ReceiverID == ReceiverID || x.SenderID == ReceiverID || x.SenderID == SenderID || x.ReceiverID == SenderID).ToList();
+            return Ok(messages);
+        }
+
+
         [Route("api/friendsList/{ID}"), HttpGet]
         public IHttpActionResult Firends([FromUri] int ID)
         {

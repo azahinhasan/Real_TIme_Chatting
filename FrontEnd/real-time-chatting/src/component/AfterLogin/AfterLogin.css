@@ -47,3 +47,110 @@
 .homePageData{
    text-align: center;
 }
+
+.friendsNamePart{
+   margin-top: 6px;
+   margin-left: 0px;
+   display: inline-block; 
+   text-align: left;
+   width: 170px;
+   border:3px solid black;
+   text-align: center;
+      
+   overflow-y: scroll; 
+   height:705px;
+}
+
+.friendsName{
+   border: 2px solid rgb(0, 0, 0);
+   background-color: white;
+   padding: 5px;
+   margin:5px 0px;
+   width: 140px;
+}
+
+.messageSender{
+   border: 2px black solid;
+   margin:10px;
+   margin-top: 50px;
+   padding: 8px;
+   max-width: 250px;
+   background-color: black;
+   color: white;
+
+   word-wrap:break-word;
+   border-radius: 25px;
+
+}
+
+.messageReciver{
+   border: 2px black solid;
+   /* margin:10px; */
+   margin-top: 100px;
+   padding: 8px;
+   float:left; 
+   clear:left;
+   border-radius: 25px;
+   
+
+   max-width: 250px;
+   word-wrap:break-word;
+
+}
+
+.messagePart{
+   border: 3px solid rgb(0, 0, 0);
+   background-color: white;
+   padding: 5px;
+   margin:5px 0px;
+   width: 450px;
+   float:right; 
+   clear:right;
+   height: 696px;
+}
+
+.messageSender{
+   float:right; 
+   clear:right;
+}
+
+.msgTypingPart{
+   border: 3px solid rgb(0, 0, 0);
+   position: fixed;
+   bottom: 130px;
+   height: 100px;
+   width: 443px;
+
+}
+
+.msgTypingPart textarea{
+   border: 3px solid black;
+   resize: none;
+   height: 90px;
+   width: 350px;
+   font-weight: bold;
+   font-size: 15px;
+
+}
+
+.msgTypingPart button{
+   border: 3px solid black;
+   resize: none;
+   height: 101px;
+   width: 83px;
+   padding: 2px;
+   position: relative;
+   bottom: 44%;
+   font-weight: bold;
+   font-size: 20px;
+}
+
+.msgTypingPart button:hover{
+   background-color: black;
+   color: white;
+}
+
+.allMessages{
+   overflow-y: scroll; 
+   height:580px;
+}

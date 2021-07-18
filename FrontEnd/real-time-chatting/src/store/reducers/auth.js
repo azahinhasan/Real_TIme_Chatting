@@ -4,7 +4,6 @@ const initialState={
    verifiedUser:false,
    error:'',
    loading:false,
-   messages:[]
 }
 
 
@@ -20,12 +19,6 @@ const reducer = ( state = initialState, action ) => {
          return {
             ...state,
             verifiedUser:action.verifiedUser,
-         };
-      case actionTypes.MESSAGE: 
-         return {
-            ...state,
-            verifiedUser:action.verifiedUser,
-            messages:action.messages
          };
       default:
          return state;
