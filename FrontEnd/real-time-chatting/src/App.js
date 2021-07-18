@@ -1,19 +1,34 @@
 import React, {  Component } from 'react';
 import Classes from './App.css';
-import { connect } from 'react-redux';
 import {Route,Switch,withRouter,Redirect} from 'react-router-dom';
+
 import * as action from './store/actions/index';
+import { connect } from 'react-redux';
+
+//pages
 import LoginPage from './component/LoginPage';
+import LogOut from './component/LogOut';
+import UserHome from './component/AfterLogin/userHomePage';
+
+
 class App extends Component {
 
   render() {
-
+    console.log(this.props.verifiedUser);
     return (
       <div className={Classes.App}>
-           <Switch>
-              <Route path="/" component={LoginPage}/>
-              <Redirect to="/"/>
-           </Switch>
+          {!this.props.verifiedUser?
+              <Switch>
+                  <Route path="/" component={LoginPage}/>
+                  <Redirect to="/"/>
+              </Switch>
+              :
+              <Switch>
+                  <Route path="/user/home" component={UserHome}/>
+                  <Route path="/user/logout" component={LogOut}/>
+                  <Redirect to="/user/home"/>
+              </Switch>
+          }
       </div>
       
     );
@@ -23,7 +38,7 @@ class App extends Component {
 
 const mapStateToProps=state=>{
   return{
-    signedIn:state.auth.signedIn
+    verifiedUser:state.auth.verifiedUser
   }
 
 }

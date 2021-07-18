@@ -14,7 +14,9 @@ namespace RealTimeChattingBackend.Controllers
         [Route("api/login"), HttpPost]
         public IHttpActionResult UserAndOrderInfo([FromBody] UserInfo data)
         {
-            var check = context.UserInfoes.Where(x => x.Username == data.Username && x.Password == data.Password).FirstOrDefault();
+
+             var check = context.UserInfoes.Where(x => x.Username == data.Username && x.Password == data.Password).FirstOrDefault();
+
             if (check != null)
             {
                 TokenTable token = new TokenTable();
@@ -24,8 +26,30 @@ namespace RealTimeChattingBackend.Controllers
                 context.TokenTables.Add(token);
                 context.SaveChanges();
 
-                return Ok("userValid");
+                string[]  temp = {check.Name,token.Token};
 
+                 return Ok(temp);
+                //return Json({"neme":""});
+
+            }
+            string[] temp1 = { "userNotValid", "" };
+            return Ok(temp1);
+
+        }
+        [Route("api/userauth/{name}"), HttpPost]
+        public IHttpActionResult UserAuthCheck([FromBody]TokenTable data,[FromUri]string name)
+        {
+
+            var check = context.TokenTables.Where(x => x.Username == data.Username && x.Token == data.Token).FirstOrDefault();
+
+            if (check != null)
+            {
+                var check2 = context.UserInfoes.Where(x => x.Username == data.Username && x.Name == name).FirstOrDefault();
+                if (check2 != null)
+                {
+                    return Ok("userValid");
+                }
+                return Ok("userNotValid");
             }
             return Ok("userNotValid");
 

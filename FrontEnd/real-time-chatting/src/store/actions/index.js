@@ -1,6 +1,7 @@
 
 export {
       SignIn,
+      SignOut,
       // SignUp,
       authCheckState,
       // logOut,
