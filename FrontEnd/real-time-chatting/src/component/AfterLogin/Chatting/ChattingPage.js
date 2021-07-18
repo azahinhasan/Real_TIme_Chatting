@@ -1,4 +1,6 @@
-import React, {  useState,useEffect } from 'react';
+import React, {  useState,useEffect, useRef } from 'react';
+import ScrollToBottom, { useScrollToBottom, useSticky } from 'react-scroll-to-bottom';
+//npm i react-scroll-to-bottom
 import Classes from '../AfterLogin.css';
 import * as action from '../../../store/actions/index';
 import {useHistory} from 'react-router-dom';
@@ -6,13 +8,20 @@ import {useHistory} from 'react-router-dom';
 import { connect } from 'react-redux';
 import NavBar from '../navBar';
 const LoginPage=(props)=> {
+   const scrollToBottom = useScrollToBottom();
+  const [sticky] = useSticky();
    const history = useHistory();
-
    const [msg,setMsg]=useState('');
    const [resiverID,setresiverID]=useState('');
+   const messagesEndRef = useRef(null);
+
+   // const scrollToBottom = () => {
+   //    messagesEndRef.current?.scrollIntoView({ behavior: "smooth" })
+   //  }
 
    useEffect(() => {
       props.friendsNameList(localStorage.getItem('UserID'));
+      //scrollToBottom();
 
    }, []);
 
@@ -21,7 +30,8 @@ const LoginPage=(props)=> {
          const interval = setInterval(() => {
         
             props.filterMessage(resiverID,localStorage.getItem('UserID'));
-         }, 500000);
+         
+         }, 500);
          return () => clearInterval(interval);
       }
      
@@ -48,6 +58,8 @@ const LoginPage=(props)=> {
             <p>friendsNameList Page</p>
          </div>
          <div className={Classes.friendsNamePart}>
+               <h3>Friends List</h3>
+               <hr/>
                {props.friendsList.map(data=>{
                   return(
                      <div>
@@ -58,18 +70,22 @@ const LoginPage=(props)=> {
             </div>
 
             <div className={Classes.messagePart}>
-               <div className={Classes.allMessages}>
+               <ScrollToBottom  className={Classes.allMessages}>
                   {props.messages.map(data=>{
                      return(
-                        <div>
+                        <div key={data.ID}>
+                           
                            <span className={data.SenderID==localStorage.getItem('UserID')? Classes.messageSender:Classes.messageReciver}>
                               {data.Msg}
                            </span>
-                           <br/><br/>
+                  
+                           {/* <div ref={messagesEndRef} /> */}
+                           <br/>
                         </div>
                      )
                   })}
-               </div>
+               
+               </ScrollToBottom>
                <div className={Classes.msgTypingPart}>
                   <textarea 
                      placeholder="Type Your Message!" 
