@@ -65,10 +65,13 @@ namespace RealTimeChattingBackend.Controllers
         [Route("api/messages/{ReceiverID}/{SenderID}"), HttpPost]
         public IHttpActionResult MessagesSent([FromUri] int ReceiverID, [FromUri] int SenderID, [FromBody]Message data)
         {
+            DateTime time = DateTime.Today;
+
             Message newMsg = new Message();
             newMsg.Msg = data.Msg;
             newMsg.ReceiverID = ReceiverID;
             newMsg.SenderID = SenderID;
+            newMsg.Time = time.ToString();
             context.Messages.Add(newMsg);
             context.SaveChanges();
 
