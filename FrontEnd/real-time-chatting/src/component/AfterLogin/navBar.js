@@ -8,11 +8,16 @@ const LoginPage=(props)=> {
 
 
    return (
-      <div className={Classes.App}>
-         <Link to={{pathname: '/user/friends'}}>Friends</Link>
-         <Link to={{pathname: '/user/chatting'}}>Chatting</Link>
-         <Link to={{pathname: '/user/other'}}>Other</Link>
-         <Link to={{pathname: '/user/logout'}}>SignOut</Link>
+      <div className={Classes.navBar}>
+         <div className={Classes.leftSide}>
+            <Link className={Classes.Link} to={{pathname: '/user/friends'}}>Friends</Link>
+            <Link className={Classes.Link} to={{pathname: '/user/chatting'}}>Chatting</Link>
+            <Link className={Classes.Link} to={{pathname: '/user/other'}}>Other</Link>
+         </div>
+         <div className={Classes.rightSide}>
+         <Link className={Classes.LinkSignOut} to={{pathname: '/user/logout'}}>SignOut</Link>
+         </div>
+       
       </div>
    
    );

@@ -3,7 +3,8 @@ import * as actionTypes from '../actions/actionTypes';
 const initialState={
    verifiedUser:false,
    error:'',
-   loading:false
+   loading:false,
+   messages:[]
 }
 
 
@@ -16,10 +17,16 @@ const reducer = ( state = initialState, action ) => {
       };
 
       case actionTypes.AUTH_FAILED: 
-      return {
-         ...state,
-         verifiedUser:action.verifiedUser,
-      };
+         return {
+            ...state,
+            verifiedUser:action.verifiedUser,
+         };
+      case actionTypes.MESSAGE: 
+         return {
+            ...state,
+            verifiedUser:action.verifiedUser,
+            messages:action.messages
+         };
       default:
          return state;
    }

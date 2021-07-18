@@ -30,6 +30,7 @@ export const SignIn=(Username,Password)=>{
             localStorage.setItem('Username',Username);
             localStorage.setItem('Token',r.data[1]);
             localStorage.setItem('Name',r.data[0]);
+            localStorage.setItem('UserID',r.data[2]);
            // dispatch(authSuccess());
            dispatch(authCheckState());
          }
@@ -46,6 +47,7 @@ export const SignOut=()=>{
          localStorage.removeItem("Username");
          localStorage.removeItem("Token");
          localStorage.removeItem("Name");
+         localStorage.removeItem("UserID");
          dispatch(authFailed());
       }
          

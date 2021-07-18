@@ -9,9 +9,13 @@ import { connect } from 'react-redux';
 import LoginPage from './component/LoginPage';
 import LogOut from './component/LogOut';
 import UserHome from './component/AfterLogin/userHomePage';
-
+import ChattingPage from './component/AfterLogin/Chatting/ChattingPage';
 
 class App extends Component {
+
+  componentDidMount(){
+    this.props.authCheckState();
+  }
 
   render() {
     console.log(this.props.verifiedUser);
@@ -26,6 +30,7 @@ class App extends Component {
               <Switch>
                   <Route path="/user/home" component={UserHome}/>
                   <Route path="/user/logout" component={LogOut}/>
+                  <Route path="/user/chatting" component={ChattingPage}/>
                   <Redirect to="/user/home"/>
               </Switch>
           }

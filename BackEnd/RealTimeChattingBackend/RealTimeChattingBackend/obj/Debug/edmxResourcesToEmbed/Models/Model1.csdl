@@ -17,9 +17,66 @@
     <Property Name="Username" Type="String" MaxLength="500" FixedLength="false" Unicode="false" />
     <Property Name="UserConnectID" Type="String" MaxLength="500" FixedLength="false" Unicode="false" />
     <Property Name="Password" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+    <NavigationProperty Name="FriendsTables" Relationship="Realtime_ChattingModel.FK_FriendsTable_UserInfo" FromRole="UserInfo" ToRole="FriendsTable" />
+    <NavigationProperty Name="FriendsTables1" Relationship="Realtime_ChattingModel.FK_FriendsTable_UserInfo1" FromRole="UserInfo" ToRole="FriendsTable" />
   </EntityType>
   <EntityContainer Name="Realtime_ChattingEntities" annotation:LazyLoadingEnabled="true">
     <EntitySet Name="TokenTables" EntityType="Self.TokenTable" />
     <EntitySet Name="UserInfoes" EntityType="Self.UserInfo" />
+    <EntitySet Name="FriendsTables" EntityType="Realtime_ChattingModel.FriendsTable" />
+    <EntitySet Name="Messages" EntityType="Realtime_ChattingModel.Message" />
+    <AssociationSet Name="FK_FriendsTable_UserInfo" Association="Realtime_ChattingModel.FK_FriendsTable_UserInfo">
+      <End Role="UserInfo" EntitySet="UserInfoes" />
+      <End Role="FriendsTable" EntitySet="FriendsTables" />
+    </AssociationSet>
+    <AssociationSet Name="FK_FriendsTable_UserInfo1" Association="Realtime_ChattingModel.FK_FriendsTable_UserInfo1">
+      <End Role="UserInfo" EntitySet="UserInfoes" />
+      <End Role="FriendsTable" EntitySet="FriendsTables" />
+    </AssociationSet>
   </EntityContainer>
+  <EntityType Name="FriendsTable">
+    <Key>
+      <PropertyRef Name="ID" />
+    </Key>
+    <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="Friend1ID" Type="Int32" />
+    <Property Name="Friend2ID" Type="Int32" />
+    <Property Name="Time" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
+    <NavigationProperty Name="UserInfo" Relationship="Realtime_ChattingModel.FK_FriendsTable_UserInfo" FromRole="FriendsTable" ToRole="UserInfo" />
+    <NavigationProperty Name="UserInfo1" Relationship="Realtime_ChattingModel.FK_FriendsTable_UserInfo1" FromRole="FriendsTable" ToRole="UserInfo" />
+  </EntityType>
+  <EntityType Name="Message">
+    <Key>
+      <PropertyRef Name="ID" />
+    </Key>
+    <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="Msg" Type="String" MaxLength="5000" FixedLength="false" Unicode="false" />
+    <Property Name="ReceiverID" Type="Int32" />
+    <Property Name="SenderID" Type="Int32" />
+    <Property Name="Time" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+  </EntityType>
+  <Association Name="FK_FriendsTable_UserInfo">
+    <End Type="Realtime_ChattingModel.UserInfo" Role="UserInfo" Multiplicity="0..1" />
+    <End Type="Realtime_ChattingModel.FriendsTable" Role="FriendsTable" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="UserInfo">
+        <PropertyRef Name="ID" />
+      </Principal>
+      <Dependent Role="FriendsTable">
+        <PropertyRef Name="Friend1ID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_FriendsTable_UserInfo1">
+    <End Type="Realtime_ChattingModel.UserInfo" Role="UserInfo" Multiplicity="0..1" />
+    <End Type="Realtime_ChattingModel.FriendsTable" Role="FriendsTable" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="UserInfo">
+        <PropertyRef Name="ID" />
+      </Principal>
+      <Dependent Role="FriendsTable">
+        <PropertyRef Name="Friend2ID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
 </Schema>

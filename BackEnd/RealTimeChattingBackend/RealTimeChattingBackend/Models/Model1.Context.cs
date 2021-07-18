@@ -27,5 +27,7 @@ namespace RealTimeChattingBackend.Models
     
         public virtual DbSet<TokenTable> TokenTables { get; set; }
         public virtual DbSet<UserInfo> UserInfoes { get; set; }
+        public virtual DbSet<FriendsTable> FriendsTables { get; set; }
+        public virtual DbSet<Message> Messages { get; set; }
     }
 }

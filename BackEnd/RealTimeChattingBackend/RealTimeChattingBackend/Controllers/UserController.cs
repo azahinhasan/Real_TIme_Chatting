@@ -26,13 +26,13 @@ namespace RealTimeChattingBackend.Controllers
                 context.TokenTables.Add(token);
                 context.SaveChanges();
 
-                string[]  temp = {check.Name,token.Token};
+                string[]  temp = {check.Name,token.Token,check.ID.ToString()};
 
                  return Ok(temp);
                 //return Json({"neme":""});
 
             }
-            string[] temp1 = { "userNotValid", "" };
+            string[] temp1 = { "userNotValid", "","" };
             return Ok(temp1);
 
         }
@@ -53,6 +53,20 @@ namespace RealTimeChattingBackend.Controllers
             }
             return Ok("userNotValid");
 
+        }
+
+        [Route("api/messages/{ReceiverID}/{SenderID}"), HttpGet]
+        public IHttpActionResult Messages([FromUri]int ReceiverID, [FromUri]int SenderID)
+        {
+            var messages = context.Messages.Where(x => x.ReceiverID ==ReceiverID || x.SenderID == ReceiverID || x.SenderID == SenderID || x.ReceiverID == SenderID).ToList();
+            return Ok(messages);
+        }
+
+        [Route("api/friendsList/{ID}"), HttpGet]
+        public IHttpActionResult Firends([FromUri] int ID)
+        {
+            var friends = context.FriendsTables.Where(x => x.Friend2ID == ID).ToList();
+            return Ok(friends);
         }
     }
 }

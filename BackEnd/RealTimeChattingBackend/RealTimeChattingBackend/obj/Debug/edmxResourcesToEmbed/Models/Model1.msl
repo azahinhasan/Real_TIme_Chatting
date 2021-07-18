@@ -21,5 +21,26 @@
         </MappingFragment>
       </EntityTypeMapping>
     </EntitySetMapping>
+    <EntitySetMapping Name="FriendsTables">
+      <EntityTypeMapping TypeName="Realtime_ChattingModel.FriendsTable">
+        <MappingFragment StoreEntitySet="FriendsTable">
+          <ScalarProperty Name="Time" ColumnName="Time" />
+          <ScalarProperty Name="Friend2ID" ColumnName="Friend2ID" />
+          <ScalarProperty Name="Friend1ID" ColumnName="Friend1ID" />
+          <ScalarProperty Name="ID" ColumnName="ID" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Messages">
+      <EntityTypeMapping TypeName="Realtime_ChattingModel.Message">
+        <MappingFragment StoreEntitySet="Messages">
+          <ScalarProperty Name="Time" ColumnName="Time" />
+          <ScalarProperty Name="SenderID" ColumnName="SenderID" />
+          <ScalarProperty Name="ReceiverID" ColumnName="ReceiverID" />
+          <ScalarProperty Name="Msg" ColumnName="Msg" />
+          <ScalarProperty Name="ID" ColumnName="ID" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
   </EntityContainerMapping>
 </Mapping>

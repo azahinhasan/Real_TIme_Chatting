@@ -10,17 +10,21 @@ const LoginPage=(props)=> {
 
 
    useEffect(() => {
-     props.authCheckState();
+     //props.authCheckState();
 
-     if(!props.verifiedUser){
-         history.push('/');
-     }
+   //   if(!props.verifiedUser){
+   //       history.push('/user/logout');
+   //   }
    }, []);
 
    return (
       <div className={Classes.App}>
          <NavBar/>
-      <p>UserHOme Page</p>
+
+         <div className={Classes.homePageData}>
+            <p>UserHOme Page</p>
+         </div>
+ 
 
       </div>
    

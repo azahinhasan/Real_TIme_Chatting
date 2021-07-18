@@ -6,3 +6,8 @@ export {
       authCheckState,
       // logOut,
    } from './auth';
+
+export {
+   filterMessage,
+   friendsNameList
+   } from './chatting';
