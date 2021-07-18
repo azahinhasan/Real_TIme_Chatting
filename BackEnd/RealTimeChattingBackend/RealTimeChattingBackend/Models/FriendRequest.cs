@@ -12,11 +12,11 @@ namespace RealTimeChattingBackend.Models
     using System;
     using System.Collections.Generic;
     
-    public partial class FriendsTable
+    public partial class FriendRequest
     {
         public int ID { get; set; }
-        public Nullable<int> Friend1ID { get; set; }
-        public Nullable<int> Friend2ID { get; set; }
+        public Nullable<int> RequstSender { get; set; }
+        public Nullable<int> RequstReciver { get; set; }
         public string Time { get; set; }
     
         public virtual UserInfo UserInfo { get; set; }

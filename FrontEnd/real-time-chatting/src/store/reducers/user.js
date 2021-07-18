@@ -2,7 +2,9 @@ import * as actionTypes from '../actions/actionTypes';
 
 const initialState={
    friendsList:[],
-   messages:[]
+   messages:[],
+   theyAreFriend:false,
+   friendRequestMsg:''
 }
 
 const reducer = ( state = initialState, action ) => {
@@ -17,6 +19,17 @@ const reducer = ( state = initialState, action ) => {
          return {
             ...state,
             friendsList:action.friendsList,
+         };
+      case actionTypes.FRIEDNVERIFY: 
+         return {
+            ...state,
+            theyAreFriend:action.theyAreFriend,
+         };
+
+      case actionTypes.FRIENDREQMSG: 
+         return {
+            ...state,
+            friendRequestMsg:action.friendRequestMsg,
          };
       default:
          return state;

@@ -7,3 +7,5 @@ export const AUTH_LOGOUT= 'AUTH_LOGOUT';
 
 export const MESSAGE= 'MESSAGE';
 export const FRIEDNS= 'FRIEDNS';
+export const FRIEDNVERIFY= 'FRIEDNVERIFY';
+export const FRIENDREQMSG= 'FRIENDREQMSG';

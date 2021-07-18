@@ -50,6 +50,52 @@ const LoginPage=(props)=> {
    }
    // console.log(props.friendsList)
 
+
+   let chattingPart = '';
+
+   if(resiverID!=''){
+      chattingPart=(
+         <div>
+               <ScrollToBottom  className={Classes.allMessages}>
+                  {props.messages.map(data=>{
+                     return(
+                        <div key={data.ID}>
+                           
+                           <span className={data.SenderID==localStorage.getItem('UserID')? Classes.messageSender:Classes.messageReciver}>
+                              {data.Msg}
+                           </span>
+                  
+                           {/* <div ref={messagesEndRef} /> */}
+                           <br/>
+                        </div>
+                     )
+                  })}
+               
+               </ScrollToBottom>
+
+               
+               <div className={Classes.msgTypingPart}>
+               {props.theyAreFriend?  
+                  <div>
+                     <textarea 
+                        placeholder="Type Your Message!" 
+                        onChange={e=>{setMsg(e.target.value)}}
+                        value={msg}
+                        />
+                     <button onClick={()=>sentMasage(resiverID)} disabled={msg.length<1? true: false}>SEND</button>
+                  </div>
+               :
+               <h3>You Guys are not Friends</h3>
+               }
+               </div>
+            
+         </div>
+      )
+   }
+   else{
+      chattingPart=<h3>Nothing Choosed!</h3>
+   }
+
    return (
       <div className={Classes.App}>
          <NavBar/>
@@ -70,33 +116,7 @@ const LoginPage=(props)=> {
             </div>
 
             <div className={Classes.messagePart}>
-               <ScrollToBottom  className={Classes.allMessages}>
-                  {props.messages.map(data=>{
-                     return(
-                        <div key={data.ID}>
-                           
-                           <span className={data.SenderID==localStorage.getItem('UserID')? Classes.messageSender:Classes.messageReciver}>
-                              {data.Msg}
-                           </span>
-                  
-                           {/* <div ref={messagesEndRef} /> */}
-                           <br/>
-                        </div>
-                     )
-                  })}
-               
-               </ScrollToBottom>
-               <div className={Classes.msgTypingPart}>
-                  <textarea 
-                     placeholder="Type Your Message!" 
-                     onChange={e=>{setMsg(e.target.value)}}
-                     value={msg}
-                     />
-                     
-                  <button onClick={()=>sentMasage(resiverID)} disabled={msg.length<1? true: false}>SEND</button>
-               
-               </div>
-            
+               {chattingPart}
             </div>
 
 
@@ -110,6 +130,7 @@ const mapStateToProps=state=>{
    return{
       friendsList:state.user.friendsList,
       messages:state.user.messages,
+      theyAreFriend:state.user.theyAreFriend
    }
 
 }
@@ -119,9 +140,18 @@ const mapDispatchToProps=dispatch=>{
       friendsNameList:(UserID)=>dispatch(action.friendsNameList(UserID)),
       filterMessage:(SenderID,ReceiverID)=>dispatch(action.filterMessage(SenderID,ReceiverID)),
       sentMessage:(SenderID,ReceiverID,Msg)=>dispatch(action.sentMessage(SenderID,ReceiverID,Msg)),
+
    }
 }
 export default  connect(mapStateToProps,mapDispatchToProps)(LoginPage); 
+
+
+
+
+
+//check before mesgage frensd or not
+//chating page handling
+//add friend
 
 
 

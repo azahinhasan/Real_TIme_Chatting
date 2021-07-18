@@ -1,5 +1,14 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <Schema Namespace="Realtime_ChattingModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+  <EntityType Name="FriendRequest">
+    <Key>
+      <PropertyRef Name="ID" />
+    </Key>
+    <Property Name="ID" Type="int" Nullable="false" />
+    <Property Name="RequstSender" Type="int" />
+    <Property Name="RequstReciver" Type="int" />
+    <Property Name="Time" Type="varchar" MaxLength="50" />
+  </EntityType>
   <EntityType Name="FriendsTable">
     <Key>
       <PropertyRef Name="ID" />
@@ -37,6 +46,30 @@
     <Property Name="UserConnectID" Type="varchar" MaxLength="500" />
     <Property Name="Password" Type="varchar" MaxLength="50" />
   </EntityType>
+  <Association Name="FK_FriendRequest_UserInfo">
+    <End Role="UserInfo" Type="Self.UserInfo" Multiplicity="0..1" />
+    <End Role="FriendRequest" Type="Self.FriendRequest" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="UserInfo">
+        <PropertyRef Name="ID" />
+      </Principal>
+      <Dependent Role="FriendRequest">
+        <PropertyRef Name="RequstReciver" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_FriendRequest_UserInfo1">
+    <End Role="UserInfo" Type="Self.UserInfo" Multiplicity="0..1" />
+    <End Role="FriendRequest" Type="Self.FriendRequest" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="UserInfo">
+        <PropertyRef Name="ID" />
+      </Principal>
+      <Dependent Role="FriendRequest">
+        <PropertyRef Name="RequstSender" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
   <Association Name="FK_FriendsTable_UserInfo">
     <End Role="UserInfo" Type="Self.UserInfo" Multiplicity="0..1" />
     <End Role="FriendsTable" Type="Self.FriendsTable" Multiplicity="*" />
@@ -62,10 +95,19 @@
     </ReferentialConstraint>
   </Association>
   <EntityContainer Name="Realtime_ChattingModelStoreContainer">
+    <EntitySet Name="FriendRequest" EntityType="Self.FriendRequest" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="FriendsTable" EntityType="Self.FriendsTable" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="Messages" EntityType="Self.Messages" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="TokenTable" EntityType="Self.TokenTable" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="UserInfo" EntityType="Self.UserInfo" Schema="dbo" store:Type="Tables" />
+    <AssociationSet Name="FK_FriendRequest_UserInfo" Association="Self.FK_FriendRequest_UserInfo">
+      <End Role="UserInfo" EntitySet="UserInfo" />
+      <End Role="FriendRequest" EntitySet="FriendRequest" />
+    </AssociationSet>
+    <AssociationSet Name="FK_FriendRequest_UserInfo1" Association="Self.FK_FriendRequest_UserInfo1">
+      <End Role="UserInfo" EntitySet="UserInfo" />
+      <End Role="FriendRequest" EntitySet="FriendRequest" />
+    </AssociationSet>
     <AssociationSet Name="FK_FriendsTable_UserInfo" Association="Self.FK_FriendsTable_UserInfo">
       <End Role="UserInfo" EntitySet="UserInfo" />
       <End Role="FriendsTable" EntitySet="FriendsTable" />

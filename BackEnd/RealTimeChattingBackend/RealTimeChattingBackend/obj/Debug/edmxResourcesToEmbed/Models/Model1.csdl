@@ -19,6 +19,8 @@
     <Property Name="Password" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
     <NavigationProperty Name="FriendsTables" Relationship="Realtime_ChattingModel.FK_FriendsTable_UserInfo" FromRole="UserInfo" ToRole="FriendsTable" />
     <NavigationProperty Name="FriendsTables1" Relationship="Realtime_ChattingModel.FK_FriendsTable_UserInfo1" FromRole="UserInfo" ToRole="FriendsTable" />
+    <NavigationProperty Name="FriendRequests" Relationship="Realtime_ChattingModel.FK_FriendRequest_UserInfo" FromRole="UserInfo" ToRole="FriendRequest" />
+    <NavigationProperty Name="FriendRequests1" Relationship="Realtime_ChattingModel.FK_FriendRequest_UserInfo1" FromRole="UserInfo" ToRole="FriendRequest" />
   </EntityType>
   <EntityContainer Name="Realtime_ChattingEntities" annotation:LazyLoadingEnabled="true">
     <EntitySet Name="TokenTables" EntityType="Self.TokenTable" />
@@ -32,6 +34,15 @@
     <AssociationSet Name="FK_FriendsTable_UserInfo1" Association="Realtime_ChattingModel.FK_FriendsTable_UserInfo1">
       <End Role="UserInfo" EntitySet="UserInfoes" />
       <End Role="FriendsTable" EntitySet="FriendsTables" />
+    </AssociationSet>
+    <EntitySet Name="FriendRequests" EntityType="Realtime_ChattingModel.FriendRequest" />
+    <AssociationSet Name="FK_FriendRequest_UserInfo" Association="Realtime_ChattingModel.FK_FriendRequest_UserInfo">
+      <End Role="UserInfo" EntitySet="UserInfoes" />
+      <End Role="FriendRequest" EntitySet="FriendRequests" />
+    </AssociationSet>
+    <AssociationSet Name="FK_FriendRequest_UserInfo1" Association="Realtime_ChattingModel.FK_FriendRequest_UserInfo1">
+      <End Role="UserInfo" EntitySet="UserInfoes" />
+      <End Role="FriendRequest" EntitySet="FriendRequests" />
     </AssociationSet>
   </EntityContainer>
   <EntityType Name="FriendsTable">
@@ -76,6 +87,41 @@
       </Principal>
       <Dependent Role="FriendsTable">
         <PropertyRef Name="Friend2ID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <EntityType Name="FriendRequest">
+    <Key>
+      <PropertyRef Name="ID" />
+    </Key>
+    <Property Name="ID" Type="Int32" Nullable="false" />
+    <Property Name="RequstSender" Type="Int32" />
+    <Property Name="RequstReciver" Type="Int32" />
+    <Property Name="Time" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+    <NavigationProperty Name="UserInfo" Relationship="Realtime_ChattingModel.FK_FriendRequest_UserInfo" FromRole="FriendRequest" ToRole="UserInfo" />
+    <NavigationProperty Name="UserInfo1" Relationship="Realtime_ChattingModel.FK_FriendRequest_UserInfo1" FromRole="FriendRequest" ToRole="UserInfo" />
+  </EntityType>
+  <Association Name="FK_FriendRequest_UserInfo">
+    <End Type="Realtime_ChattingModel.UserInfo" Role="UserInfo" Multiplicity="0..1" />
+    <End Type="Realtime_ChattingModel.FriendRequest" Role="FriendRequest" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="UserInfo">
+        <PropertyRef Name="ID" />
+      </Principal>
+      <Dependent Role="FriendRequest">
+        <PropertyRef Name="RequstReciver" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_FriendRequest_UserInfo1">
+    <End Type="Realtime_ChattingModel.UserInfo" Role="UserInfo" Multiplicity="0..1" />
+    <End Type="Realtime_ChattingModel.FriendRequest" Role="FriendRequest" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="UserInfo">
+        <PropertyRef Name="ID" />
+      </Principal>
+      <Dependent Role="FriendRequest">
+        <PropertyRef Name="RequstSender" />
       </Dependent>
     </ReferentialConstraint>
   </Association>

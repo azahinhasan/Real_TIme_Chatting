@@ -5,6 +5,15 @@
     <!-- SSDL content -->
     <edmx:StorageModels>
     <Schema Namespace="Realtime_ChattingModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <EntityType Name="FriendRequest">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="int" Nullable="false" />
+          <Property Name="RequstSender" Type="int" />
+          <Property Name="RequstReciver" Type="int" />
+          <Property Name="Time" Type="varchar" MaxLength="50" />
+        </EntityType>
         <EntityType Name="FriendsTable">
           <Key>
             <PropertyRef Name="ID" />
@@ -42,6 +51,30 @@
           <Property Name="UserConnectID" Type="varchar" MaxLength="500" />
           <Property Name="Password" Type="varchar" MaxLength="50" />
         </EntityType>
+        <Association Name="FK_FriendRequest_UserInfo">
+          <End Role="UserInfo" Type="Self.UserInfo" Multiplicity="0..1" />
+          <End Role="FriendRequest" Type="Self.FriendRequest" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="UserInfo">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="FriendRequest">
+              <PropertyRef Name="RequstReciver" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_FriendRequest_UserInfo1">
+          <End Role="UserInfo" Type="Self.UserInfo" Multiplicity="0..1" />
+          <End Role="FriendRequest" Type="Self.FriendRequest" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="UserInfo">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="FriendRequest">
+              <PropertyRef Name="RequstSender" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
         <Association Name="FK_FriendsTable_UserInfo">
           <End Role="UserInfo" Type="Self.UserInfo" Multiplicity="0..1" />
           <End Role="FriendsTable" Type="Self.FriendsTable" Multiplicity="*" />
@@ -67,10 +100,19 @@
           </ReferentialConstraint>
         </Association>
         <EntityContainer Name="Realtime_ChattingModelStoreContainer">
+          <EntitySet Name="FriendRequest" EntityType="Self.FriendRequest" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="FriendsTable" EntityType="Self.FriendsTable" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Messages" EntityType="Self.Messages" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="TokenTable" EntityType="Self.TokenTable" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="UserInfo" EntityType="Self.UserInfo" Schema="dbo" store:Type="Tables" />
+          <AssociationSet Name="FK_FriendRequest_UserInfo" Association="Self.FK_FriendRequest_UserInfo">
+            <End Role="UserInfo" EntitySet="UserInfo" />
+            <End Role="FriendRequest" EntitySet="FriendRequest" />
+          </AssociationSet>
+          <AssociationSet Name="FK_FriendRequest_UserInfo1" Association="Self.FK_FriendRequest_UserInfo1">
+            <End Role="UserInfo" EntitySet="UserInfo" />
+            <End Role="FriendRequest" EntitySet="FriendRequest" />
+          </AssociationSet>
           <AssociationSet Name="FK_FriendsTable_UserInfo" Association="Self.FK_FriendsTable_UserInfo">
             <End Role="UserInfo" EntitySet="UserInfo" />
             <End Role="FriendsTable" EntitySet="FriendsTable" />
@@ -103,6 +145,8 @@
           <Property Name="Password" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
           <NavigationProperty Name="FriendsTables" Relationship="Realtime_ChattingModel.FK_FriendsTable_UserInfo" FromRole="UserInfo" ToRole="FriendsTable" />
           <NavigationProperty Name="FriendsTables1" Relationship="Realtime_ChattingModel.FK_FriendsTable_UserInfo1" FromRole="UserInfo" ToRole="FriendsTable" />
+          <NavigationProperty Name="FriendRequests" Relationship="Realtime_ChattingModel.FK_FriendRequest_UserInfo" FromRole="UserInfo" ToRole="FriendRequest" />
+          <NavigationProperty Name="FriendRequests1" Relationship="Realtime_ChattingModel.FK_FriendRequest_UserInfo1" FromRole="UserInfo" ToRole="FriendRequest" />
         </EntityType>
         <EntityContainer Name="Realtime_ChattingEntities" annotation:LazyLoadingEnabled="true">
           <EntitySet Name="TokenTables" EntityType="Self.TokenTable" />
@@ -116,6 +160,15 @@
           <AssociationSet Name="FK_FriendsTable_UserInfo1" Association="Realtime_ChattingModel.FK_FriendsTable_UserInfo1">
             <End Role="UserInfo" EntitySet="UserInfoes" />
             <End Role="FriendsTable" EntitySet="FriendsTables" />
+          </AssociationSet>
+          <EntitySet Name="FriendRequests" EntityType="Realtime_ChattingModel.FriendRequest" />
+          <AssociationSet Name="FK_FriendRequest_UserInfo" Association="Realtime_ChattingModel.FK_FriendRequest_UserInfo">
+            <End Role="UserInfo" EntitySet="UserInfoes" />
+            <End Role="FriendRequest" EntitySet="FriendRequests" />
+          </AssociationSet>
+          <AssociationSet Name="FK_FriendRequest_UserInfo1" Association="Realtime_ChattingModel.FK_FriendRequest_UserInfo1">
+            <End Role="UserInfo" EntitySet="UserInfoes" />
+            <End Role="FriendRequest" EntitySet="FriendRequests" />
           </AssociationSet>
         </EntityContainer>
         <EntityType Name="FriendsTable">
@@ -163,6 +216,41 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <EntityType Name="FriendRequest">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="Int32" Nullable="false" />
+          <Property Name="RequstSender" Type="Int32" />
+          <Property Name="RequstReciver" Type="Int32" />
+          <Property Name="Time" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <NavigationProperty Name="UserInfo" Relationship="Realtime_ChattingModel.FK_FriendRequest_UserInfo" FromRole="FriendRequest" ToRole="UserInfo" />
+          <NavigationProperty Name="UserInfo1" Relationship="Realtime_ChattingModel.FK_FriendRequest_UserInfo1" FromRole="FriendRequest" ToRole="UserInfo" />
+        </EntityType>
+        <Association Name="FK_FriendRequest_UserInfo">
+          <End Type="Realtime_ChattingModel.UserInfo" Role="UserInfo" Multiplicity="0..1" />
+          <End Type="Realtime_ChattingModel.FriendRequest" Role="FriendRequest" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="UserInfo">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="FriendRequest">
+              <PropertyRef Name="RequstReciver" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_FriendRequest_UserInfo1">
+          <End Type="Realtime_ChattingModel.UserInfo" Role="UserInfo" Multiplicity="0..1" />
+          <End Type="Realtime_ChattingModel.FriendRequest" Role="FriendRequest" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="UserInfo">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="FriendRequest">
+              <PropertyRef Name="RequstSender" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
       </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
@@ -206,6 +294,16 @@
                 <ScalarProperty Name="SenderID" ColumnName="SenderID" />
                 <ScalarProperty Name="ReceiverID" ColumnName="ReceiverID" />
                 <ScalarProperty Name="Msg" ColumnName="Msg" />
+                <ScalarProperty Name="ID" ColumnName="ID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="FriendRequests">
+            <EntityTypeMapping TypeName="Realtime_ChattingModel.FriendRequest">
+              <MappingFragment StoreEntitySet="FriendRequest">
+                <ScalarProperty Name="Time" ColumnName="Time" />
+                <ScalarProperty Name="RequstReciver" ColumnName="RequstReciver" />
+                <ScalarProperty Name="RequstSender" ColumnName="RequstSender" />
                 <ScalarProperty Name="ID" ColumnName="ID" />
               </MappingFragment>
             </EntityTypeMapping>

@@ -28,6 +28,11 @@
 }
 
 
+hr{
+   height: 1px;
+   background-color: black;
+}
+
 .leftSide{
    margin-top: 12px;
    margin-left: 2px;
@@ -116,8 +121,8 @@
 
 .msgTypingPart{
    border: 3px solid rgb(0, 0, 0);
-   position: fixed;
-   bottom: 130px;
+   position: relative;
+   bottom: -10px;
    height: 100px;
    width: 443px;
 
@@ -140,7 +145,7 @@
    width: 83px;
    padding: 2px;
    position: relative;
-   bottom: 44%;
+   top:-43px;
    font-weight: bold;
    font-size: 20px;
 }
@@ -153,4 +158,26 @@
 .allMessages{
    overflow-y: scroll; 
    height:580px;
+}
+
+.FriendsPage button{
+   border: 2px black solid;
+   margin: 5px;
+   padding: 8px;
+   font-weight: bold;
+   background-color: white;
+   
+}
+
+.FriendsPage input{
+   border: 2px black solid;
+   margin: 5px;
+   padding: 5px;
+   font-weight: bold;
+   height: 35px;
+   width: 250px;
+   text-align: center;
+   font-size: 15px;
+   border-radius: 25px;
+
 }

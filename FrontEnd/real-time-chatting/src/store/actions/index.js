@@ -10,5 +10,6 @@ export {
 export {
    filterMessage,
    friendsNameList,
-   sentMessage
+   sentMessage,
+   friendReqSent
    } from './chatting';

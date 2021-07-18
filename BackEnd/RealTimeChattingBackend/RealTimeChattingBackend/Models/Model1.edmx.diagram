@@ -11,6 +11,9 @@
         <EntityTypeShape EntityType="Realtime_ChattingModel.Message" Width="1.5" PointX="2.75" PointY="3.75" />
         <AssociationConnector Association="Realtime_ChattingModel.FK_FriendsTable_UserInfo" />
         <AssociationConnector Association="Realtime_ChattingModel.FK_FriendsTable_UserInfo1" />
+        <EntityTypeShape EntityType="Realtime_ChattingModel.FriendRequest" Width="1.5" PointX="5" PointY="1" />
+        <AssociationConnector Association="Realtime_ChattingModel.FK_FriendRequest_UserInfo" />
+        <AssociationConnector Association="Realtime_ChattingModel.FK_FriendRequest_UserInfo1" />
       </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>
