@@ -2,6 +2,8 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Web.Http;
+using System.Web.Http.Cors;
+using Newtonsoft.Json.Serialization;
 
 namespace RealTimeChattingBackend
 {
@@ -19,6 +21,9 @@ namespace RealTimeChattingBackend
                 routeTemplate: "api/{controller}/{id}",
                 defaults: new { id = RouteParameter.Optional }
             );
+
+            EnableCorsAttribute cors = new EnableCorsAttribute("*", "*", "*"); //(domain,header,methord)
+            config.EnableCors(cors);
         }
     }
 }
