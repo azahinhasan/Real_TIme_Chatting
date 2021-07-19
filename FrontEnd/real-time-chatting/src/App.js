@@ -11,7 +11,7 @@ import LogOut from './component/LogOut';
 import UserHome from './component/AfterLogin/userHomePage';
 import ChattingPage from './component/AfterLogin/Chatting/ChattingPage';
 import FriendsPage from './component/AfterLogin/Friends/FriednsPage';
-import FriendsListPage from './component/AfterLogin/Friends/FriendsList';
+import OtherPage from './component/AfterLogin/Others/OthersPage';
 
 class App extends Component {
 
@@ -34,7 +34,7 @@ class App extends Component {
                   <Route path="/user/logout" component={LogOut}/>
                   <Route path="/user/chatting" component={ChattingPage}/>
                   <Route path="/user/friends" component={FriendsPage}/>
-                  <Route path="/user/friendslist" component={FriendsListPage}/>
+                  <Route path="/user/others" component={OtherPage}/>
                   <Redirect to="/user/home"/>
               </Switch>
           }

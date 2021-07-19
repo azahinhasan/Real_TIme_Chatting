@@ -12,7 +12,7 @@ const LoginPage=(props)=> {
          <div className={Classes.leftSide}>
             <Link className={Classes.Link} to={{pathname: '/user/friends'}}>Friends</Link>
             <Link className={Classes.Link} to={{pathname: '/user/chatting'}}>Chatting</Link>
-            <Link className={Classes.Link} to={{pathname: '/user/other'}}>Other</Link>
+            <Link className={Classes.Link} to={{pathname: '/user/others'}}>Other</Link>
          </div>
          <div className={Classes.rightSide}>
          <Link className={Classes.LinkSignOut} to={{pathname: '/user/logout'}}>SignOut</Link>

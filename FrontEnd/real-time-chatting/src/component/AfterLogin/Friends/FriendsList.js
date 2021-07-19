@@ -28,7 +28,9 @@ const FriendsList=(props)=> {
          <br/>
          <p>{props.friendRequesActiontMsg}</p>
          <br/>
-         {props.friendsList !== ''? 
+        
+         {props.friendsList != ''? 
+            
             <table style={{width:'100%'}}>
             {props.friendsList.map(data=>{
                   return(
