@@ -31,7 +31,7 @@ const LoginPage=(props)=> {
         
             props.filterMessage(resiverID,localStorage.getItem('UserID'));
          
-         }, 500);
+         }, 50000);
          return () => clearInterval(interval);
       }
      
@@ -45,8 +45,9 @@ const LoginPage=(props)=> {
    }
 
    const sentMasage=(Senderid)=>{
+      
+      props.sentMessage(Senderid,localStorage.getItem('UserID'),msg);
       setMsg('');
-      props.sentMessage(Senderid,localStorage.getItem('UserID'),msg)
    }
    // console.log(props.friendsList)
 
@@ -59,13 +60,11 @@ const LoginPage=(props)=> {
                <ScrollToBottom  className={Classes.allMessages}>
                   {props.messages.map(data=>{
                      return(
-                        <div key={data.ID}>
+                        <div>
                            
                            <span className={data.SenderID==localStorage.getItem('UserID')? Classes.messageSender:Classes.messageReciver}>
                               {data.Msg}
                            </span>
-                  
-                           {/* <div ref={messagesEndRef} /> */}
                            <br/>
                         </div>
                      )
@@ -85,7 +84,7 @@ const LoginPage=(props)=> {
                      <button onClick={()=>sentMasage(resiverID)} disabled={msg.length<1? true: false}>SEND</button>
                   </div>
                :
-               <h3>You Guys are not Friends</h3>
+               <h4 style={{textAlign:'center'}}>Can not send any Message</h4>
                }
                </div>
             
@@ -130,7 +129,7 @@ const mapStateToProps=state=>{
    return{
       friendsList:state.user.friendsList,
       messages:state.user.messages,
-      theyAreFriend:state.user.theyAreFriend
+      theyAreFriend:state.user.theyAreFriend,
    }
 
 }

@@ -17,6 +17,7 @@
     <Property Name="Friend1ID" Type="int" />
     <Property Name="Friend2ID" Type="int" />
     <Property Name="Time" Type="varchar" MaxLength="50" Nullable="false" />
+    <Property Name="FriendStatus" Type="varchar" MaxLength="50" />
   </EntityType>
   <EntityType Name="Messages">
     <Key>

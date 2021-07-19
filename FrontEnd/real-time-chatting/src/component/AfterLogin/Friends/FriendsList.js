@@ -10,20 +10,16 @@ import NavBar from '../navBar';
 
 
 
-const FriendsReq=(props)=> {
+const FriendsList=(props)=> {
    
 
    
 
    useEffect(() => {
-      friendReqList();
+      props.friendsNameList();
    }, []);
 
 
-   const friendReqList=()=>{
-      props.friendReqSentList(localStorage.getItem('UserID'));
-      
-   }
 
    const friendReqAction=(requstID,action)=>{
       console.log('acton')
@@ -34,21 +30,21 @@ const FriendsReq=(props)=> {
    return (
       <div className={Classes.FriendsReqPage}>
 
-         <h3>All Friends Requests</h3>
+         <h3>Friends List</h3>
          
          <br/>
          <p>{props.friendRequesActiontMsg}</p>
          <br/>
-         {props.friendRequestList != ''? 
+         {props.friendsList != ''? 
             <table style={{width:'100%'}}>
-            {props.friendRequestList.map(data=>{
+            {props.friendsList.map(data=>{
                   return(
                      <div key={data.ID} style={{border:'2px black solid',marginTop:'5px'}}>
                         <tr>
-                           <td style={{width:'73%',borderRight:'2px black solid'}}> <span>{data.UserInfo1.Name}</span></td>
+                           <td style={{width:'68.8%',borderRight:'2px black solid'}}> <span>{data.UserInfo.Name}</span></td>
                            <td>
-                              <button className={Classes.greenBtn} onClick={()=>friendReqAction(data.ID,'accept')}>ACCEPT</button>
-                              <button className={Classes.redBtn} onClick={()=>friendReqAction(data.ID,'reject')}>REJECT</button>
+                              <button className={Classes.blueBtn} onClick={()=>friendReqAction(data.ID,'reject')}>MESSAGE</button>
+                              <button className={Classes.redBtn} onClick={()=>friendReqAction(data.ID,'accept')}>UNFIREND</button>
                            </td>
                         </tr>
                      </div>
@@ -56,7 +52,7 @@ const FriendsReq=(props)=> {
             })}
          </table>
          :
-         <h2>You Have No Friend Request!</h2>
+         <h2>You Have No Friends!</h2>
       }
       </div>
    
@@ -66,20 +62,17 @@ const FriendsReq=(props)=> {
 
 const mapStateToProps=state=>{
    return{
-      friendRequestList:state.user.friendRequestList,
-      friendRequesActiontMsg:state.user.friendRequesActiontMsg
+      friendsList:state.user.friendsList,
    }
 
 }
 
 const mapDispatchToProps=dispatch=>{
    return{
-
-      friendReqSentAction:(requstID,actionType)=>dispatch(action.friendReqSentAction(requstID,actionType)),
-      friendReqSentList:(SenderID)=>dispatch(action.friendReqSentList(SenderID)),
+      friendsNameList:(UserID)=>dispatch(action.friendsNameList(UserID)),
    }
 }
-export default  connect(mapStateToProps,mapDispatchToProps)(FriendsReq); 
+export default  connect(mapStateToProps,mapDispatchToProps)(FriendsList); 
 
 
 

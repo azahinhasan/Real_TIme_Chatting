@@ -7,7 +7,7 @@ import { connect } from 'react-redux';
 import NavBar from '../navBar';
 
 import FriendsReqList from './FriendsReqPage';
-
+import FriendsListPage from './FriendsList';
 
 const FriendsPage=(props)=> {
    const history = useHistory();
@@ -45,7 +45,9 @@ const FriendsPage=(props)=> {
    else if(pageDataOf=='request'){
       pageData=<FriendsReqList/>
    }
-
+   else if(pageDataOf=='list'){
+      pageData=<FriendsListPage/>
+   }
    return (
       <div className={Classes.FriendsPage}>
          <NavBar/>

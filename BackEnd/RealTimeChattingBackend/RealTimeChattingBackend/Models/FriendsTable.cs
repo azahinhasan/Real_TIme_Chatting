@@ -18,6 +18,7 @@ namespace RealTimeChattingBackend.Models
         public Nullable<int> Friend1ID { get; set; }
         public Nullable<int> Friend2ID { get; set; }
         public string Time { get; set; }
+        public string FriendStatus { get; set; }
     
         public virtual UserInfo UserInfo { get; set; }
         public virtual UserInfo UserInfo1 { get; set; }

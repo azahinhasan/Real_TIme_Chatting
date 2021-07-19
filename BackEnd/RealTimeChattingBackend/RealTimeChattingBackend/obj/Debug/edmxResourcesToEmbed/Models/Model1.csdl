@@ -55,6 +55,7 @@
     <Property Name="Time" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
     <NavigationProperty Name="UserInfo" Relationship="Realtime_ChattingModel.FK_FriendsTable_UserInfo" FromRole="FriendsTable" ToRole="UserInfo" />
     <NavigationProperty Name="UserInfo1" Relationship="Realtime_ChattingModel.FK_FriendsTable_UserInfo1" FromRole="FriendsTable" ToRole="UserInfo" />
+    <Property Name="FriendStatus" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
   </EntityType>
   <EntityType Name="Message">
     <Key>

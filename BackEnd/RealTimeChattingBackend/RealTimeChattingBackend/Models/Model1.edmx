@@ -22,6 +22,7 @@
           <Property Name="Friend1ID" Type="int" />
           <Property Name="Friend2ID" Type="int" />
           <Property Name="Time" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="FriendStatus" Type="varchar" MaxLength="50" />
         </EntityType>
         <EntityType Name="Messages">
           <Key>
@@ -181,6 +182,7 @@
           <Property Name="Time" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
           <NavigationProperty Name="UserInfo" Relationship="Realtime_ChattingModel.FK_FriendsTable_UserInfo" FromRole="FriendsTable" ToRole="UserInfo" />
           <NavigationProperty Name="UserInfo1" Relationship="Realtime_ChattingModel.FK_FriendsTable_UserInfo1" FromRole="FriendsTable" ToRole="UserInfo" />
+          <Property Name="FriendStatus" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
         </EntityType>
         <EntityType Name="Message">
           <Key>
@@ -280,6 +282,7 @@
           <EntitySetMapping Name="FriendsTables">
             <EntityTypeMapping TypeName="Realtime_ChattingModel.FriendsTable">
               <MappingFragment StoreEntitySet="FriendsTable">
+                <ScalarProperty Name="FriendStatus" ColumnName="FriendStatus" />
                 <ScalarProperty Name="Time" ColumnName="Time" />
                 <ScalarProperty Name="Friend2ID" ColumnName="Friend2ID" />
                 <ScalarProperty Name="Friend1ID" ColumnName="Friend1ID" />

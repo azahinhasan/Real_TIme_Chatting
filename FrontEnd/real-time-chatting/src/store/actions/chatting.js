@@ -59,14 +59,10 @@ export const filterMessage = (ReceiverID,SenderID) => {
    return (dispatch)=>{
       axios.get('/messages/'+ReceiverID+'/'+SenderID)
          .then(r=>{
-            //console.log(r.data,' Messages');
-            if(r.data==='notFriend'){
-               dispatch(notFriend(r.data));
-            }
-            else{
-               dispatch(theyAreFriend(r.data));
-               dispatch(saveMessage(r.data));
-            }
+
+            dispatch(saveMessage(r.data));
+            dispatch(friendValidition(ReceiverID,SenderID));
+            
          })
    
       }
@@ -76,13 +72,26 @@ export const sentMessage = (ReceiverID,SenderID,Msg) => {
    return (dispatch)=>{
       axios.post('/messages/'+ReceiverID+'/'+SenderID,{Msg:Msg})
          .then(r=>{
-            //console.log(r.data,' Messages');
-            dispatch(saveMessage(r.data));
+               dispatch(saveMessage(r.data));
          })
    
       }
 };
 
+export const friendValidition = (ReceiverID,SenderID) => {
+   return (dispatch)=>{
+      axios.get('/friendValidition/'+ReceiverID+'/'+SenderID)
+         .then(r=>{
+            if(r.data==='notFriend'){
+               dispatch(notFriend(r.data));
+            }
+            else{
+               dispatch(theyAreFriend(r.data));
+            }
+         })
+   
+      }
+};
 
 export const friendsNameList = (id) => {
    return (dispatch)=>{
@@ -121,11 +130,22 @@ export const friendReqSentAction = (requstID,actionType) => {
    return (dispatch)=>{
       axios.post('/friendsRequstAction/'+actionType+'/'+requstID)
          .then(r=>{
-            console.log(r.data,' Req');
 
             dispatch(friendRequesActiontMsg(r.data));
-
             dispatch(friendReqSentList(localStorage.getItem('UserID')));
+         })
+   
+      }
+};
+
+
+export const unfriend = (f1,f2) => {
+   return (dispatch)=>{
+      axios.post('/unfriend/'+f1+'/'+f2)
+         .then(r=>{
+            console.log(r.data,' Req');
+            
+
          })
    
       }

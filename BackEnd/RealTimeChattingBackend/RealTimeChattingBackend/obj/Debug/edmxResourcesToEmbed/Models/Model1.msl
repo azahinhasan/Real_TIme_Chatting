@@ -24,6 +24,7 @@
     <EntitySetMapping Name="FriendsTables">
       <EntityTypeMapping TypeName="Realtime_ChattingModel.FriendsTable">
         <MappingFragment StoreEntitySet="FriendsTable">
+          <ScalarProperty Name="FriendStatus" ColumnName="FriendStatus" />
           <ScalarProperty Name="Time" ColumnName="Time" />
           <ScalarProperty Name="Friend2ID" ColumnName="Friend2ID" />
           <ScalarProperty Name="Friend1ID" ColumnName="Friend1ID" />
