@@ -20,7 +20,7 @@ const LoginPage=(props)=> {
    //  }
 
    useEffect(() => {
-      props.friendsNameList(localStorage.getItem('UserID'));
+      props.friendsNameList(localStorage.getItem('UserID'),'chatting');
       //scrollToBottom();
 
    }, []);
@@ -136,7 +136,7 @@ const mapStateToProps=state=>{
 
 const mapDispatchToProps=dispatch=>{
    return{
-      friendsNameList:(UserID)=>dispatch(action.friendsNameList(UserID)),
+      friendsNameList:(UserID,pageType)=>dispatch(action.friendsNameList(UserID,pageType)),
       filterMessage:(SenderID,ReceiverID)=>dispatch(action.filterMessage(SenderID,ReceiverID)),
       sentMessage:(SenderID,ReceiverID,Msg)=>dispatch(action.sentMessage(SenderID,ReceiverID,Msg)),
 

@@ -100,9 +100,9 @@ export const friendValidition = (ReceiverID,SenderID) => {
       }
 };
 
-export const friendsNameList = (id) => {
+export const friendsNameList = (id,pageName) => {
    return (dispatch)=>{
-      axios.get('/friendsList/'+id)
+      axios.get('/friendsList/'+id+'/'+pageName)
          .then(r=>{
            // console.log(r.data,' Firends');
             dispatch(saveFriendsNameList(r.data));
@@ -155,7 +155,7 @@ export const unfriend = (f1,f2) => {
          .then(r=>{
             console.log(r.data,' Req');
             if(r.data === 'OK'){
-               dispatch(friendsNameList(f2));
+               dispatch(friendsNameList(f2,'list'));
             }
 
          })

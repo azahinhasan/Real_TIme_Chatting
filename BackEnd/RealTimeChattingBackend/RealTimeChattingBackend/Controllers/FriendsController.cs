@@ -13,12 +13,20 @@ namespace RealTimeChattingBackend.Controllers
         Realtime_ChattingEntities context = new Realtime_ChattingEntities();
 
 
-        [Route("api/friendsList/{ID}"), HttpGet]
-        public IHttpActionResult Firends([FromUri] int ID)
+        [Route("api/friendsList/{ID}/{page}"), HttpGet]
+        public IHttpActionResult Firends([FromUri] int ID,[FromUri] string page)
         {
+
+            if (page== "list")
+            {
+                var friendsList = context.FriendsTables.Where(x => x.Friend2ID == ID && x.FriendStatus=="true").ToList();
+                return Ok(friendsList);
+            }
+
             var friends = context.FriendsTables.Where(x => x.Friend2ID == ID).ToList();
             return Ok(friends);
         }
+
 
         [Route("api/sentFriendReq/{friendKey}/{senderID}"), HttpPost]
         public IHttpActionResult Firends([FromUri] string friendKey, [FromUri] int senderID)

@@ -16,7 +16,7 @@ const FriendsList=(props)=> {
    
 
    useEffect(() => {
-      props.friendsNameList(localStorage.getItem('UserID'));
+      props.friendsNameList(localStorage.getItem('UserID'),'list');
    }, []);
 
 
@@ -62,7 +62,7 @@ const mapStateToProps=state=>{
 
 const mapDispatchToProps=dispatch=>{
    return{
-      friendsNameList:(UserID)=>dispatch(action.friendsNameList(UserID)),
+      friendsNameList:(UserID,pageType)=>dispatch(action.friendsNameList(UserID,pageType)),
       unfriend:(f1,f2)=>dispatch(action.unfriend(f1,f2)),
    }
 }
