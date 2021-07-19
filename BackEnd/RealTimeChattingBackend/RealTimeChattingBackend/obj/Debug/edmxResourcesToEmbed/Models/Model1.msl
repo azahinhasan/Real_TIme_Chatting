@@ -53,5 +53,17 @@
         </MappingFragment>
       </EntityTypeMapping>
     </EntitySetMapping>
+    <EntitySetMapping Name="LoginActivities">
+      <EntityTypeMapping TypeName="Realtime_ChattingModel.LoginActivity">
+        <MappingFragment StoreEntitySet="LoginActivity">
+          <ScalarProperty Name="Region" ColumnName="Region" />
+          <ScalarProperty Name="UserID" ColumnName="UserID" />
+          <ScalarProperty Name="Time" ColumnName="Time" />
+          <ScalarProperty Name="Address" ColumnName="Address" />
+          <ScalarProperty Name="IP" ColumnName="IP" />
+          <ScalarProperty Name="ID" ColumnName="ID" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
   </EntityContainerMapping>
 </Mapping>

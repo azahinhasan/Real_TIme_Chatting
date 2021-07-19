@@ -30,5 +30,6 @@ namespace RealTimeChattingBackend.Models
         public virtual DbSet<FriendsTable> FriendsTables { get; set; }
         public virtual DbSet<Message> Messages { get; set; }
         public virtual DbSet<FriendRequest> FriendRequests { get; set; }
+        public virtual DbSet<LoginActivity> LoginActivities { get; set; }
     }
 }

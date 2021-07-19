@@ -1,4 +1,6 @@
 import React, {  useState,useEffect } from 'react';
+import ScrollToBottom, { useScrollToBottom, useSticky } from 'react-scroll-to-bottom';
+//npm i react-scroll-to-bottom
 import Classes from '../AfterLogin.css';
 import * as action from '../../../store/actions/index';
 import {useHistory} from 'react-router-dom';
@@ -9,20 +11,70 @@ import { connect } from 'react-redux';
 const LoginHistory=(props)=> {
    const history = useHistory();
 
-   const [pageDataOf,setPageDataOf]=useState('list');
+   const [logOutFromOther,setlogOutFromOther]=useState('');
    const [friendKey,setFriendKey]=useState('');
 
 
    useEffect(() => {
-
+      props.loginActivityGet();
    }, []);
+
+   const logOutFromOtherDevice=()=>{
+
+      props.logOutFromOtherDevice();
+      setlogOutFromOther('LogOut From Other Device Success!');
+   }
 
 
    return (
       <div className={Classes.FriendsPage}>
 
          <div className={Classes.homePageData}>
-            <h3>Login History Page</h3>
+            <h3>Login Activity Page</h3>
+            <table style={{width:'100%'}}>
+            <ScrollToBottom  className={Classes.allLoginActivity}>
+               {props.loginActivityList.map(data=>{
+                  return(
+                     <div key={data.ID} style={{border:'2px black solid',marginTop:'10px'}}>
+                        <tr>
+                           <td style={{width:'88%',borderRight:'2px black solid'}}> 
+                              <table>
+                                 <tr >
+                                    <td style={{borderBottom:'2px black solid'}}>IP</td>
+                                    <td style={{width:'45%',borderRight:'2px black solid',borderBottom:'2px black solid'}}>{data.IP}</td>
+                                    <td style={{borderBottom:'2px black solid'}}>Time</td>
+                                    <td style={{borderBottom:'2px black solid'}}>{data.Time}</td>
+                                 </tr>
+                                 <tr>
+                                    <td>Address</td>
+                                    <td style={{width:'45%',borderRight:'2px black solid'}}>{data.Address}</td>
+                                    <td>Region</td>
+                                    <td>{data.Region}</td>
+                                 </tr>
+                              </table>
+                           </td>
+
+                           <td>
+                              <button style={{height:'60px',fontWeight:'bold'}} className={Classes.greenBtn} onClick={()=>props.loginActivityRemoveSingle(data.ID)}>It's ME</button>
+                           </td>
+                        </tr>
+                     </div>
+                     
+                  )
+               })}
+               </ScrollToBottom>
+            </table>
+
+            {props.loginActivityList==''?<h3>No Login Activity!</h3>:null}
+        
+         
+         <br/><br/>
+         <div>
+            <hr/>
+            <button className={Classes.redBtn} onClick={()=>{props.loginActivityRemoveAll()}}>REMOVE ALL</button>
+            <hr/>
+            <button  className={Classes.blueBtn} onClick={()=>{logOutFromOtherDevice()}}>SignOut From All Other Device</button>
+            </div>
          </div>
 
       </div>
@@ -33,14 +85,19 @@ const LoginHistory=(props)=> {
 
 const mapStateToProps=state=>{
    return{
-      friendRequestMsg:state.user.friendRequestMsg
+      loginActivityList:state.auth.loginActivityList
    }
 
 }
 
 const mapDispatchToProps=dispatch=>{
    return{
-      friendReqSent:(FriendKey,SenderID)=>dispatch(action.friendReqSent(FriendKey,SenderID))
+      loginActivityGet:()=>dispatch(action.loginActivityGet()),
+      loginActivityRemoveSingle:(dataID)=>dispatch(action.loginActivityRemoveSingle(dataID)),
+      loginActivityRemoveAll:()=>dispatch(action.loginActivityRemoveAll()),
+      logOutFromOtherDevice:()=>dispatch(action.logOutFromOtherDevice()),
+      
+   
    }
 }
 export default  connect(mapStateToProps,mapDispatchToProps)(LoginHistory); 

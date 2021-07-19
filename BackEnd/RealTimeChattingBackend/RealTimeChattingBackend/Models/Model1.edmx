@@ -24,6 +24,17 @@
           <Property Name="Time" Type="varchar" MaxLength="50" Nullable="false" />
           <Property Name="FriendStatus" Type="varchar" MaxLength="50" />
         </EntityType>
+        <EntityType Name="LoginActivity">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="IP" Type="varchar" MaxLength="50" />
+          <Property Name="Address" Type="varchar" MaxLength="500" />
+          <Property Name="Time" Type="varchar" MaxLength="50" />
+          <Property Name="UserID" Type="int" />
+          <Property Name="Region" Type="varchar" MaxLength="50" />
+        </EntityType>
         <EntityType Name="Messages">
           <Key>
             <PropertyRef Name="ID" />
@@ -103,6 +114,7 @@
         <EntityContainer Name="Realtime_ChattingModelStoreContainer">
           <EntitySet Name="FriendRequest" EntityType="Self.FriendRequest" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="FriendsTable" EntityType="Self.FriendsTable" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="LoginActivity" EntityType="Self.LoginActivity" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Messages" EntityType="Self.Messages" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="TokenTable" EntityType="Self.TokenTable" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="UserInfo" EntityType="Self.UserInfo" Schema="dbo" store:Type="Tables" />
@@ -171,6 +183,7 @@
             <End Role="UserInfo" EntitySet="UserInfoes" />
             <End Role="FriendRequest" EntitySet="FriendRequests" />
           </AssociationSet>
+          <EntitySet Name="LoginActivities" EntityType="Realtime_ChattingModel.LoginActivity" />
         </EntityContainer>
         <EntityType Name="FriendsTable">
           <Key>
@@ -253,6 +266,17 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <EntityType Name="LoginActivity">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="IP" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="Address" Type="String" MaxLength="500" FixedLength="false" Unicode="false" />
+          <Property Name="Time" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="UserID" Type="Int32" />
+          <Property Name="Region" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+        </EntityType>
       </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
@@ -307,6 +331,18 @@
                 <ScalarProperty Name="Time" ColumnName="Time" />
                 <ScalarProperty Name="RequstReciver" ColumnName="RequstReciver" />
                 <ScalarProperty Name="RequstSender" ColumnName="RequstSender" />
+                <ScalarProperty Name="ID" ColumnName="ID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="LoginActivities">
+            <EntityTypeMapping TypeName="Realtime_ChattingModel.LoginActivity">
+              <MappingFragment StoreEntitySet="LoginActivity">
+                <ScalarProperty Name="Region" ColumnName="Region" />
+                <ScalarProperty Name="UserID" ColumnName="UserID" />
+                <ScalarProperty Name="Time" ColumnName="Time" />
+                <ScalarProperty Name="Address" ColumnName="Address" />
+                <ScalarProperty Name="IP" ColumnName="IP" />
                 <ScalarProperty Name="ID" ColumnName="ID" />
               </MappingFragment>
             </EntityTypeMapping>

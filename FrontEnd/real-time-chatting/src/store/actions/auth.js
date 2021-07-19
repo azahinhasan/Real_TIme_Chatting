@@ -19,6 +19,14 @@ export const authFailed = (error) => {
    };
 };
 
+export const loginActivityLsit = (data) => {
+   return {
+       type: actionTypes.LOGINACTIVITYLIST,
+       loginActivityList: data
+   };
+};
+
+
 
 export const SignIn=(Username,Password)=>{
    return (dispatch)=>{
@@ -33,6 +41,8 @@ export const SignIn=(Username,Password)=>{
             localStorage.setItem('UserID',r.data[2]);
            // dispatch(authSuccess());
            dispatch(authCheckState());
+           dispatch(trackLocation());
+
          }
          
 
@@ -40,6 +50,31 @@ export const SignIn=(Username,Password)=>{
 
    }
 }
+
+export const trackLocation=()=>{
+   return (dispatch)=>{
+      axios.get('https://extreme-ip-lookup.com/json/')
+         .then(r=>{
+            console.log(r.data);
+
+            axios.post('/loginActivityStore',{
+               IP:r.data.query,
+               Address:r.data.city+','+r.data.country,
+               Time: new Date().toLocaleString(),
+               Region:r.data.continent,
+               UserID:localStorage.getItem('UserID')
+            })
+               .then(rs=>{
+                  console.log(rs.data, 'Login Activity History');
+               })
+         })
+
+      }
+         
+}
+
+
+
 
 export const SignOut=()=>{
    return (dispatch)=>{
@@ -74,3 +109,50 @@ export const authCheckState=()=>{
 
    }
 }
+
+
+
+export const loginActivityGet=()=>{
+   return (dispatch)=>{
+
+      axios.get('/loginActivity/'+localStorage.getItem('UserID'))
+         .then(r=>{
+            dispatch(loginActivityLsit(r.data));
+         })
+         
+}}
+
+
+export const loginActivityRemoveSingle=(dataID)=>{
+   return (dispatch)=>{
+
+      axios.delete('/loginActivity/'+dataID)
+         .then(r=>{
+            console.log(r.data, ' login Activity Remove Single');
+            dispatch(loginActivityGet());
+         })
+         
+}}
+
+export const loginActivityRemoveAll=()=>{
+   return (dispatch)=>{
+
+      axios.delete('/loginActivityAll/'+localStorage.getItem('UserID'))
+         .then(r=>{
+            dispatch(loginActivityGet());
+         })
+         
+}}
+
+
+export const logOutFromOtherDevice=()=>{
+   return (dispatch)=>{
+
+      axios.put('/logout_fromother_device/'+localStorage.getItem('Username')+'/'+localStorage.getItem('Token'))
+         .then(r=>{
+            //dispatch(loginActivityGet());
+            localStorage.setItem('Token',r.data);
+            console.log(r.data,' New Token');
+         })
+         
+}}

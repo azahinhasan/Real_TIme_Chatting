@@ -158,8 +158,12 @@ hr{
 }
 
 .allMessages{
+   
+}
+
+.allLoginActivity{
    overflow-y: scroll; 
-   height:580px;
+   height:480px;
 }
 
 .FriendsPage button{

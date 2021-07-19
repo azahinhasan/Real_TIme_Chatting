@@ -15,27 +15,54 @@ namespace RealTimeChattingBackend.Controllers
         public IHttpActionResult UserAndOrderInfo([FromBody] UserInfo data)
         {
 
-             var check = context.UserInfoes.Where(x => x.Username == data.Username && x.Password == data.Password).FirstOrDefault();
+            var check = context.UserInfoes.Where(x => x.Username == data.Username && x.Password == data.Password).FirstOrDefault();
 
             if (check != null)
             {
-                TokenTable token = new TokenTable();
-                token.Username = check.Username;
-                token.Token = "123";
+                var tokenCheck = context.TokenTables.Where(x => x.Username == data.Username).FirstOrDefault();
+                if (tokenCheck != null)
+                {
+                    string[] temp2 = { check.Name, tokenCheck.Token, check.ID.ToString() };
+                    return Ok(temp2);
+                }
+                else
+                {
+                    TokenTable token = new TokenTable();
+                    token.Username = check.Username;
 
-                context.TokenTables.Add(token);
-                context.SaveChanges();
+                    Random r = new Random();
+                    int num = r.Next();           
+                    token.Token = num.ToString();
 
-                string[]  temp = {check.Name,token.Token,check.ID.ToString()};
+                    context.TokenTables.Add(token);
+                    context.SaveChanges();
 
-                 return Ok(temp);
-                //return Json({"neme":""});
+                    string[] temp = { check.Name, token.Token, check.ID.ToString() };
+
+                    return Ok(temp);
+                }
+
 
             }
             string[] temp1 = { "userNotValid", "","" };
             return Ok(temp1);
-
         }
+
+        [Route("api/logout_fromother_device/{userName}/{token}"), HttpPut]
+        public IHttpActionResult Messages([FromUri] string userName, [FromUri] string token)
+        {
+            var data = context.TokenTables.Where(x => x.Username == userName && x.Token==token).FirstOrDefault();
+
+            Random r = new Random();
+            int num = r.Next();
+            data.Token = num.ToString();
+
+            context.Entry(data).State = System.Data.Entity.EntityState.Modified;
+            context.SaveChanges();
+
+            return Ok(data.Token);
+        }
+
         [Route("api/userauth/{name}"), HttpPost]
         public IHttpActionResult UserAuthCheck([FromBody]TokenTable data,[FromUri]string name)
         {
@@ -82,7 +109,50 @@ namespace RealTimeChattingBackend.Controllers
             return Ok(messages);
         }
 
+        [Route("api/loginActivityStore"), HttpPost]
+        public IHttpActionResult LoginActivity([FromBody]LoginActivity data)
+        {
 
-       
+            var check = context.LoginActivities.Where(x => x.IP == data.IP && data.Address == data.Address).FirstOrDefault();
+
+            if (check != null)
+            {
+                return Ok("alreadyExist");
+            }
+
+            context.LoginActivities.Add(data);
+            context.SaveChanges();
+            return Ok("OK");
+        }
+
+        [Route("api/loginActivity/{id}"), HttpGet]
+        public IHttpActionResult LoginActivityGet([FromUri] int id)
+        {
+            var data = context.LoginActivities.Where(x => x.UserID == id).ToList();
+            return Ok(data);
+        }
+
+        [Route("api/loginActivity/{dataID}"), HttpDelete]
+        public IHttpActionResult LoginActivityRemoveSIngle([FromUri] int dataID)
+        {
+            context.LoginActivities.Remove(context.LoginActivities.Find(dataID));
+            context.SaveChanges();
+            return Ok("OK");
+        }
+
+        [Route("api/loginActivityAll/{UserID}"), HttpDelete]
+        public IHttpActionResult LoginActivityRemoveAll([FromUri] int UserID)
+        {
+            var data = context.LoginActivities.Where(x => x.UserID == UserID);
+
+            foreach (var delete in data)
+            {
+                context.LoginActivities.Remove(delete);
+            }
+
+            context.SaveChanges();
+            return Ok("OK");
+        }
+
     }
 }

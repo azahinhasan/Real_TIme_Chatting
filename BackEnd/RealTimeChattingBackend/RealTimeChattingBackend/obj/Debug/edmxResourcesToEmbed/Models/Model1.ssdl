@@ -19,6 +19,17 @@
     <Property Name="Time" Type="varchar" MaxLength="50" Nullable="false" />
     <Property Name="FriendStatus" Type="varchar" MaxLength="50" />
   </EntityType>
+  <EntityType Name="LoginActivity">
+    <Key>
+      <PropertyRef Name="ID" />
+    </Key>
+    <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="IP" Type="varchar" MaxLength="50" />
+    <Property Name="Address" Type="varchar" MaxLength="500" />
+    <Property Name="Time" Type="varchar" MaxLength="50" />
+    <Property Name="UserID" Type="int" />
+    <Property Name="Region" Type="varchar" MaxLength="50" />
+  </EntityType>
   <EntityType Name="Messages">
     <Key>
       <PropertyRef Name="ID" />
@@ -98,6 +109,7 @@
   <EntityContainer Name="Realtime_ChattingModelStoreContainer">
     <EntitySet Name="FriendRequest" EntityType="Self.FriendRequest" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="FriendsTable" EntityType="Self.FriendsTable" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="LoginActivity" EntityType="Self.LoginActivity" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="Messages" EntityType="Self.Messages" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="TokenTable" EntityType="Self.TokenTable" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="UserInfo" EntityType="Self.UserInfo" Schema="dbo" store:Type="Tables" />
