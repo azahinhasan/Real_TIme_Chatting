@@ -54,6 +54,13 @@ export const friendRequestList = (list) => {
    };
 };
 
+// export const unfriendSuccess = (list) => {
+//    return {
+//       type: actionTypes.UNFRIENDSUCESS,
+//       friendRequestList:list
+//    };
+// };
+
 
 export const filterMessage = (ReceiverID,SenderID) => {
    return (dispatch)=>{
@@ -105,6 +112,8 @@ export const friendsNameList = (id) => {
 };
 
 
+
+
 export const friendReqSent = (FriendKey,SenderID) => {
    return (dispatch)=>{
       axios.post('/sentFriendReq/'+FriendKey+'/'+SenderID)
@@ -140,11 +149,14 @@ export const friendReqSentAction = (requstID,actionType) => {
 
 
 export const unfriend = (f1,f2) => {
+   //f2 is  logined userID
    return (dispatch)=>{
       axios.post('/unfriend/'+f1+'/'+f2)
          .then(r=>{
             console.log(r.data,' Req');
-            
+            if(r.data === 'OK'){
+               dispatch(friendsNameList(f2));
+            }
 
          })
    

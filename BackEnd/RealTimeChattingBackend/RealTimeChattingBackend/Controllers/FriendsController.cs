@@ -129,14 +129,20 @@ namespace RealTimeChattingBackend.Controllers
         public IHttpActionResult Unfriend([FromUri] int ReceiverID, [FromUri] int SenderID)
         {
             var check1 = context.FriendsTables.Where(x => x.Friend1ID == ReceiverID && x.Friend2ID == SenderID).FirstOrDefault();
-            check1.FriendStatus = "false";
-            context.Entry(check1).State = System.Data.Entity.EntityState.Modified;
-
             var check2 = context.FriendsTables.Where(x => x.Friend1ID == SenderID && x.Friend2ID == ReceiverID).FirstOrDefault();
-            check2.FriendStatus = "false";
-            context.Entry(check2).State = System.Data.Entity.EntityState.Modified;
 
-            context.SaveChanges();
+
+            
+            if (check2 != null && check1!=null)
+            {
+                check1.FriendStatus = "false";
+                context.Entry(check1).State = System.Data.Entity.EntityState.Modified;
+
+                check2.FriendStatus = "false";
+                context.Entry(check2).State = System.Data.Entity.EntityState.Modified;
+                context.SaveChanges();
+            }
+       
 
 
             return Ok("OK");

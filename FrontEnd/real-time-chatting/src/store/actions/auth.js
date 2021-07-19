@@ -26,7 +26,7 @@ export const SignIn=(Username,Password)=>{
    axios.post('/login',{Username,Password})
       .then(r=>{
 
-         if(r.data[0]!='userNotValid'){
+         if(r.data[0]!=='userNotValid'){
             localStorage.setItem('Username',Username);
             localStorage.setItem('Token',r.data[1]);
             localStorage.setItem('Name',r.data[0]);
@@ -64,7 +64,7 @@ export const authCheckState=()=>{
    })
       .then(e=>{
          console.log(e.data)
-         if(e.data=='userValid'){
+         if(e.data==='userValid'){
             dispatch(authSuccess());
          }else{
             dispatch(authFailed());

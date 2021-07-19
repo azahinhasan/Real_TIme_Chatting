@@ -16,16 +16,9 @@ const FriendsList=(props)=> {
    
 
    useEffect(() => {
-      props.friendsNameList();
+      props.friendsNameList(localStorage.getItem('UserID'));
    }, []);
 
-
-
-   const friendReqAction=(requstID,action)=>{
-      console.log('acton')
-      props.friendReqSentAction(requstID,action);
-      
-   }
 
    return (
       <div className={Classes.FriendsReqPage}>
@@ -35,7 +28,7 @@ const FriendsList=(props)=> {
          <br/>
          <p>{props.friendRequesActiontMsg}</p>
          <br/>
-         {props.friendsList != ''? 
+         {props.friendsList !== ''? 
             <table style={{width:'100%'}}>
             {props.friendsList.map(data=>{
                   return(
@@ -43,8 +36,8 @@ const FriendsList=(props)=> {
                         <tr>
                            <td style={{width:'68.8%',borderRight:'2px black solid'}}> <span>{data.UserInfo.Name}</span></td>
                            <td>
-                              <button className={Classes.blueBtn} onClick={()=>friendReqAction(data.ID,'reject')}>MESSAGE</button>
-                              <button className={Classes.redBtn} onClick={()=>friendReqAction(data.ID,'accept')}>UNFIREND</button>
+                              <button className={Classes.blueBtn} onClick={""}>MESSAGE</button>
+                              <button className={Classes.redBtn} onClick={()=>props.unfriend(data.UserInfo.ID,localStorage.getItem('UserID'))}>UNFIREND</button>
                            </td>
                         </tr>
                      </div>
@@ -70,6 +63,7 @@ const mapStateToProps=state=>{
 const mapDispatchToProps=dispatch=>{
    return{
       friendsNameList:(UserID)=>dispatch(action.friendsNameList(UserID)),
+      unfriend:(f1,f2)=>dispatch(action.unfriend(f1,f2)),
    }
 }
 export default  connect(mapStateToProps,mapDispatchToProps)(FriendsList); 

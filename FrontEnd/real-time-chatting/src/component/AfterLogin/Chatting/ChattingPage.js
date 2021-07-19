@@ -26,7 +26,7 @@ const LoginPage=(props)=> {
    }, []);
 
    useEffect(() => {
-      if(resiverID!=''){
+      if(resiverID!==''){
          const interval = setInterval(() => {
         
             props.filterMessage(resiverID,localStorage.getItem('UserID'));
@@ -54,7 +54,7 @@ const LoginPage=(props)=> {
 
    let chattingPart = '';
 
-   if(resiverID!=''){
+   if(resiverID!==''){
       chattingPart=(
          <div>
                <ScrollToBottom  className={Classes.allMessages}>

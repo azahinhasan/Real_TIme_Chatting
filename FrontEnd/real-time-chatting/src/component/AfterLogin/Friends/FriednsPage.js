@@ -29,7 +29,7 @@ const FriendsPage=(props)=> {
 
    let pageData='';
 
-   if(pageDataOf=='add'){
+   if(pageDataOf==='add'){
       pageData=(
          <div>
             <h3>ADD FRIEND</h3>
@@ -42,10 +42,10 @@ const FriendsPage=(props)=> {
          </div>
       )
    }
-   else if(pageDataOf=='request'){
+   else if(pageDataOf==='request'){
       pageData=<FriendsReqList/>
    }
-   else if(pageDataOf=='list'){
+   else if(pageDataOf==='list'){
       pageData=<FriendsListPage/>
    }
    return (

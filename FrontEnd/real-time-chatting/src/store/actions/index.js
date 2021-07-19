@@ -14,4 +14,5 @@ export {
    friendReqSent,
    friendReqSentList,
    friendReqSentAction,
+   unfriend
    } from './chatting';
