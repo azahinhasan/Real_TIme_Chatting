@@ -4,7 +4,7 @@ import * as action from '../../../store/actions/index';
 import {useHistory} from 'react-router-dom';
 
 import { connect } from 'react-redux';
-import NavBar from '../navBar';
+
 
 
 
@@ -12,7 +12,7 @@ import NavBar from '../navBar';
 
 const FriendsList=(props)=> {
    
-
+   const nxtPage = useHistory();
    
 
    useEffect(() => {
@@ -36,7 +36,7 @@ const FriendsList=(props)=> {
                         <tr>
                            <td style={{width:'68.8%',borderRight:'2px black solid'}}> <span>{data.UserInfo.Name}</span></td>
                            <td>
-                              <button className={Classes.blueBtn} onClick={""}>MESSAGE</button>
+                              <button className={Classes.blueBtn} onClick={()=>{nxtPage.push('/user/chatting')}}>MESSAGE</button>
                               <button className={Classes.redBtn} onClick={()=>props.unfriend(data.UserInfo.ID,localStorage.getItem('UserID'))}>UNFIREND</button>
                            </td>
                         </tr>

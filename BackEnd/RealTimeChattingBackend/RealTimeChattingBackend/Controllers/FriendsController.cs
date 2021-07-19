@@ -42,7 +42,7 @@ namespace RealTimeChattingBackend.Controllers
 
 
             var check2 = context.FriendsTables.Where(x => x.Friend1ID == check.ID && x.Friend2ID == senderID || x.Friend2ID == check.ID && x.Friend1ID == senderID).FirstOrDefault();
-            if (check2 != null)
+            if (check2.FriendStatus == "true")
             {
                 return Ok("User Alreay is Your Friend!");
             }
@@ -84,31 +84,48 @@ namespace RealTimeChattingBackend.Controllers
             return Ok(friendsReq);
         }
 
-        [Route("api/friendsRequstAction/{ReqAction}/{RequstID}"), HttpPost]
+        [Route("api/friendsRequstAction/{ReqAction}/{RequstID}"), HttpPost]  //firend requst accipt
         public IHttpActionResult FirendsRequestAction([FromUri] int RequstID, [FromUri] string ReqAction)
         {
             var friendsreq = context.FriendRequests.Where(x => x.ID == RequstID).FirstOrDefault();
 
             if (ReqAction == "accept")
             {
-                FriendsTable friend1 = new FriendsTable();
-                FriendsTable friend2 = new FriendsTable();
 
-                friend1.Friend1ID = friendsreq.RequstReciver;
-                friend1.Friend2ID = friendsreq.RequstSender;
-                friend1.Time = "12-12-2020";
-                friend1.FriendStatus = "true";
-                context.FriendsTables.Add(friend1);
+                var checkFirend = context.FriendsTables.Where(x => x.Friend1ID == friendsreq.RequstReciver && x.Friend2ID == friendsreq.RequstSender).FirstOrDefault();
+                var checkFirend2 = context.FriendsTables.Where(x => x.Friend2ID == friendsreq.RequstReciver && x.Friend1ID == friendsreq.RequstSender).FirstOrDefault();
 
-                friend2.Friend1ID = friendsreq.RequstSender;
-                friend2.Friend2ID = friendsreq.RequstReciver;
-                friend2.Time = "12-12-2020";
-                friend2.FriendStatus = "true";
-                context.FriendsTables.Add(friend2);
+                if (checkFirend!= null && checkFirend2!=null)
+                {
+                    checkFirend.FriendStatus = "true";
+                    checkFirend2.FriendStatus = "true";
+
+                    context.Entry(checkFirend).State = System.Data.Entity.EntityState.Modified;
+                    context.Entry(checkFirend2).State = System.Data.Entity.EntityState.Modified;
+                    context.SaveChanges();
+                }
+                else
+                {
+                    FriendsTable friend1 = new FriendsTable();
+                    FriendsTable friend2 = new FriendsTable();
+
+                    friend1.Friend1ID = friendsreq.RequstReciver;
+                    friend1.Friend2ID = friendsreq.RequstSender;
+                    friend1.Time = "12-12-2020";
+                    friend1.FriendStatus = "true";
+                    context.FriendsTables.Add(friend1);
+
+                    friend2.Friend1ID = friendsreq.RequstSender;
+                    friend2.Friend2ID = friendsreq.RequstReciver;
+                    friend2.Time = "12-12-2020";
+                    friend2.FriendStatus = "true";
+                    context.FriendsTables.Add(friend2);
+                    context.SaveChanges();
+
+                }
 
                 context.FriendRequests.Remove(context.FriendRequests.Find(RequstID));
                 context.SaveChanges();
-
                 return Ok("Friend Request Accpted!");
             }
 
