@@ -2,36 +2,45 @@ import React, {  useState } from 'react';
 import Classes from './BeforeLogin.css';
 import * as action from '../store/actions/index';
 import { connect } from 'react-redux';
+import {useHistory} from 'react-router-dom';
+
 
 const LoginPage=(props)=> {
 
    const [userName, setUserNmae]=useState('');
    const [password,setPassword]=useState('');
+   const redirectTo = useHistory();
 
    const SignIn=()=>{
       props.SignIn(userName,password);
    }
 
    return (
-      <div className={Classes.App}>
+      <div className={Classes.LoginPage}>
+         <h2>Real Time Chatting App</h2>
+         <hr/>
+         <h3>Log In</h3>
          <form>
             <table>
                <tr>
-                  <td>Username </td>
-                  <td><input onChange={e=>setUserNmae(e.target.value)}/></td>
+                  <td><input placeholder="Username" onChange={e=>setUserNmae(e.target.value)}/></td>
                </tr>
                <tr>
-                  <td>Password </td>
-                  <td><input onChange={e=>setPassword(e.target.value)}/></td>
+                  <td><input placeholder="Password" onChange={e=>setPassword(e.target.value)}/></td>
                </tr>
                <tr>
-                  <td></td>
                   <td>
-                     <input type="submit" value="SignIn" onClick={SignIn}/>
+                     <br/>
+                     <div style={{color:'red'}}>{props.loginErrorMsg?'Wrong Password/Username':null}</div>
+                     <br/>
+                     <button type="submit" onClick={()=>SignIn()}>Log In</button>
                   </td>
                </tr>
             </table>
          </form>
+
+         <hr/>
+         <button onClick={()=>{redirectTo.push('/signup')}}>Sign Up</button>
       </div>
    
    );
@@ -40,7 +49,8 @@ const LoginPage=(props)=> {
 
 const mapStateToProps=state=>{
    return{
-      signedIn:state.auth.signedIn
+      signedIn:state.auth.signedIn,
+      loginErrorMsg:state.auth.loginErrorMsg
    }
 
 }

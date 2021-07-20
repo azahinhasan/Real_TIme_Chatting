@@ -4,6 +4,7 @@ const initialState={
    verifiedUser:false,
    error:'',
    loading:false,
+   loginErrorMsg:'',
    loginActivityList:[]
 }
 
@@ -14,12 +15,14 @@ const reducer = ( state = initialState, action ) => {
          return {
             ...state,
             verifiedUser:action.verifiedUser,
+            loginErrorMsg:action.loginErrorMsg,
          };
 
       case actionTypes.AUTH_FAILED: 
          return {
             ...state,
             verifiedUser:action.verifiedUser,
+            loginErrorMsg:action.loginErrorMsg,
          };
          case actionTypes.LOGINACTIVITYLIST: 
       return {

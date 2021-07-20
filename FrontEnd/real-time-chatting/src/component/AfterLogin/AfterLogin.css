@@ -158,12 +158,13 @@ hr{
 }
 
 .allMessages{
-   
+   overflow-y: scroll; 
+   height:580px;
 }
 
 .allLoginActivity{
    overflow-y: scroll; 
-   height:480px;
+   height:465px;
 }
 
 .FriendsPage button{
@@ -217,3 +218,4 @@ hr{
    background-color: rgb(0, 0, 173);
    color: rgb(255, 255, 255);
 }
+

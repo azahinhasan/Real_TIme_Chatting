@@ -6,7 +6,8 @@ import * as action from './store/actions/index';
 import { connect } from 'react-redux';
 
 //pages
-import LoginPage from './component/LoginPage';
+import LogInPage from './component/LoginPage';
+import SignUpPage from './component/SignUpPage';
 import LogOut from './component/LogOut';
 import UserHome from './component/AfterLogin/userHomePage';
 import ChattingPage from './component/AfterLogin/Chatting/ChattingPage';
@@ -25,8 +26,9 @@ class App extends Component {
       <div className={Classes.App}>
           {!this.props.verifiedUser?
               <Switch>
-                  <Route path="/" component={LoginPage}/>
-                  <Redirect to="/"/>
+                  <Route path="/login" component={LogInPage}/>
+                  <Route path="/signup" component={SignUpPage}/>
+                  <Redirect to="/login"/>
               </Switch>
               :
               <Switch>

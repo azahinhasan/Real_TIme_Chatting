@@ -37,25 +37,27 @@ const LoginHistory=(props)=> {
                   return(
                      <div key={data.ID} style={{border:'2px black solid',marginTop:'10px'}}>
                         <tr>
-                           <td style={{width:'88%',borderRight:'2px black solid'}}> 
+                           <td style={{width:'530px',borderRight:'2px black solid'}}> 
                               <table>
                                  <tr >
                                     <td style={{borderBottom:'2px black solid'}}>IP</td>
                                     <td style={{width:'45%',borderRight:'2px black solid',borderBottom:'2px black solid'}}>{data.IP}</td>
                                     <td style={{borderBottom:'2px black solid'}}>Time</td>
                                     <td style={{borderBottom:'2px black solid'}}>{data.Time}</td>
+
                                  </tr>
                                  <tr>
                                     <td>Address</td>
                                     <td style={{width:'45%',borderRight:'2px black solid'}}>{data.Address}</td>
                                     <td>Region</td>
                                     <td>{data.Region}</td>
+                                    
                                  </tr>
                               </table>
                            </td>
 
                            <td>
-                              <button style={{height:'60px',fontWeight:'bold'}} className={Classes.greenBtn} onClick={()=>props.loginActivityRemoveSingle(data.ID)}>It's ME</button>
+                              <button style={{height:'50px',fontWeight:'bold'}} className={Classes.greenBtn} onClick={()=>props.loginActivityRemoveSingle(data.ID)}>It's ME</button>
                            </td>
                         </tr>
                      </div>
@@ -74,6 +76,7 @@ const LoginHistory=(props)=> {
             <button className={Classes.redBtn} onClick={()=>{props.loginActivityRemoveAll()}}>REMOVE ALL</button>
             <hr/>
             <button  className={Classes.blueBtn} onClick={()=>{logOutFromOtherDevice()}}>SignOut From All Other Device</button>
+            <div style={{color:'blue'}}>{logOutFromOther}</div>
             </div>
          </div>
 

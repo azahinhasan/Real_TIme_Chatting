@@ -48,6 +48,38 @@ namespace RealTimeChattingBackend.Controllers
             return Ok(temp1);
         }
 
+        [Route("api/signup"), HttpPost]
+        public IHttpActionResult SignUp([FromBody] UserInfo data)
+        {
+            var check = context.UserInfoes.Where(x => x.Username == data.Username).FirstOrDefault();
+
+            if (check != null)
+            {
+                return Ok("UserNameMatchFound");
+            }
+
+            Random r = new Random();
+            int num = r.Next();
+            data.UserConnectID = num.ToString();
+            context.UserInfoes.Add(data);
+            context.SaveChanges();
+            return Ok("OK");
+        }
+
+        [Route("api/signup/usernameverify/{username}"), HttpGet]
+        public IHttpActionResult UserNameVerify([FromUri] string username)
+        {
+            var check = context.UserInfoes.Where(x => x.Username == username).FirstOrDefault();
+
+            if (check != null)
+            {
+                return Ok("matchFound");
+            }
+
+            return Ok("OK");
+        }
+
+
         [Route("api/logout_fromother_device/{userName}/{token}"), HttpPut]
         public IHttpActionResult Messages([FromUri] string userName, [FromUri] string token)
         {
@@ -153,6 +185,7 @@ namespace RealTimeChattingBackend.Controllers
             context.SaveChanges();
             return Ok("OK");
         }
+
 
     }
 }

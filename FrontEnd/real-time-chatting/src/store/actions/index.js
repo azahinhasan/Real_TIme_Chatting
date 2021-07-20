@@ -2,13 +2,15 @@
 export {
       SignIn,
       SignOut,
+      SignUp,
       // SignUp,
       authCheckState,
       // logOut,
       loginActivityGet,
       loginActivityRemoveSingle,
       loginActivityRemoveAll,
-      logOutFromOtherDevice
+      logOutFromOtherDevice,
+
    } from './auth';
 
 export {

@@ -8,16 +8,30 @@ export const authSuccess = () => {
    return {
       type: actionTypes.AUTH_SUCCESS,
       verifiedUser: true,
+      loginErrorMsg:false,
+
    };
 };
 
-export const authFailed = (error) => {
+export const authFailed = () => {
+   console.log('faioed')
    return {
        type: actionTypes.AUTH_FAILED,
        verifiedUser: false,
-       error:error
    };
 };
+
+
+export const loginFailed = () => {
+   console.log('faioed')
+   return {
+       type: actionTypes.AUTH_FAILED,
+       verifiedUser: false,
+       loginErrorMsg:true,
+   };
+};
+
+
 
 export const loginActivityLsit = (data) => {
    return {
@@ -34,20 +48,40 @@ export const SignIn=(Username,Password)=>{
    axios.post('/login',{Username,Password})
       .then(r=>{
 
-         if(r.data[0]!=='userNotValid'){
+         if(r.data[0]!='userNotValid'){
             localStorage.setItem('Username',Username);
             localStorage.setItem('Token',r.data[1]);
             localStorage.setItem('Name',r.data[0]);
             localStorage.setItem('UserID',r.data[2]);
-           // dispatch(authSuccess());
+           dispatch(authSuccess());
            dispatch(authCheckState());
            dispatch(trackLocation());
 
+         }else{
+            dispatch(loginFailed());
          }
          
 
       })
+   }
+}
 
+export const SignUp=(Name,Username,Password)=>{
+   return (dispatch)=>{
+
+   axios.post('/signup',{Name,Username,Password})
+      .then(r=>{
+
+         if(r.data=='OK'){
+            console.log(r.data, ' SignUP')
+            dispatch(SignIn(Username,Password));
+         }else{
+            
+            //dispatch(loginFailed());
+         }
+         
+
+      })
    }
 }
 
@@ -55,7 +89,7 @@ export const trackLocation=()=>{
    return (dispatch)=>{
       axios.get('https://extreme-ip-lookup.com/json/')
          .then(r=>{
-            console.log(r.data);
+            //console.log(r.data);
 
             axios.post('/loginActivityStore',{
                IP:r.data.query,
