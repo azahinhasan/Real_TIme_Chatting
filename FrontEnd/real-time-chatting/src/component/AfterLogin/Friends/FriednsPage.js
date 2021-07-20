@@ -34,7 +34,7 @@ const FriendsPage=(props)=> {
          <div>
             <h3>ADD FRIEND</h3>
             <br/>
-            <input onChange={e=>setFriendKey(e.target.value)} placeholder="Enter Friend Key"/>
+            <input onChange={e=>setFriendKey(e.target.value)} placeholder="Enter Friend's UserConnectID"/>
             <br/>
             <p>{props.friendRequestMsg}</p>
             <br/>

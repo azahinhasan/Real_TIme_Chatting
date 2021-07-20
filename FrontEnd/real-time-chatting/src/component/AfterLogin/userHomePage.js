@@ -23,6 +23,31 @@ const LoginPage=(props)=> {
 
          <div className={Classes.homePageData}>
             <h2>Home Page</h2>
+
+            <br/><br/>
+            <div style={{fontSize:'20px',fontWeight:'bold'}}>
+               <hr/>
+               <div>Name</div>
+               <br/>
+               <div style={{border:'2px solid',padding:'15px'}}>{localStorage.getItem('Name')}</div>
+               <br/>
+               <hr/>
+               <div>UserConnectID</div>
+               <br/>
+               <div style={{border:'2px solid',padding:'15px'}}>
+                  <table>
+                     <tr>
+                        <td style={{width:'550px',borderRight:'2px black solid'}}>{localStorage.getItem('UserConnectID')}</td>
+                        <td>
+                        <button style={{height:'50px',fontWeight:'bold'}} className={Classes.blackBtn}  onClick={() => {navigator.clipboard.writeText(localStorage.getItem('UserConnectID'))}}>
+                           COPY
+                        </button>
+                        </td>
+                     </tr>
+                  </table>
+               </div>
+              
+            </div>
          </div>
  
 

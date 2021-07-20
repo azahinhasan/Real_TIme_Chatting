@@ -1,4 +1,4 @@
-import React, {  useState } from 'react';
+import React, {  useState,useEffect } from 'react';
 import Classes from './BeforeLogin.css';
 import * as action from '../store/actions/index';
 import { connect } from 'react-redux';
@@ -11,8 +11,21 @@ const SignUpPage=(props)=> {
    const [userNameVerify, setUserNameVerify]=useState(true);
    const [name, setNmae]=useState('');
    const [password,setPassword]=useState('');
+   const [formValid,setFormValid]=useState(false);
    const redirectTo = useHistory();
 
+
+
+   
+   useEffect(() => {
+      if(name!='' &&userName!='' &&password!='' &&userNameVerify!=false){
+         setFormValid(true);
+      }else{
+         setFormValid(false);
+      }
+   }, [name,userName,password,userNameVerify]);
+
+   
    const SignUp=()=>{
       console.log('sigup')
       props.SignUp(name,userName,password);
@@ -56,7 +69,7 @@ const SignUpPage=(props)=> {
                <tr>
                   <td>
                      <br/>
-                     <button type="submit" onClick={()=>SignUp()}>Sign Up</button>
+                     <button type="submit" onClick={()=>SignUp()} disabled={!formValid?true:false}>Sign Up</button>
                      
                   </td>
                </tr>

@@ -22,7 +22,7 @@ namespace RealTimeChattingBackend.Controllers
                 var tokenCheck = context.TokenTables.Where(x => x.Username == data.Username).FirstOrDefault();
                 if (tokenCheck != null)
                 {
-                    string[] temp2 = { check.Name, tokenCheck.Token, check.ID.ToString() };
+                    string[] temp2 = { check.Name, tokenCheck.Token, check.ID.ToString(), check.UserConnectID.ToString() };
                     return Ok(temp2);
                 }
                 else
@@ -37,14 +37,14 @@ namespace RealTimeChattingBackend.Controllers
                     context.TokenTables.Add(token);
                     context.SaveChanges();
 
-                    string[] temp = { check.Name, token.Token, check.ID.ToString() };
+                    string[] temp = { check.Name, token.Token, check.ID.ToString(),check.UserConnectID.ToString()};
 
                     return Ok(temp);
                 }
 
 
             }
-            string[] temp1 = { "userNotValid", "","" };
+            string[] temp1 = { "userNotValid", "","","" };
             return Ok(temp1);
         }
 

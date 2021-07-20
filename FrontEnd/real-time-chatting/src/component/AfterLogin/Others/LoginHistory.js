@@ -52,7 +52,6 @@ const LoginHistory=(props)=> {
                                     <td style={{width:'45%',borderRight:'2px black solid'}}>{data.Address}</td>
                                     <td>Region</td>
                                     <td>{data.Region}</td>
-                                    
                                  </tr>
                               </table>
                            </td>
