@@ -1,7 +1,11 @@
-.navBar{
-  
-}
 
+
+h1,h2{
+   text-decoration: underline;
+}
+input,textarea{
+   outline: none;
+}
 
 .Link{
    color: black;
@@ -33,14 +37,16 @@ hr{
    background-color: black;
 }
 
-
+.navBar{
+   padding-bottom: 25px;
+}
 
 .leftSide{
    margin-top: 12px;
    margin-left: 2px;
    display: inline-block; 
    text-align: left;
-   width: 40%
+   width: 44%
 }
 
 .rightSide{
@@ -48,7 +54,7 @@ hr{
    position: relative;
    display: inline-block; 
    text-align: right;
-   width: 59%
+   width: 55%
 }
 
 .homePageData{
@@ -164,7 +170,7 @@ hr{
 
 .allLoginActivity{
    overflow-y: scroll; 
-   height:465px;
+   height:510px;
 }
 
 .FriendsPage button{

@@ -10,6 +10,7 @@ const LoginPage=(props)=> {
    return (
       <div className={Classes.navBar}>
          <div className={Classes.leftSide}>
+         <Link className={Classes.Link} to={{pathname: '/user/home'}}>Home</Link>
             <Link className={Classes.Link} to={{pathname: '/user/friends'}}>Friends</Link>
             <Link className={Classes.Link} to={{pathname: '/user/chatting'}}>Chatting</Link>
             <Link className={Classes.Link} to={{pathname: '/user/others'}}>Other</Link>
@@ -17,6 +18,7 @@ const LoginPage=(props)=> {
          <div className={Classes.rightSide}>
          <Link className={Classes.LinkSignOut} to={{pathname: '/user/logout'}}>SignOut</Link>
          </div>
+         <br/>
        
       </div>
    

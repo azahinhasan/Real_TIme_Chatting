@@ -22,7 +22,7 @@ const LoginPage=(props)=> {
          <NavBar/>
 
          <div className={Classes.homePageData}>
-            <p>UserHOme Page</p>
+            <h2>Home Page</h2>
          </div>
  
 

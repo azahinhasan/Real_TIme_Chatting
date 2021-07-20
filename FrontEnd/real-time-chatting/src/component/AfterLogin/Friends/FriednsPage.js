@@ -53,7 +53,7 @@ const FriendsPage=(props)=> {
          <NavBar/>
 
          <div className={Classes.homePageData}>
-            <p>Friends Page</p>
+            <h2>Friends Page</h2>
             <button onClick={()=>{setPageDataOf('add')}}>ADD FRIEND</button>
             <button  onClick={()=>{setPageDataOf('list')}}>FRIENDS LIST</button>
             <button  onClick={()=>{setPageDataOf('request')}}>FRIENDS REQUEST</button>

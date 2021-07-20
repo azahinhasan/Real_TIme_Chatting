@@ -25,7 +25,7 @@ const OthersPage=(props)=> {
          <NavBar/>
 
          <div className={Classes.homePageData}>
-            <p>OthersPage Page</p>
+            {/* <p>OthersPage Page</p> */}
             <LoginHistory/>
          </div>
 

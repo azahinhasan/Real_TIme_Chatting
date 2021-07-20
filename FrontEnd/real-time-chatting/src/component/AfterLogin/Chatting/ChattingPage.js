@@ -92,7 +92,7 @@ const LoginPage=(props)=> {
       )
    }
    else{
-      chattingPart=<h3>Nothing Choosed!</h3>
+      chattingPart=<h4>Nothing Choosed!</h4>
    }
 
    return (
@@ -100,7 +100,7 @@ const LoginPage=(props)=> {
          <NavBar/>
 
          <div className={Classes.homePageData}>
-            <p>friendsNameList Page</p>
+            <h2>Personal  Chatting Page</h2>
          </div>
          <div className={Classes.friendsNamePart}>
                <h3>Friends List</h3>

@@ -145,7 +145,7 @@ namespace RealTimeChattingBackend.Controllers
         public IHttpActionResult LoginActivity([FromBody]LoginActivity data)
         {
 
-            var check = context.LoginActivities.Where(x => x.IP == data.IP && data.Address == data.Address).FirstOrDefault();
+            var check = context.LoginActivities.Where(x => x.IP == data.IP && data.Address == data.Address && data.UserID == data.UserID).FirstOrDefault();
 
             if (check != null)
             {

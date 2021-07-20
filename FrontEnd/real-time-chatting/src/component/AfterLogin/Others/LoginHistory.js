@@ -30,10 +30,11 @@ const LoginHistory=(props)=> {
       <div className={Classes.FriendsPage}>
 
          <div className={Classes.homePageData}>
-            <h3>Login Activity Page</h3>
+            <h2>Login Activity Page</h2>
             <table style={{width:'100%'}}>
             <ScrollToBottom  className={Classes.allLoginActivity}>
-               {props.loginActivityList.map(data=>{
+            {props.loginActivityList!=''?
+               props.loginActivityList.map(data=>{
                   return(
                      <div key={data.ID} style={{border:'2px black solid',marginTop:'10px'}}>
                         <tr>
@@ -61,14 +62,13 @@ const LoginHistory=(props)=> {
                            </td>
                         </tr>
                      </div>
-                     
                   )
-               })}
+               })
+               :
+            <h3>No Login Activity!</h3>}
                </ScrollToBottom>
             </table>
 
-            {props.loginActivityList==''?<h3>No Login Activity!</h3>:null}
-        
          
          <br/><br/>
          <div>
