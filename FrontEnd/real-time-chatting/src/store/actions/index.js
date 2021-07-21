@@ -15,10 +15,13 @@ export {
 
 export {
    filterMessage,
-   friendsNameList,
    sentMessage,
-   friendReqSent,
-   friendReqSentList,
-   friendReqSentAction,
-   unfriend
    } from './chatting';
+
+   export {
+      friendsNameList,
+      friendReqSent,
+      friendReqSentList,
+      friendReqSentAction,
+      unfriend
+      } from './friends';

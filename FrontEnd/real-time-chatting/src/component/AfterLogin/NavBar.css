@@ -1,0 +1,43 @@
+.Link{
+   color: black;
+   border: 3px solid black;
+   padding: 8px;
+   font-weight: bold;
+}
+
+.Link:hover{
+   color: white;
+   background-color: black;
+}
+
+.LinkSignOut{
+   color: rgb(141, 0, 0);
+   border: 3px solid rgb(141, 0, 0);
+   padding: 7px;
+   font-weight: bold;
+}
+
+.LinkSignOut:hover{
+   color: white;
+   background-color: rgb(141, 0, 0);
+}
+
+.navBar{
+   padding-bottom: 25px;
+}
+
+.leftSide{
+   margin-top: 12px;
+   margin-left: 2px;
+   display: inline-block; 
+   text-align: left;
+   width: 57%
+}
+
+.rightSide{
+   margin-top: 12px;
+   position: relative;
+   display: inline-block; 
+   text-align: right;
+   width: 42%
+}

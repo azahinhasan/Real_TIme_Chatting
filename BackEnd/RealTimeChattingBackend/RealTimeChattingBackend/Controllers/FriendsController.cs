@@ -33,6 +33,7 @@ namespace RealTimeChattingBackend.Controllers
         {
             var check = context.UserInfoes.Where(x => x.UserConnectID == friendKey).FirstOrDefault();
             //RequstReciver is UserConnectID
+          //  return Ok("User Not Found!");
 
             if (check == null)
             {
@@ -42,7 +43,7 @@ namespace RealTimeChattingBackend.Controllers
 
 
             var check2 = context.FriendsTables.Where(x => x.Friend1ID == check.ID && x.Friend2ID == senderID || x.Friend2ID == check.ID && x.Friend1ID == senderID).FirstOrDefault();
-            if (check2.FriendStatus == "true")
+            if (check2!=null && check2.FriendStatus == "true")
             {
                 return Ok("User Alreay is Your Friend!");
             }

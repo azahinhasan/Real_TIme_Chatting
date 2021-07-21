@@ -23,10 +23,10 @@ const LoginPage=(props)=> {
          <form>
             <table>
                <tr>
-                  <td><input placeholder="Username" onChange={e=>setUserNmae(e.target.value)}/></td>
+                  <td><input placeholder="Username" onChange={e=>setUserNmae(e.target.value)} required/></td>
                </tr>
                <tr>
-                  <td><input placeholder="Password" onChange={e=>setPassword(e.target.value)}/></td>
+                  <td><input placeholder="Password" onChange={e=>setPassword(e.target.value)} required/></td>
                </tr>
                <tr>
                   <td>

@@ -54,16 +54,16 @@ const FriendsPage=(props)=> {
 
          <div className={Classes.homePageData}>
             <h2>Friends Page</h2>
-            <button onClick={()=>{setPageDataOf('add')}}>ADD FRIEND</button>
             <button  onClick={()=>{setPageDataOf('list')}}>FRIENDS LIST</button>
+            <button onClick={()=>{setPageDataOf('add')}}>ADD FRIEND</button>
             <button  onClick={()=>{setPageDataOf('request')}}>FRIENDS REQUEST</button>
             <hr/>
 
-          {pageData}
+            {pageData}
          
          
          </div>
- 
+
 
       </div>
    

@@ -7,7 +7,8 @@ import {useHistory} from 'react-router-dom';
 
 import { connect } from 'react-redux';
 import NavBar from '../navBar';
-const LoginPage=(props)=> {
+
+const GroupChattingPage=(props)=> {
    const scrollToBottom = useScrollToBottom();
   const [sticky] = useSticky();
    const history = useHistory();
@@ -145,7 +146,7 @@ const mapDispatchToProps=dispatch=>{
 
    }
 }
-export default  connect(mapStateToProps,mapDispatchToProps)(LoginPage); 
+export default  connect(mapStateToProps,mapDispatchToProps)(GroupChattingPage); 
 
 
 

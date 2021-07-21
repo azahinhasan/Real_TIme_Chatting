@@ -1,5 +1,6 @@
 import React, {  useState } from 'react';
-import Classes from './AfterLogin.css';
+
+import Classes from './NavBar.css';
 import * as action from '../../store/actions/index';
 import { connect } from 'react-redux';
 import {Link} from 'react-router-dom';
@@ -13,6 +14,7 @@ const LoginPage=(props)=> {
          <Link className={Classes.Link} to={{pathname: '/user/home'}}>Home</Link>
             <Link className={Classes.Link} to={{pathname: '/user/friends'}}>Friends</Link>
             <Link className={Classes.Link} to={{pathname: '/user/chatting'}}>Chatting</Link>
+            <Link className={Classes.Link} to={{pathname: '/user/'}}>Group</Link>
             <Link className={Classes.Link} to={{pathname: '/user/others'}}>Other</Link>
          </div>
          <div className={Classes.rightSide}>
