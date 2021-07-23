@@ -17,7 +17,7 @@ const GroupChattingPage=(props)=> {
    const [resiverName,setresiverName]=useState('');
    const messagesEndRef = useRef(null);
    const [groupMsg,setGroupMsg]=useState([]);
-
+   const [isGroupMember,setIsGroupMember]=useState(false);
    // const scrollToBottom = () => {
    //    messagesEndRef.current?.scrollIntoView({ behavior: "smooth" })
    //  }
@@ -42,9 +42,21 @@ const GroupChattingPage=(props)=> {
     }, []);
 
 
+   const checkGroopMemberValidity=(data)=>{
+      setIsGroupMember(false);
+      data.map(d=>{
+         if(d.GroupID==localStorage.getItem('UserID')){
+            setIsGroupMember(true);
 
-   const showGroupMasage=(GroupID,GroupMessage)=>{
+            console.log('Group Member' , d.GroupID)
+            return;
+         }
+      })
+   }
+
+   const showGroupMasage=(GroupID,GroupMessage,GroupMempers)=>{
       setGroupID(GroupID);
+      checkGroopMemberValidity(GroupMempers);
       setGroupMsg(GroupMessage);
    }
 
@@ -82,7 +94,7 @@ const GroupChattingPage=(props)=> {
 
                
                <div className={Classes.msgTypingPart}>
-               {props.theyAreFriend?  
+               {isGroupMember?  
                   <div>
                      <textarea 
                         placeholder="Type Your Message!" 
@@ -116,7 +128,7 @@ const GroupChattingPage=(props)=> {
                {props.group_list.map(data=>{
                   return(
                      <div key={data.ID}>
-                        <button className={Classes.friendsName} onClick={()=>showGroupMasage(data.ID,data.GroupMsgs)}>{data.GroupName}</button>
+                        <button className={Classes.friendsName} onClick={()=>showGroupMasage(data.ID,data.GroupMsgs,data.GroupMembers)}>{data.GroupName}</button>
                      </div>
                   )
                })}

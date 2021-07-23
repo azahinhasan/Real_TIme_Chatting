@@ -186,7 +186,7 @@ namespace RealTimeChattingBackend.Controllers
         [Route("api/groups/list/{userID}"), HttpGet]
         public IHttpActionResult GroupNameOfUser([FromUri] int userID)
         {
-            var groups = context.GroupInfoes.Where(x => x.UserInfo.ID == userID).ToList();
+            var groups = context.GroupInfoes.Where(x => x.UserInfo.ID == 1).ToList();
             return Ok(groups);
 
         }
