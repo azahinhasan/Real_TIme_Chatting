@@ -6,7 +6,9 @@ const initialState={
    theyAreFriend:false,
    friendRequestMsg:'',
    friendRequesActiontMsg:'',
-   friendRequestList:[]
+   friendRequestList:[],
+   group_data:[],
+   group_list:[]
 }
 
 const reducer = ( state = initialState, action ) => {
@@ -43,6 +45,17 @@ const reducer = ( state = initialState, action ) => {
          return {
             ...state,
             friendRequesActiontMsg:action.friendRequesActiontMsg
+         };
+      case actionTypes.GROUP_DATA: 
+         return {
+            ...state,
+            group_data:action.group_data
+         };
+
+      case actionTypes.GROUP_LIST: 
+         return {
+            ...state,
+            group_list:action.group_list
          };
 
       default:

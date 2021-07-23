@@ -14,12 +14,12 @@ namespace RealTimeChattingBackend.Controllers
 
 
         [Route("api/friendsList/{ID}/{page}"), HttpGet]
-        public IHttpActionResult Firends([FromUri] int ID,[FromUri] string page)
+        public IHttpActionResult Firends([FromUri] int ID, [FromUri] string page)
         {
 
-            if (page== "list")
+            if (page == "list")
             {
-                var friendsList = context.FriendsTables.Where(x => x.Friend2ID == ID && x.FriendStatus=="true").ToList();
+                var friendsList = context.FriendsTables.Where(x => x.Friend2ID == ID && x.FriendStatus == "true").ToList();
                 return Ok(friendsList);
             }
 
@@ -33,7 +33,7 @@ namespace RealTimeChattingBackend.Controllers
         {
             var check = context.UserInfoes.Where(x => x.UserConnectID == friendKey).FirstOrDefault();
             //RequstReciver is UserConnectID
-          //  return Ok("User Not Found!");
+            //  return Ok("User Not Found!");
 
             if (check == null)
             {
@@ -43,7 +43,7 @@ namespace RealTimeChattingBackend.Controllers
 
 
             var check2 = context.FriendsTables.Where(x => x.Friend1ID == check.ID && x.Friend2ID == senderID || x.Friend2ID == check.ID && x.Friend1ID == senderID).FirstOrDefault();
-            if (check2!=null && check2.FriendStatus == "true")
+            if (check2 != null && check2.FriendStatus == "true")
             {
                 return Ok("User Alreay is Your Friend!");
             }
@@ -96,7 +96,7 @@ namespace RealTimeChattingBackend.Controllers
                 var checkFirend = context.FriendsTables.Where(x => x.Friend1ID == friendsreq.RequstReciver && x.Friend2ID == friendsreq.RequstSender).FirstOrDefault();
                 var checkFirend2 = context.FriendsTables.Where(x => x.Friend2ID == friendsreq.RequstReciver && x.Friend1ID == friendsreq.RequstSender).FirstOrDefault();
 
-                if (checkFirend!= null && checkFirend2!=null)
+                if (checkFirend != null && checkFirend2 != null)
                 {
                     checkFirend.FriendStatus = "true";
                     checkFirend2.FriendStatus = "true";
@@ -136,14 +136,14 @@ namespace RealTimeChattingBackend.Controllers
         }
 
 
-       
+
 
         [Route("api/friendValidition/{ReceiverID}/{SenderID}"), HttpGet]
         public IHttpActionResult FriendValidition([FromUri] int ReceiverID, [FromUri] int SenderID)
         {
             var check = context.FriendsTables.Where(x => x.Friend1ID == ReceiverID && x.Friend2ID == SenderID || x.Friend1ID == SenderID && x.Friend2ID == ReceiverID).FirstOrDefault();
 
-            if (check == null || check.FriendStatus=="false" || check.FriendStatus == null)
+            if (check == null || check.FriendStatus == "false" || check.FriendStatus == null)
             {
                 return Ok("notFriend");
             }
@@ -158,8 +158,8 @@ namespace RealTimeChattingBackend.Controllers
             var check2 = context.FriendsTables.Where(x => x.Friend1ID == SenderID && x.Friend2ID == ReceiverID).FirstOrDefault();
 
 
-            
-            if (check2 != null && check1!=null)
+
+            if (check2 != null && check1 != null)
             {
                 check1.FriendStatus = "false";
                 context.Entry(check1).State = System.Data.Entity.EntityState.Modified;
@@ -168,11 +168,36 @@ namespace RealTimeChattingBackend.Controllers
                 context.Entry(check2).State = System.Data.Entity.EntityState.Modified;
                 context.SaveChanges();
             }
-       
+
 
 
             return Ok("OK");
         }
 
-    }
+
+        [Route("api/groups/messages/{groupID}"), HttpGet]
+        public IHttpActionResult GroupMessages([FromUri] int groupID)
+        {
+            var messages = context.GroupInfoes.Where(x => x.ID == groupID).ToList();
+            return Ok(messages);
+
+        }
+
+        [Route("api/groups/list/{userID}"), HttpGet]
+        public IHttpActionResult GroupNameOfUser([FromUri] int userID)
+        {
+            var groups = context.GroupInfoes.Where(x => x.UserInfo.ID == userID).ToList();
+            return Ok(groups);
+
+        }
+/*
+        [Route("api/groups/memberValidation/{userID}/{groupID}"), HttpGet]
+        public IHttpActionResult GroupNameOfUser([FromUri] int userID)
+        {
+            var groups = context.GroupMembers.Where(x => x.UserID == userID).ToList();
+            return Ok(groups);
+
+        }*/
+
+    }    
 }

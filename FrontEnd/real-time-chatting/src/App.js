@@ -13,6 +13,7 @@ import UserHome from './component/AfterLogin/userHomePage';
 import ChattingPage from './component/AfterLogin/Chatting/ChattingPage';
 import FriendsPage from './component/AfterLogin/Friends/FriednsPage';
 import OtherPage from './component/AfterLogin/Others/OthersPage';
+import GroupPage from './component/AfterLogin/Group/GroupChattingPage';
 
 class App extends Component {
 
@@ -36,6 +37,7 @@ class App extends Component {
                   <Route path="/user/logout" component={LogOut}/>
                   <Route path="/user/chatting" component={ChattingPage}/>
                   <Route path="/user/friends" component={FriendsPage}/>
+                  <Route path="/user/group" component={GroupPage}/>
                   <Route path="/user/others" component={OtherPage}/>
                   <Redirect to="/user/home"/>
               </Switch>

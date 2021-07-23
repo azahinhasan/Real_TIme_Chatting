@@ -14,7 +14,7 @@ const LoginPage=(props)=> {
          <Link className={Classes.Link} to={{pathname: '/user/home'}}>Home</Link>
             <Link className={Classes.Link} to={{pathname: '/user/friends'}}>Friends</Link>
             <Link className={Classes.Link} to={{pathname: '/user/chatting'}}>Chatting</Link>
-            <Link className={Classes.Link} to={{pathname: '/user/'}}>Group</Link>
+            <Link className={Classes.Link} to={{pathname: '/user/group'}}>Group</Link>
             <Link className={Classes.Link} to={{pathname: '/user/others'}}>Other</Link>
          </div>
          <div className={Classes.rightSide}>

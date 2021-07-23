@@ -13,9 +13,10 @@ const GroupChattingPage=(props)=> {
   const [sticky] = useSticky();
    const history = useHistory();
    const [msg,setMsg]=useState('');
-   const [resiverID,setresiverID]=useState('');
+   const [groupID,setGroupID]=useState('');
    const [resiverName,setresiverName]=useState('');
    const messagesEndRef = useRef(null);
+   const [groupMsg,setGroupMsg]=useState([]);
 
    // const scrollToBottom = () => {
    //    messagesEndRef.current?.scrollIntoView({ behavior: "smooth" })
@@ -23,15 +24,16 @@ const GroupChattingPage=(props)=> {
 
    useEffect(() => {
       props.friendsNameList(localStorage.getItem('UserID'),'chatting');
+      props.groupList(localStorage.getItem('UserID'));
       //scrollToBottom();
 
    }, []);
 
    useEffect(() => {
-      if(resiverID!==''){
+      if(groupID!==''){
          const interval = setInterval(() => {
         
-            props.filterMessage(resiverID,localStorage.getItem('UserID'));
+           // props.filterMessage(resiverID,localStorage.getItem('UserID'));
          
          }, 500);
          return () => clearInterval(interval);
@@ -41,10 +43,9 @@ const GroupChattingPage=(props)=> {
 
 
 
-   const showMasage=(ResiverID,ResiverName)=>{
-      setresiverID(ResiverID);
-      setresiverName(ResiverName);
-      props.filterMessage(ResiverID,localStorage.getItem('UserID'));
+   const showGroupMasage=(GroupID,GroupMessage)=>{
+      setGroupID(GroupID);
+      setGroupMsg(GroupMessage);
    }
 
    const sentMasage=(Senderid)=>{
@@ -57,18 +58,21 @@ const GroupChattingPage=(props)=> {
 
    let chattingPart = '';
 
-   if(resiverID!==''){
+   if(groupID!==''){
       chattingPart=(
          <div>
             <div className={Classes.chattingHeader}>{resiverName}</div>
                <ScrollToBottom  className={Classes.allMessages}>
-                  {props.messages.map(data=>{
+                  {groupMsg.map(data=>{
                      return(
                         <div>
                            <br/><br/>
                            <span className={data.SenderID==localStorage.getItem('UserID')? Classes.messageSender:Classes.messageReciver}>
+                              
                               {data.Msg}
+                              <div style={{fontSize:'10px'}}>-Sent From {data.UserInfo.Name}</div>
                            </span>
+
                            <br/><br/>
                         </div>
                      )
@@ -85,7 +89,7 @@ const GroupChattingPage=(props)=> {
                         onChange={e=>{setMsg(e.target.value)}}
                         value={msg}
                         />
-                     <button onClick={()=>sentMasage(resiverID)} disabled={msg.length<1? true: false}>SEND</button>
+                     <button onClick={()=>sentMasage(groupID)} disabled={msg.length<1? true: false}>SEND</button>
                   </div>
                :
                <h4 style={{textAlign:'center'}}>Can not send any Message</h4>
@@ -104,15 +108,15 @@ const GroupChattingPage=(props)=> {
          <NavBar/>
 
          <div className={Classes.homePageData}>
-            <h2>Personal  Chatting Page</h2>
+            <h2>Group  Chatting Page</h2>
          </div>
          <div className={Classes.friendsNamePart}>
                <h3>Friends List</h3>
                <hr/>
-               {props.friendsList.map(data=>{
+               {props.group_list.map(data=>{
                   return(
-                     <div>
-                        <button className={Classes.friendsName} onClick={()=>showMasage(data.UserInfo.ID,data.UserInfo.Name)}>{data.UserInfo.Name}</button>
+                     <div key={data.ID}>
+                        <button className={Classes.friendsName} onClick={()=>showGroupMasage(data.ID,data.GroupMsgs)}>{data.GroupName}</button>
                      </div>
                   )
                })}
@@ -134,6 +138,10 @@ const mapStateToProps=state=>{
       friendsList:state.user.friendsList,
       messages:state.user.messages,
       theyAreFriend:state.user.theyAreFriend,
+
+      group_data:state.user.group_data,
+      group_list:state.user.group_list,
+   
    }
 
 }
@@ -144,6 +152,9 @@ const mapDispatchToProps=dispatch=>{
       filterMessage:(SenderID,ReceiverID)=>dispatch(action.filterMessage(SenderID,ReceiverID)),
       sentMessage:(SenderID,ReceiverID,Msg)=>dispatch(action.sentMessage(SenderID,ReceiverID,Msg)),
 
+
+      filterMessageGroupData:(GroupID,UserID)=>dispatch(action.filterMessageGroupData(GroupID,UserID)),
+      groupList:(UserID)=>dispatch(action.groupList(UserID)),
    }
 }
 export default  connect(mapStateToProps,mapDispatchToProps)(GroupChattingPage); 

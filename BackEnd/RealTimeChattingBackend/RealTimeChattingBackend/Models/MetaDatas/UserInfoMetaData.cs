@@ -28,5 +28,18 @@ namespace RealTimeChattingBackend.Models.MetaDatas
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         [JsonIgnore, XmlIgnore]
         public virtual ICollection<FriendRequest> FriendRequests1 { get; set; }
+
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        [JsonIgnore, XmlIgnore]
+        public virtual ICollection<GroupInfo> GroupInfoes { get; set; }
+
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+
+        [JsonIgnore, XmlIgnore]
+        public virtual ICollection<GroupMember> GroupMembers { get; set; }
+
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        [JsonIgnore, XmlIgnore]
+        public virtual ICollection<GroupMsg> GroupMsgs { get; set; }
     }
 }

@@ -11,11 +11,14 @@ export {
       loginActivityRemoveAll,
       logOutFromOtherDevice,
 
+
    } from './auth';
 
 export {
    filterMessage,
    sentMessage,
+   filterMessageGroupData,
+   groupList
    } from './chatting';
 
    export {

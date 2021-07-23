@@ -11,6 +11,27 @@ export const saveMessage = (message) => {
    };
 };
 
+export const saveGroupData = (data) => {
+   return {
+      type: actionTypes.GROUP_DATA,
+      group_data:data
+   };
+};
+
+export const groupListData = (data) => {
+   return {
+      type: actionTypes.GROUP_LIST,
+      group_list:data
+   };
+};
+
+
+export const groupMemberValidition = (data) => {
+   return {
+      type: actionTypes.GROUP_DATA,
+      group_data:data
+   };
+};
 
 // export const unfriendSuccess = (list) => {
 //    return {
@@ -43,3 +64,33 @@ export const sentMessage = (ReceiverID,SenderID,Msg) => {
       }
 };
 
+
+
+export const filterMessageGroupData = (GroupID,UserID) => {  //group message and group Info
+   return (dispatch)=>{
+      axios.get('/groups/messages/'+GroupID)
+         .then(r=>{
+
+            dispatch(saveGroupData(r.data));
+
+            //dispatch(groupMemberValidation(GroupID,UserID));
+            
+         })
+   
+      }
+};
+
+
+export const groupList = (UserID) => { 
+   return (dispatch)=>{
+      axios.get('/groups/list/'+UserID)
+         .then(r=>{
+
+            console.log(r.data)
+            dispatch(groupListData(r.data));
+
+            
+         })
+   
+      }
+};

@@ -6,7 +6,7 @@
     <edmx:Diagrams>
       <Diagram DiagramId="99bad29d7ccc473dbac0fc7d6d30ec31" Name="Diagram1">
         <EntityTypeShape EntityType="Realtime_ChattingModel.TokenTable" Width="1.5" PointX="0.75" PointY="0.75" IsExpanded="true" />
-        <EntityTypeShape EntityType="Realtime_ChattingModel.UserInfo" Width="1.5" PointX="2.75" PointY="0.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="Realtime_ChattingModel.UserInfo" Width="1.5" PointX="2.5" PointY="6.375" IsExpanded="true" />
         <EntityTypeShape EntityType="Realtime_ChattingModel.FriendsTable" Width="1.5" PointX="0.75" PointY="3.75" />
         <EntityTypeShape EntityType="Realtime_ChattingModel.Message" Width="1.5" PointX="2.75" PointY="3.75" />
         <AssociationConnector Association="Realtime_ChattingModel.FK_FriendsTable_UserInfo" />
@@ -15,6 +15,14 @@
         <AssociationConnector Association="Realtime_ChattingModel.FK_FriendRequest_UserInfo" />
         <AssociationConnector Association="Realtime_ChattingModel.FK_FriendRequest_UserInfo1" />
         <EntityTypeShape EntityType="Realtime_ChattingModel.LoginActivity" Width="1.5" PointX="5.375" PointY="4.75" />
+        <EntityTypeShape EntityType="Realtime_ChattingModel.GroupInfo" Width="1.5" PointX="5" PointY="8" />
+        <EntityTypeShape EntityType="Realtime_ChattingModel.GroupMsg" Width="1.5" PointX="7.25" PointY="8.25" />
+        <EntityTypeShape EntityType="Realtime_ChattingModel.GroupMember" Width="1.5" PointX="7.375" PointY="0.75" />
+        <AssociationConnector Association="Realtime_ChattingModel.FK_GroupInfo_UserInfo" />
+        <AssociationConnector Association="Realtime_ChattingModel.FK_GroupMsg_UserInfo" />
+        <AssociationConnector Association="Realtime_ChattingModel.FK_GroupMembers_GroupInfo" />
+        <AssociationConnector Association="Realtime_ChattingModel.FK_GroupMembers_UserInfo" />
+        <AssociationConnector Association="Realtime_ChattingModel.FK_GroupMsg_UserInfo1" />
       </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>
