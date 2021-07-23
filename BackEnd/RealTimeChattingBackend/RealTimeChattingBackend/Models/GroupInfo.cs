@@ -6,7 +6,8 @@
 //     Manual changes to this file will be overwritten if the code is regenerated.
 // </auto-generated>
 //------------------------------------------------------------------------------
-
+using Newtonsoft.Json;
+using System.Xml.Serialization;
 namespace RealTimeChattingBackend.Models
 {
     using System;
@@ -32,6 +33,8 @@ namespace RealTimeChattingBackend.Models
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<GroupMsg> GroupMsgs { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+
+        [JsonIgnore, XmlIgnore]
         public virtual ICollection<GroupMember> GroupMembers { get; set; }
     }
 }

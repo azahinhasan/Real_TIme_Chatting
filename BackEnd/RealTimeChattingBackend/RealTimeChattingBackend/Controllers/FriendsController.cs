@@ -186,18 +186,40 @@ namespace RealTimeChattingBackend.Controllers
         [Route("api/groups/list/{userID}"), HttpGet]
         public IHttpActionResult GroupNameOfUser([FromUri] int userID)
         {
-            var groups = context.GroupInfoes.Where(x => x.UserInfo.ID == 1).ToList();
-            return Ok(groups);
-
-        }
-/*
-        [Route("api/groups/memberValidation/{userID}/{groupID}"), HttpGet]
-        public IHttpActionResult GroupNameOfUser([FromUri] int userID)
-        {
             var groups = context.GroupMembers.Where(x => x.UserID == userID).ToList();
             return Ok(groups);
 
-        }*/
+        }
+
+
+        [Route("api/groups/sentmessage/{GroupID}/{SenderID}"), HttpPost]
+        public IHttpActionResult MessagesSent([FromUri] int SenderID, [FromUri] int GroupID, [FromBody] GroupMsg data)
+        {
+
+
+            DateTime time = DateTime.Today;
+
+            GroupMsg newMsg = new GroupMsg();
+            
+            newMsg.Msg = data.Msg;
+            newMsg.SenderID = SenderID;
+            newMsg.GroupID = GroupID;
+            //newMsg.Time = time.ToString();
+            context.GroupMsgs.Add(newMsg);
+            context.SaveChanges();
+
+
+            var groups = context.GroupMembers.Where(x => x.UserID == SenderID).ToList();
+            return Ok(groups);
+        }
+        /*
+                [Route("api/groups/memberValidation/{userID}/{groupID}"), HttpGet]
+                public IHttpActionResult GroupNameOfUser([FromUri] int userID)
+                {
+                    var groups = context.GroupMembers.Where(x => x.UserID == userID).ToList();
+                    return Ok(groups);
+
+                }*/
 
     }    
 }

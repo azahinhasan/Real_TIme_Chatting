@@ -18,7 +18,8 @@ export {
    filterMessage,
    sentMessage,
    filterMessageGroupData,
-   groupList
+   groupList,
+   sendGroupMsg
    } from './chatting';
 
    export {

@@ -20,7 +20,8 @@ namespace RealTimeChattingBackend.Models
         public Nullable<int> GroupID { get; set; }
         public string JoinTime { get; set; }
         public string Rank { get; set; }
-        [JsonIgnore, XmlIgnore]
+
+        //[JsonIgnore, XmlIgnore]
         public virtual GroupInfo GroupInfo { get; set; }
         public virtual UserInfo UserInfo { get; set; }
     }

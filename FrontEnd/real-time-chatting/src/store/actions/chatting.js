@@ -86,7 +86,22 @@ export const groupList = (UserID) => {
       axios.get('/groups/list/'+UserID)
          .then(r=>{
 
-            console.log(r.data)
+            //console.log(r.data)
+            dispatch(groupListData(r.data));
+
+            
+         })
+   
+      }
+};
+
+
+export const sendGroupMsg = (SenderID,GroupID,Msg) => { 
+   return (dispatch)=>{
+      axios.post('/groups/sentmessage/'+GroupID+'/'+SenderID, { Msg })
+         .then(r=>{
+
+            //console.log(r.data)
             dispatch(groupListData(r.data));
 
             

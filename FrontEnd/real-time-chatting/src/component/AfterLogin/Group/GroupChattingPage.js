@@ -23,35 +23,26 @@ const GroupChattingPage=(props)=> {
    //  }
 
    useEffect(() => {
-      props.friendsNameList(localStorage.getItem('UserID'),'chatting');
-      props.groupList(localStorage.getItem('UserID'));
       //scrollToBottom();
-
+      props.groupList(localStorage.getItem('UserID'));
    }, []);
 
    useEffect(() => {
       if(groupID!==''){
          const interval = setInterval(() => {
-        
-           // props.filterMessage(resiverID,localStorage.getItem('UserID'));
-         
-         }, 500);
+            props.groupList(localStorage.getItem('UserID'));
+         }, 5000);
          return () => clearInterval(interval);
       }
-     
-    }, []);
+   }, []);
 
 
    const checkGroopMemberValidity=(data)=>{
-      setIsGroupMember(false);
-      data.map(d=>{
-         if(d.GroupID==localStorage.getItem('UserID')){
-            setIsGroupMember(true);
-
-            console.log('Group Member' , d.GroupID)
-            return;
-         }
-      })
+      setIsGroupMember(true);
+      if(data == 'not_member'){
+         setIsGroupMember(false);
+      }
+      
    }
 
    const showGroupMasage=(GroupID,GroupMessage,GroupMempers)=>{
@@ -60,9 +51,9 @@ const GroupChattingPage=(props)=> {
       setGroupMsg(GroupMessage);
    }
 
-   const sentMasage=(Senderid)=>{
+   const sentMasage=(GroupID)=>{
       
-      props.sentMessage(Senderid,localStorage.getItem('UserID'),msg);
+      props.sendGroupMsg(localStorage.getItem('UserID'),GroupID,msg);
       setMsg('');
    }
    // console.log(props.friendsList)
@@ -128,7 +119,7 @@ const GroupChattingPage=(props)=> {
                {props.group_list.map(data=>{
                   return(
                      <div key={data.ID}>
-                        <button className={Classes.friendsName} onClick={()=>showGroupMasage(data.ID,data.GroupMsgs,data.GroupMembers)}>{data.GroupName}</button>
+                        <button className={Classes.friendsName} onClick={()=>showGroupMasage(data.ID,data.GroupInfo.GroupMsgs,data.Rank)}>{data.GroupInfo.GroupName}</button>
                      </div>
                   )
                })}
@@ -147,11 +138,7 @@ const GroupChattingPage=(props)=> {
 
 const mapStateToProps=state=>{
    return{
-      friendsList:state.user.friendsList,
-      messages:state.user.messages,
-      theyAreFriend:state.user.theyAreFriend,
 
-      group_data:state.user.group_data,
       group_list:state.user.group_list,
    
    }
@@ -160,13 +147,9 @@ const mapStateToProps=state=>{
 
 const mapDispatchToProps=dispatch=>{
    return{
-      friendsNameList:(UserID,pageType)=>dispatch(action.friendsNameList(UserID,pageType)),
-      filterMessage:(SenderID,ReceiverID)=>dispatch(action.filterMessage(SenderID,ReceiverID)),
-      sentMessage:(SenderID,ReceiverID,Msg)=>dispatch(action.sentMessage(SenderID,ReceiverID,Msg)),
 
-
-      filterMessageGroupData:(GroupID,UserID)=>dispatch(action.filterMessageGroupData(GroupID,UserID)),
       groupList:(UserID)=>dispatch(action.groupList(UserID)),
+      sendGroupMsg:(SenderID,GroupID,Msg)=>dispatch(action.sendGroupMsg(SenderID,GroupID,Msg)),
    }
 }
 export default  connect(mapStateToProps,mapDispatchToProps)(GroupChattingPage); 
