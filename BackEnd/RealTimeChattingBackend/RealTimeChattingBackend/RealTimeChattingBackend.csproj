@@ -183,6 +183,9 @@
     <Compile Include="Models\GroupMsg.cs">
       <DependentUpon>Model1.tt</DependentUpon>
     </Compile>
+    <Compile Include="Models\GroupRequest.cs">
+      <DependentUpon>Model1.tt</DependentUpon>
+    </Compile>
     <Compile Include="Models\LoginActivity.cs">
       <DependentUpon>Model1.tt</DependentUpon>
     </Compile>

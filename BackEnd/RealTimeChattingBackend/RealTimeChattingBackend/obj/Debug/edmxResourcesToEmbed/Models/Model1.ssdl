@@ -50,6 +50,14 @@
     <Property Name="GroupID" Type="int" />
     <Property Name="SenderID" Type="int" />
   </EntityType>
+  <EntityType Name="GroupRequest">
+    <Key>
+      <PropertyRef Name="ID" />
+    </Key>
+    <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="UserID" Type="int" />
+    <Property Name="GroupID" Type="int" />
+  </EntityType>
   <EntityType Name="LoginActivity">
     <Key>
       <PropertyRef Name="ID" />
@@ -179,6 +187,7 @@
     <EntitySet Name="GroupInfo" EntityType="Self.GroupInfo" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="GroupMembers" EntityType="Self.GroupMembers" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="GroupMsg" EntityType="Self.GroupMsg" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="GroupRequest" EntityType="Self.GroupRequest" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="LoginActivity" EntityType="Self.LoginActivity" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="Messages" EntityType="Self.Messages" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="TokenTable" EntityType="Self.TokenTable" Schema="dbo" store:Type="Tables" />

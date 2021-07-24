@@ -34,5 +34,6 @@ namespace RealTimeChattingBackend.Models
         public virtual DbSet<GroupInfo> GroupInfoes { get; set; }
         public virtual DbSet<GroupMsg> GroupMsgs { get; set; }
         public virtual DbSet<GroupMember> GroupMembers { get; set; }
+        public virtual DbSet<GroupRequest> GroupRequests { get; set; }
     }
 }

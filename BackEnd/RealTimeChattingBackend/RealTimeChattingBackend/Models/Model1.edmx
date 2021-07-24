@@ -55,6 +55,14 @@
           <Property Name="GroupID" Type="int" />
           <Property Name="SenderID" Type="int" />
         </EntityType>
+        <EntityType Name="GroupRequest">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="UserID" Type="int" />
+          <Property Name="GroupID" Type="int" />
+        </EntityType>
         <EntityType Name="LoginActivity">
           <Key>
             <PropertyRef Name="ID" />
@@ -184,6 +192,7 @@
           <EntitySet Name="GroupInfo" EntityType="Self.GroupInfo" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="GroupMembers" EntityType="Self.GroupMembers" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="GroupMsg" EntityType="Self.GroupMsg" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="GroupRequest" EntityType="Self.GroupRequest" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="LoginActivity" EntityType="Self.LoginActivity" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Messages" EntityType="Self.Messages" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="TokenTable" EntityType="Self.TokenTable" Schema="dbo" store:Type="Tables" />
@@ -283,6 +292,7 @@
             <End Role="UserInfo" EntitySet="UserInfoes" />
             <End Role="GroupMsg" EntitySet="GroupMsgs" />
           </AssociationSet>
+          <EntitySet Name="GroupRequests" EntityType="Realtime_ChattingModel.GroupRequest" />
         </EntityContainer>
         <EntityType Name="FriendsTable">
           <Key>
@@ -447,6 +457,14 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <EntityType Name="GroupRequest">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="UserID" Type="Int32" />
+          <Property Name="GroupID" Type="Int32" />
+        </EntityType>
       </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
@@ -545,6 +563,15 @@
                 <ScalarProperty Name="GroupName" ColumnName="GroupName" />
                 <ScalarProperty Name="Rank" ColumnName="Rank" />
                 <ScalarProperty Name="JoinTime" ColumnName="JoinTime" />
+                <ScalarProperty Name="GroupID" ColumnName="GroupID" />
+                <ScalarProperty Name="UserID" ColumnName="UserID" />
+                <ScalarProperty Name="ID" ColumnName="ID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="GroupRequests">
+            <EntityTypeMapping TypeName="Realtime_ChattingModel.GroupRequest">
+              <MappingFragment StoreEntitySet="GroupRequest">
                 <ScalarProperty Name="GroupID" ColumnName="GroupID" />
                 <ScalarProperty Name="UserID" ColumnName="UserID" />
                 <ScalarProperty Name="ID" ColumnName="ID" />

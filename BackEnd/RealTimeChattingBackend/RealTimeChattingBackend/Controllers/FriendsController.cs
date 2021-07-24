@@ -235,5 +235,78 @@ namespace RealTimeChattingBackend.Controllers
 
         }
 
+        [Route("api/groups/list/{userID}/{groupID}"), HttpGet]
+        public IHttpActionResult JoinGroup([FromUri] int userID, [FromUri] int groupID)
+        {
+
+            var checkGroup = context.GroupInfoes.Where(x => x.ID == groupID).FirstOrDefault();
+
+            if(checkGroup== null)
+            {
+                return Ok("Group Key is Not Valid!");
+            }
+
+
+            var checkMember = context.GroupMembers.Where(x => x.UserID == userID && x.GroupID == groupID).FirstOrDefault();
+
+            if (checkMember!=null)
+            {
+                if(checkMember.Rank== "Member")
+                {
+                    return Ok("You are already a Member!");
+                }
+                else
+                {
+                    return Ok(SendJoinGroupRequest(groupID, userID, checkMember));
+                }
+            }
+            else
+            {
+                return Ok(SendJoinGroupRequest(groupID, userID, null));
+            }
+
+           // return Ok("Request Send!");
+
+        }
+
+        protected string SendJoinGroupRequest(int groupId, int userId, GroupMember checkMember)
+        {
+
+            var groupTypeCheck = context.GroupInfoes.Where(x => x.ID == groupId).FirstOrDefault();
+
+            if (groupTypeCheck.GroupType == "open")
+            {
+                if (checkMember!=null)
+                {
+                    checkMember.Rank = "Member";
+                    context.Entry(checkMember).State = System.Data.Entity.EntityState.Modified;
+                }
+                else
+                {
+                    GroupMember gm = new GroupMember();
+                    gm.GroupID = groupId;
+                    gm.UserID = userId;
+                    gm.Rank = "Member";
+                    context.GroupMembers.Add(checkMember);
+                }
+
+                context.SaveChanges();
+
+                return "Added To That Group!";
+            }
+            else
+            {
+                GroupRequest gr = new GroupRequest();
+
+                gr.UserID = userId;
+                gr.GroupID = groupId;
+                context.GroupRequests.Add(gr);
+                context.SaveChanges();
+            }
+            return "Request Send!";
+        }
+
+
+
     }    
 }
