@@ -189,3 +189,13 @@ namespace RealTimeChattingBackend.Controllers
 
     }
 }
+
+
+/*
+ * using Newtonsoft.Json;
+using System.Xml.Serialization;
+
+  [JsonIgnore, XmlIgnore]
+
+ 
+ */

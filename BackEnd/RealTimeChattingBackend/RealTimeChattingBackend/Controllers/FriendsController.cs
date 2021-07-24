@@ -175,10 +175,13 @@ namespace RealTimeChattingBackend.Controllers
         }
 
 
-        [Route("api/groups/messages/{groupID}"), HttpGet]
-        public IHttpActionResult GroupMessages([FromUri] int groupID)
+
+
+
+        [Route("api/groups/info/{groupID}"), HttpGet]
+        public IHttpActionResult GroupInfo([FromUri] int groupID)
         {
-            var messages = context.GroupInfoes.Where(x => x.ID == groupID).ToList();
+            var messages = context.GroupInfoes.Where(x => x.ID == groupID).FirstOrDefault();
             return Ok(messages);
 
         }
@@ -192,7 +195,7 @@ namespace RealTimeChattingBackend.Controllers
         }
 
 
-        [Route("api/groups/sentmessage/{GroupID}/{SenderID}"), HttpPost]
+        [Route("api/groups/sendmessage/{GroupID}/{SenderID}"), HttpPost]
         public IHttpActionResult MessagesSent([FromUri] int SenderID, [FromUri] int GroupID, [FromBody] GroupMsg data)
         {
 
@@ -209,17 +212,28 @@ namespace RealTimeChattingBackend.Controllers
             context.SaveChanges();
 
 
-            var groups = context.GroupMembers.Where(x => x.UserID == SenderID).ToList();
-            return Ok(groups);
+            var groupInfo = context.GroupInfoes.Where(x => x.ID == GroupID).FirstOrDefault();
+            return Ok(groupInfo);
         }
-        /*
-                [Route("api/groups/memberValidation/{userID}/{groupID}"), HttpGet]
-                public IHttpActionResult GroupNameOfUser([FromUri] int userID)
-                {
-                    var groups = context.GroupMembers.Where(x => x.UserID == userID).ToList();
-                    return Ok(groups);
 
-                }*/
+        [Route("api/groups/memberValidation/{userID}/{groupID}"), HttpGet]
+        public IHttpActionResult GroupMemberVerify([FromUri]int userID, [FromUri]int groupID)
+        {
+            var groups = context.GroupMembers.Where(x => x.UserID == userID && x.GroupID==groupID).FirstOrDefault();
+
+            if (groups != null)
+            {
+                if (groups.Rank != "not_member")
+                {
+                    return Ok("Member");
+                }
+                return Ok("notMember");
+            }
+
+            return Ok("notMember");
+
+
+        }
 
     }    
 }

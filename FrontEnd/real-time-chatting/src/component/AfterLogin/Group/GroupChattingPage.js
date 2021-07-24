@@ -4,7 +4,7 @@ import ScrollToBottom, { useScrollToBottom, useSticky } from 'react-scroll-to-bo
 import Classes from '../AfterLogin.css';
 import * as action from '../../../store/actions/index';
 import {useHistory} from 'react-router-dom';
-
+import GroupJoin from './GroupJoin';
 import { connect } from 'react-redux';
 import NavBar from '../navBar';
 
@@ -14,10 +14,11 @@ const GroupChattingPage=(props)=> {
    const history = useHistory();
    const [msg,setMsg]=useState('');
    const [groupID,setGroupID]=useState('');
-   const [resiverName,setresiverName]=useState('');
+   const [userID,setUserID]=useState(localStorage.getItem('UserID'));
    const messagesEndRef = useRef(null);
-   const [groupMsg,setGroupMsg]=useState([]);
    const [isGroupMember,setIsGroupMember]=useState(false);
+
+   const [showJoinGroupPage,setShowJoinGroupPage]=useState(false);
    // const scrollToBottom = () => {
    //    messagesEndRef.current?.scrollIntoView({ behavior: "smooth" })
    //  }
@@ -30,8 +31,8 @@ const GroupChattingPage=(props)=> {
    useEffect(() => {
       if(groupID!==''){
          const interval = setInterval(() => {
-            props.groupList(localStorage.getItem('UserID'));
-         }, 5000);
+            props.groupData(localStorage.getItem(groupID,userID));
+         }, 50000);
          return () => clearInterval(interval);
       }
    }, []);
@@ -45,10 +46,10 @@ const GroupChattingPage=(props)=> {
       
    }
 
-   const showGroupMasage=(GroupID,GroupMessage,GroupMempers)=>{
+   const showGroupInfo=(GroupID)=>{
+      setShowJoinGroupPage(false);
       setGroupID(GroupID);
-      checkGroopMemberValidity(GroupMempers);
-      setGroupMsg(GroupMessage);
+
    }
 
    const sentMasage=(GroupID)=>{
@@ -61,31 +62,33 @@ const GroupChattingPage=(props)=> {
 
    let chattingPart = '';
 
-   if(groupID!==''){
+   if(groupID!=='' && !showJoinGroupPage){
       chattingPart=(
          <div>
-            <div className={Classes.chattingHeader}>{resiverName}</div>
+            <div className={Classes.chattingHeader}>{props.group_data.GroupName}</div>
                <ScrollToBottom  className={Classes.allMessages}>
-                  {groupMsg.map(data=>{
+                  {props.group_msg.map(d=>{
                      return(
+                        
                         <div>
                            <br/><br/>
-                           <span className={data.SenderID==localStorage.getItem('UserID')? Classes.messageSender:Classes.messageReciver}>
+                           <span className={d.SenderID==localStorage.getItem('UserID')? Classes.messageSender:Classes.messageReciver}>
                               
-                              {data.Msg}
-                              <div style={{fontSize:'10px'}}>-Sent From {data.UserInfo.Name}</div>
+                              {d.Msg}
+                              <div style={{fontSize:'10px'}}>-Sent From {d.UserInfo.Name}</div>
                            </span>
 
                            <br/><br/>
                         </div>
-                     )
-                  })}
+                           
+               
+                     )})}
                
                </ScrollToBottom>
 
                
                <div className={Classes.msgTypingPart}>
-               {isGroupMember?  
+               {props.group_member_validitation?  
                   <div>
                      <textarea 
                         placeholder="Type Your Message!" 
@@ -102,6 +105,9 @@ const GroupChattingPage=(props)=> {
          </div>
       )
    }
+   else if(showJoinGroupPage){
+      chattingPart=<GroupJoin/>
+   }
    else{
       chattingPart=<h4>Nothing Choosed!</h4>
    }
@@ -114,12 +120,15 @@ const GroupChattingPage=(props)=> {
             <h2>Group  Chatting Page</h2>
          </div>
          <div className={Classes.friendsNamePart}>
-               <h3>Friends List</h3>
+               <h3>Group List</h3>
                <hr/>
+                  <button className={Classes.friendsName} onClick={()=>setShowJoinGroupPage(true)} style={{fontSize:'20px',fontWeight:'bold'}}>+</button>
+               <hr/>
+               <br/>
                {props.group_list.map(data=>{
                   return(
                      <div key={data.ID}>
-                        <button className={Classes.friendsName} onClick={()=>showGroupMasage(data.ID,data.GroupInfo.GroupMsgs,data.Rank)}>{data.GroupInfo.GroupName}</button>
+                        <button className={Classes.friendsName} onClick={()=>{props.groupData(data.GroupID,userID);showGroupInfo(data.GroupID)}}>{data.GroupName}</button>
                      </div>
                   )
                })}
@@ -138,9 +147,10 @@ const GroupChattingPage=(props)=> {
 
 const mapStateToProps=state=>{
    return{
-
+      group_msg:state.user.group_msg,
       group_list:state.user.group_list,
-   
+      group_data:state.user.group_data,
+      group_member_validitation:state.user.group_member_validitation
    }
 
 }
@@ -149,6 +159,7 @@ const mapDispatchToProps=dispatch=>{
    return{
 
       groupList:(UserID)=>dispatch(action.groupList(UserID)),
+      groupData:(GroupID,userID)=>dispatch(action.groupData(GroupID,userID)),
       sendGroupMsg:(SenderID,GroupID,Msg)=>dispatch(action.sendGroupMsg(SenderID,GroupID,Msg)),
    }
 }

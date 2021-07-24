@@ -16,12 +16,10 @@
         <AssociationConnector Association="Realtime_ChattingModel.FK_FriendRequest_UserInfo1" />
         <EntityTypeShape EntityType="Realtime_ChattingModel.LoginActivity" Width="1.5" PointX="5.375" PointY="4.75" />
         <EntityTypeShape EntityType="Realtime_ChattingModel.GroupInfo" Width="1.5" PointX="5" PointY="8" />
-        <EntityTypeShape EntityType="Realtime_ChattingModel.GroupMsg" Width="1.5" PointX="7.25" PointY="8.25" />
-        <EntityTypeShape EntityType="Realtime_ChattingModel.GroupMember" Width="1.5" PointX="7.375" PointY="0.75" />
+        <EntityTypeShape EntityType="Realtime_ChattingModel.GroupMsg" Width="1.5" PointX="9.75" PointY="7.875" />
+        <EntityTypeShape EntityType="Realtime_ChattingModel.GroupMember" Width="1.5" PointX="10.875" PointY="2.375" />
         <AssociationConnector Association="Realtime_ChattingModel.FK_GroupInfo_UserInfo" />
         <AssociationConnector Association="Realtime_ChattingModel.FK_GroupMsg_UserInfo" />
-        <AssociationConnector Association="Realtime_ChattingModel.FK_GroupMembers_GroupInfo" />
-        <AssociationConnector Association="Realtime_ChattingModel.FK_GroupMembers_UserInfo" />
         <AssociationConnector Association="Realtime_ChattingModel.FK_GroupMsg_UserInfo1" />
       </Diagram>
     </edmx:Diagrams>

@@ -42,8 +42,9 @@
           <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="UserID" Type="int" />
           <Property Name="GroupID" Type="int" />
-          <Property Name="JoinTime" Type="varchar" MaxLength="50" />
+          <Property Name="GroupName" Type="varchar" MaxLength="50" />
           <Property Name="Rank" Type="varchar" MaxLength="50" />
+          <Property Name="JoinTime" Type="varchar" MaxLength="50" />
         </EntityType>
         <EntityType Name="GroupMsg">
           <Key>
@@ -153,30 +154,6 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK_GroupMembers_GroupInfo">
-          <End Role="GroupInfo" Type="Self.GroupInfo" Multiplicity="0..1" />
-          <End Role="GroupMembers" Type="Self.GroupMembers" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="GroupInfo">
-              <PropertyRef Name="ID" />
-            </Principal>
-            <Dependent Role="GroupMembers">
-              <PropertyRef Name="GroupID" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="FK_GroupMembers_UserInfo">
-          <End Role="UserInfo" Type="Self.UserInfo" Multiplicity="0..1" />
-          <End Role="GroupMembers" Type="Self.GroupMembers" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="UserInfo">
-              <PropertyRef Name="ID" />
-            </Principal>
-            <Dependent Role="GroupMembers">
-              <PropertyRef Name="UserID" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
         <Association Name="FK_GroupMsg_UserInfo">
           <End Role="GroupInfo" Type="Self.GroupInfo" Multiplicity="0..1" />
           <End Role="GroupMsg" Type="Self.GroupMsg" Multiplicity="*" />
@@ -231,14 +208,6 @@
             <End Role="UserInfo" EntitySet="UserInfo" />
             <End Role="GroupInfo" EntitySet="GroupInfo" />
           </AssociationSet>
-          <AssociationSet Name="FK_GroupMembers_GroupInfo" Association="Self.FK_GroupMembers_GroupInfo">
-            <End Role="GroupInfo" EntitySet="GroupInfo" />
-            <End Role="GroupMembers" EntitySet="GroupMembers" />
-          </AssociationSet>
-          <AssociationSet Name="FK_GroupMembers_UserInfo" Association="Self.FK_GroupMembers_UserInfo">
-            <End Role="UserInfo" EntitySet="UserInfo" />
-            <End Role="GroupMembers" EntitySet="GroupMembers" />
-          </AssociationSet>
           <AssociationSet Name="FK_GroupMsg_UserInfo" Association="Self.FK_GroupMsg_UserInfo">
             <End Role="GroupInfo" EntitySet="GroupInfo" />
             <End Role="GroupMsg" EntitySet="GroupMsg" />
@@ -274,7 +243,6 @@
           <NavigationProperty Name="FriendRequests" Relationship="Realtime_ChattingModel.FK_FriendRequest_UserInfo" FromRole="UserInfo" ToRole="FriendRequest" />
           <NavigationProperty Name="FriendRequests1" Relationship="Realtime_ChattingModel.FK_FriendRequest_UserInfo1" FromRole="UserInfo" ToRole="FriendRequest" />
           <NavigationProperty Name="GroupInfoes" Relationship="Realtime_ChattingModel.FK_GroupInfo_UserInfo" FromRole="UserInfo" ToRole="GroupInfo" />
-          <NavigationProperty Name="GroupMembers" Relationship="Realtime_ChattingModel.FK_GroupMembers_UserInfo" FromRole="UserInfo" ToRole="GroupMember" />
           <NavigationProperty Name="GroupMsgs" Relationship="Realtime_ChattingModel.FK_GroupMsg_UserInfo1" FromRole="UserInfo" ToRole="GroupMsg" />
         </EntityType>
         <EntityContainer Name="Realtime_ChattingEntities" annotation:LazyLoadingEnabled="true">
@@ -310,14 +278,6 @@
           <AssociationSet Name="FK_GroupMsg_UserInfo" Association="Realtime_ChattingModel.FK_GroupMsg_UserInfo">
             <End Role="GroupInfo" EntitySet="GroupInfoes" />
             <End Role="GroupMsg" EntitySet="GroupMsgs" />
-          </AssociationSet>
-          <AssociationSet Name="FK_GroupMembers_GroupInfo" Association="Realtime_ChattingModel.FK_GroupMembers_GroupInfo">
-            <End Role="GroupInfo" EntitySet="GroupInfoes" />
-            <End Role="GroupMember" EntitySet="GroupMembers" />
-          </AssociationSet>
-          <AssociationSet Name="FK_GroupMembers_UserInfo" Association="Realtime_ChattingModel.FK_GroupMembers_UserInfo">
-            <End Role="UserInfo" EntitySet="UserInfoes" />
-            <End Role="GroupMember" EntitySet="GroupMembers" />
           </AssociationSet>
           <AssociationSet Name="FK_GroupMsg_UserInfo1" Association="Realtime_ChattingModel.FK_GroupMsg_UserInfo1">
             <End Role="UserInfo" EntitySet="UserInfoes" />
@@ -428,7 +388,6 @@
           <Property Name="GroupType" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
           <NavigationProperty Name="UserInfo" Relationship="Realtime_ChattingModel.FK_GroupInfo_UserInfo" FromRole="GroupInfo" ToRole="UserInfo" />
           <NavigationProperty Name="GroupMsgs" Relationship="Realtime_ChattingModel.FK_GroupMsg_UserInfo" FromRole="GroupInfo" ToRole="GroupMsg" />
-          <NavigationProperty Name="GroupMembers" Relationship="Realtime_ChattingModel.FK_GroupMembers_GroupInfo" FromRole="GroupInfo" ToRole="GroupMember" />
         </EntityType>
         <EntityType Name="GroupMsg">
           <Key>
@@ -450,9 +409,8 @@
           <Property Name="GroupID" Type="Int32" />
           <Property Name="JoinTime" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
           <Property Name="Rank" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
-          <NavigationProperty Name="GroupInfo" Relationship="Realtime_ChattingModel.FK_GroupMembers_GroupInfo" FromRole="GroupMember" ToRole="GroupInfo" />
-          <NavigationProperty Name="UserInfo" Relationship="Realtime_ChattingModel.FK_GroupMembers_UserInfo" FromRole="GroupMember" ToRole="UserInfo" />
-        </EntityType>
+          <Property Name="GroupName" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          </EntityType>
         <Association Name="FK_GroupInfo_UserInfo">
           <End Type="Realtime_ChattingModel.UserInfo" Role="UserInfo" Multiplicity="0..1" />
           <End Type="Realtime_ChattingModel.GroupInfo" Role="GroupInfo" Multiplicity="*" />
@@ -474,30 +432,6 @@
             </Principal>
             <Dependent Role="GroupMsg">
               <PropertyRef Name="GroupID" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="FK_GroupMembers_GroupInfo">
-          <End Type="Realtime_ChattingModel.GroupInfo" Role="GroupInfo" Multiplicity="0..1" />
-          <End Type="Realtime_ChattingModel.GroupMember" Role="GroupMember" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="GroupInfo">
-              <PropertyRef Name="ID" />
-            </Principal>
-            <Dependent Role="GroupMember">
-              <PropertyRef Name="GroupID" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="FK_GroupMembers_UserInfo">
-          <End Type="Realtime_ChattingModel.UserInfo" Role="UserInfo" Multiplicity="0..1" />
-          <End Type="Realtime_ChattingModel.GroupMember" Role="GroupMember" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="UserInfo">
-              <PropertyRef Name="ID" />
-            </Principal>
-            <Dependent Role="GroupMember">
-              <PropertyRef Name="UserID" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
@@ -608,6 +542,7 @@
           <EntitySetMapping Name="GroupMembers">
             <EntityTypeMapping TypeName="Realtime_ChattingModel.GroupMember">
               <MappingFragment StoreEntitySet="GroupMembers">
+                <ScalarProperty Name="GroupName" ColumnName="GroupName" />
                 <ScalarProperty Name="Rank" ColumnName="Rank" />
                 <ScalarProperty Name="JoinTime" ColumnName="JoinTime" />
                 <ScalarProperty Name="GroupID" ColumnName="GroupID" />

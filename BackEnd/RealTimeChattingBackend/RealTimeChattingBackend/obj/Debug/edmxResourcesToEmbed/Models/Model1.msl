@@ -90,6 +90,7 @@
     <EntitySetMapping Name="GroupMembers">
       <EntityTypeMapping TypeName="Realtime_ChattingModel.GroupMember">
         <MappingFragment StoreEntitySet="GroupMembers">
+          <ScalarProperty Name="GroupName" ColumnName="GroupName" />
           <ScalarProperty Name="Rank" ColumnName="Rank" />
           <ScalarProperty Name="JoinTime" ColumnName="JoinTime" />
           <ScalarProperty Name="GroupID" ColumnName="GroupID" />

@@ -6,8 +6,7 @@
 //     Manual changes to this file will be overwritten if the code is regenerated.
 // </auto-generated>
 //------------------------------------------------------------------------------
-using Newtonsoft.Json;
-using System.Xml.Serialization;
+
 namespace RealTimeChattingBackend.Models
 {
     using System;
@@ -20,9 +19,6 @@ namespace RealTimeChattingBackend.Models
         public Nullable<int> GroupID { get; set; }
         public string JoinTime { get; set; }
         public string Rank { get; set; }
-
-        //[JsonIgnore, XmlIgnore]
-        public virtual GroupInfo GroupInfo { get; set; }
-        public virtual UserInfo UserInfo { get; set; }
+        public string GroupName { get; set; }
     }
 }

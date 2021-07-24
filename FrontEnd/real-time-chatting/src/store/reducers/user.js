@@ -8,7 +8,9 @@ const initialState={
    friendRequesActiontMsg:'',
    friendRequestList:[],
    group_data:[],
-   group_list:[]
+   group_list:[],
+   group_member_validitation:false,
+   group_msg:[]
 }
 
 const reducer = ( state = initialState, action ) => {
@@ -49,13 +51,19 @@ const reducer = ( state = initialState, action ) => {
       case actionTypes.GROUP_DATA: 
          return {
             ...state,
-            group_data:action.group_data
+            group_data:action.group_data,
+            group_msg:action.group_msg
          };
 
       case actionTypes.GROUP_LIST: 
          return {
             ...state,
             group_list:action.group_list
+         };
+      case actionTypes.GROUP_MEMBER_VALIDATION: 
+         return {
+            ...state,
+            group_member_validitation:action.group_member_validitation
          };
 
       default:

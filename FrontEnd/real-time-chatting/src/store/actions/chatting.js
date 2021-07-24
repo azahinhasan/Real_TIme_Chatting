@@ -11,10 +11,11 @@ export const saveMessage = (message) => {
    };
 };
 
-export const saveGroupData = (data) => {
+export const saveGroupData = (data,msg) => {
    return {
       type: actionTypes.GROUP_DATA,
-      group_data:data
+      group_data:data,
+      group_msg:msg
    };
 };
 
@@ -28,8 +29,8 @@ export const groupListData = (data) => {
 
 export const groupMemberValidition = (data) => {
    return {
-      type: actionTypes.GROUP_DATA,
-      group_data:data
+      type: actionTypes.GROUP_MEMBER_VALIDATION,
+      group_member_validitation:data
    };
 };
 
@@ -68,14 +69,14 @@ export const sentMessage = (ReceiverID,SenderID,Msg) => {
 
 export const filterMessageGroupData = (GroupID,UserID) => {  //group message and group Info
    return (dispatch)=>{
-      axios.get('/groups/messages/'+GroupID)
-         .then(r=>{
+      // axios.get('/groups/messages/'+GroupID)
+      //    .then(r=>{
 
-            dispatch(saveGroupData(r.data));
+      //       dispatch(saveGroupData(r.data));
 
-            //dispatch(groupMemberValidation(GroupID,UserID));
+      //       //dispatch(groupMemberValidation(GroupID,UserID));
             
-         })
+      //    })
    
       }
 };
@@ -96,15 +97,50 @@ export const groupList = (UserID) => {
 };
 
 
-export const sendGroupMsg = (SenderID,GroupID,Msg) => { 
+export const groupData = (GroupID,UserID) => { 
    return (dispatch)=>{
-      axios.post('/groups/sentmessage/'+GroupID+'/'+SenderID, { Msg })
+      axios.get('/groups/info/'+GroupID)
          .then(r=>{
 
-            //console.log(r.data)
-            dispatch(groupListData(r.data));
-
+           // console.log(r.data,' groupData');
             
+            dispatch(saveGroupData(r.data,r.data.GroupMsgs));
+
+            dispatch(groupMemberVerify(GroupID,UserID));
+            
+         })
+   
+      }
+};
+
+
+export const groupMemberVerify = (GroupID,UserID) => { 
+   return (dispatch)=>{
+      axios.get('/groups/memberValidation/'+UserID+'/'+GroupID)
+         .then(r=>{
+
+           // console.log(r.data,' groupData');
+
+            if(r.data=='Member'){
+               dispatch(groupMemberValidition(true));
+            }else{
+               dispatch(groupMemberValidition(false));
+            }
+
+         })
+   
+      }
+};
+
+
+export const sendGroupMsg = (SenderID,GroupID,Msg) => { 
+   return (dispatch)=>{
+      axios.post('/groups/sendmessage/'+GroupID+'/'+SenderID,{Msg})
+         .then(r=>{
+            
+            console.log(r.data);
+            dispatch(saveGroupData(r.data,r.data.GroupMsgs));
+
          })
    
       }
