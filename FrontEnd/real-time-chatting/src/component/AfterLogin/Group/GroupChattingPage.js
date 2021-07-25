@@ -8,6 +8,8 @@ import GroupJoin from './GroupJoin';
 import { connect } from 'react-redux';
 import NavBar from '../navBar';
 
+import GroupOtherOptions from './GroupOtherOptions';
+
 const GroupChattingPage=(props)=> {
    const scrollToBottom = useScrollToBottom();
   const [sticky] = useSticky();
@@ -17,6 +19,7 @@ const GroupChattingPage=(props)=> {
    const [userID,setUserID]=useState(localStorage.getItem('UserID'));
    const messagesEndRef = useRef(null);
    const [isGroupMember,setIsGroupMember]=useState(false);
+   const [hideChattingPart, setHideChattingPart]=useState(false);
 
    const [showJoinGroupPage,setShowJoinGroupPage]=useState(false);
    // const scrollToBottom = () => {
@@ -64,8 +67,16 @@ const GroupChattingPage=(props)=> {
 
    if(groupID!=='' && !showJoinGroupPage){
       chattingPart=(
+        
          <div>
-            <div className={Classes.chattingHeader}>{props.group_data.GroupName}</div>
+            <div className={Classes.chattingHeader}>
+                  {props.group_data.GroupName}
+                  <button onClick={()=>setHideChattingPart(!hideChattingPart)}>=</button>
+                
+            </div>
+
+            {!hideChattingPart?
+               <div>
                <ScrollToBottom  className={Classes.allMessages}>
                   {props.group_msg.map(d=>{
                      return(
@@ -101,8 +112,15 @@ const GroupChattingPage=(props)=> {
                <h4 style={{textAlign:'center'}}>Can not send any Message</h4>
                }
                </div>
+            </div>
+
+            :<GroupOtherOptions groupKey={groupID} adminID={props.group_data.CreatorID}/>
+            
+            }
             
          </div>
+
+ 
       )
    }
    else if(showJoinGroupPage){

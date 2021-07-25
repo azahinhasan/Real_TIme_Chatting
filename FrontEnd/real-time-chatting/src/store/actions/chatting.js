@@ -119,9 +119,9 @@ export const groupMemberVerify = (GroupID,UserID) => {
       axios.get('/groups/memberValidation/'+UserID+'/'+GroupID)
          .then(r=>{
 
-           // console.log(r.data,' groupData');
+            console.log(r.data,' groupMemberVerify');
 
-            if(r.data=='Member'){
+            if(r.data=='member'){
                dispatch(groupMemberValidition(true));
             }else{
                dispatch(groupMemberValidition(false));

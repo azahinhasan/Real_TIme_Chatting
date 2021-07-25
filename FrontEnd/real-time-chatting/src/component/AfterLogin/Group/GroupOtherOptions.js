@@ -7,32 +7,22 @@ import {useHistory} from 'react-router-dom';
 import axios from '../../../hoc/auxx';
 
 import { connect } from 'react-redux';
-import NavBar from '../navBar';
+import GroupJoinRequests from './GroupJoinRequests';
 
-const GroupJoin=(props)=> {
+const GroupOtherOptions=(props)=> {
 
    const [groupKey,setGroupKey]=useState('');
    const [userID,setUserID]=useState(localStorage.getItem('UserID'));
    const [msg, setMsg]=useState('');
 
-   const sendGroupReq=()=>{
-      axios.post('/groups/list/'+userID+'/'+groupKey)
-         .then(r=>{
-            setMsg(r.data);
-         })
-   }
-
    return (
-      <div className={Classes.App}>
-         <h3>Join Group</h3>
-            <br/>
-            <input onChange={e=>setGroupKey(e.target.value)} placeholder="Enter Group Key"/>
-            <br/>
-            <p>{props.friendRequestMsg}</p>
-            <br/>
-            {msg}
-            <br/>
-            <button onClick={()=>sendGroupReq()}>SEND</button>
+      <div className={Classes.FriendsReqPage}>
+         <div className={Classes.homePageData}>
+            <button>Request</button>
+            <button>Members</button>
+         </div>
+      
+         <GroupJoinRequests groupKey={props.groupKey} adminID={props.adminID}/>
       </div>
    
    );
@@ -51,7 +41,7 @@ const mapDispatchToProps=dispatch=>{
 
    }
 }
-export default  connect(mapStateToProps,mapDispatchToProps)(GroupJoin); 
+export default  connect(mapStateToProps,mapDispatchToProps)(GroupOtherOptions); 
 
 
 

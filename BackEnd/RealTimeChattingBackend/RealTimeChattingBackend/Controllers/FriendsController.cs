@@ -223,11 +223,7 @@ namespace RealTimeChattingBackend.Controllers
 
             if (groups != null)
             {
-                if (groups.Rank != "not_member")
-                {
-                    return Ok("Member");
-                }
-                return Ok("notMember");
+                return Ok(groups.Rank);
             }
 
             return Ok("notMember");
@@ -235,7 +231,7 @@ namespace RealTimeChattingBackend.Controllers
 
         }
 
-        [Route("api/groups/list/{userID}/{groupID}"), HttpGet]
+        [Route("api/groups/joingroup/{userID}/{groupID}"), HttpPost]
         public IHttpActionResult JoinGroup([FromUri] int userID, [FromUri] int groupID)
         {
 
@@ -251,7 +247,7 @@ namespace RealTimeChattingBackend.Controllers
 
             if (checkMember!=null)
             {
-                if(checkMember.Rank== "Member")
+                if(checkMember.Rank== "member")
                 {
                     return Ok("You are already a Member!");
                 }
@@ -271,26 +267,31 @@ namespace RealTimeChattingBackend.Controllers
 
         protected string SendJoinGroupRequest(int groupId, int userId, GroupMember checkMember)
         {
+         
+            var groupData = context.GroupInfoes.Where(x => x.ID == groupId).FirstOrDefault();
 
-            var groupTypeCheck = context.GroupInfoes.Where(x => x.ID == groupId).FirstOrDefault();
-
-            if (groupTypeCheck.GroupType == "open")
+            if (groupData.GroupType == "open")
             {
                 if (checkMember!=null)
                 {
-                    checkMember.Rank = "Member";
+                   
+                    checkMember.Rank = "member";
                     context.Entry(checkMember).State = System.Data.Entity.EntityState.Modified;
+                    context.SaveChanges();
                 }
                 else
                 {
+                    //return "cc";
                     GroupMember gm = new GroupMember();
                     gm.GroupID = groupId;
                     gm.UserID = userId;
-                    gm.Rank = "Member";
-                    context.GroupMembers.Add(checkMember);
+                    gm.Rank = "member";
+                    gm.GroupName = groupData.GroupName;
+                    context.GroupMembers.Add(gm);
+                    context.SaveChanges();
                 }
 
-                context.SaveChanges();
+               
 
                 return "Added To That Group!";
             }
@@ -306,7 +307,44 @@ namespace RealTimeChattingBackend.Controllers
             return "Request Send!";
         }
 
+        [Route("api/groups/members/{groupID}"), HttpGet]
+        public IHttpActionResult GroupMamberList([FromUri] int groupID)
+        {
+            return Ok(context.GroupMembers.Where(x => x.GroupID == groupID).ToList());
+        }
 
+
+        [Route("api/groups/joinrequest/{groupID}"), HttpGet]
+        public IHttpActionResult GroupMamberRequest([FromUri] int groupID)
+        {
+            return Ok(context.GroupRequests.Where(x => x.GroupID == groupID).ToList());
+        }
+
+        [Route("api/groups/joinrequest/action/{groupID}/{adminID}/{reqSender}/{actionType}"), HttpPost]
+        public IHttpActionResult GroupMamberRequest([FromUri] int groupID, [FromUri] int adminID, [FromUri] int reqSender, [FromUri] string actionType)
+        {
+            var data = context.GroupRequests.Where(x => x.GroupID == groupID && x.UserID == reqSender).FirstOrDefault();
+            var prevMember = context.GroupMembers.Where(x => x.GroupID == groupID && x.UserID == reqSender).FirstOrDefault();
+            var msg = "";
+
+            if (actionType == "accept")
+            {
+                if (prevMember != null)
+                {
+
+                    msg = SendJoinGroupRequest(groupID, reqSender, prevMember);
+                }
+
+                else
+                {
+                    msg = SendJoinGroupRequest(groupID, reqSender, null);
+                }
+            }
+  
+            context.GroupRequests.Remove(context.GroupRequests.Find(data.ID));
+            context.SaveChanges();
+            return Ok(GroupMamberRequest(groupID));
+        }
 
     }    
 }

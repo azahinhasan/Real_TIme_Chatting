@@ -26,7 +26,6 @@ const FriendsReq=(props)=> {
    }
 
    const friendReqAction=(requstID,action)=>{
-      console.log('acton')
       props.friendReqSentAction(requstID,action);
       
    }
