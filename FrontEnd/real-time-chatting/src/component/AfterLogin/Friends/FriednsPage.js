@@ -38,7 +38,7 @@ const FriendsPage=(props)=> {
             <br/>
             <p>{props.friendRequestMsg}</p>
             <br/>
-            <button onClick={()=>sentReq()}>SEND</button>
+            <button  disabled={friendKey==''?true:false} onClick={()=>sentReq()}>SEND</button>
          </div>
       )
    }

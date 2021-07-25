@@ -2,6 +2,7 @@ import React, {  useState,useEffect, useRef } from 'react';
 import ScrollToBottom, { useScrollToBottom, useSticky } from 'react-scroll-to-bottom';
 //npm i react-scroll-to-bottom
 import Classes from '../AfterLogin.css';
+import GroupClasses from './Group.css';
 import * as action from '../../../store/actions/index';
 import {useHistory} from 'react-router-dom';
 import GroupJoin from './GroupJoin';
@@ -71,7 +72,7 @@ const GroupChattingPage=(props)=> {
          <div>
             <div className={Classes.chattingHeader}>
                   {props.group_data.GroupName}
-                  <button onClick={()=>setHideChattingPart(!hideChattingPart)}>=</button>
+                  <button className={GroupClasses.chat_manue} onClick={()=>setHideChattingPart(!hideChattingPart)}>=</button>
                 
             </div>
 

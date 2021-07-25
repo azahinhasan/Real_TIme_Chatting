@@ -1,0 +1,12 @@
+.chat_manue{
+   border: 2px solid black;
+   height: 90%;
+   font-size: 22px;
+   font-weight: bold;
+   float:right; 
+   clear:right;
+
+   margin-right: 5px;
+   margin-top: -3.5px;
+
+}

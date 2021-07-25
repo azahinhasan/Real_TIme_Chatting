@@ -16,23 +16,23 @@ const GroupJoin=(props)=> {
    const [msg, setMsg]=useState('');
 
    const sendGroupReq=()=>{
-      axios.post('/groups/list/'+userID+'/'+groupKey)
+      axios.post('/groups/joingroup/'+userID+'/'+groupKey)
          .then(r=>{
             setMsg(r.data);
          })
    }
 
    return (
-      <div className={Classes.App}>
+      <div className={Classes.FriendsPage} style={{textAlign:'center'}}>
          <h3>Join Group</h3>
             <br/>
-            <input onChange={e=>setGroupKey(e.target.value)} placeholder="Enter Group Key"/>
+            <input type="number" onChange={e=>setGroupKey(e.target.value)} placeholder="Enter Group Key"/>
             <br/>
             <p>{props.friendRequestMsg}</p>
             <br/>
             {msg}
             <br/>
-            <button onClick={()=>sendGroupReq()}>SEND</button>
+            <button disabled={groupKey==''?true:false} onClick={()=>sendGroupReq()}>SEND</button>
       </div>
    
    );

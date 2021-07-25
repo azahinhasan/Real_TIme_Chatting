@@ -231,10 +231,12 @@ namespace RealTimeChattingBackend.Controllers
 
         }
 
-        [Route("api/groups/joingroup/{userID}/{groupID}"), HttpPost]
-        public IHttpActionResult JoinGroup([FromUri] int userID, [FromUri] int groupID)
+        [Route("api/groups/joingroup/{userID}/{groupIDFromUser}"), HttpPost]
+        public IHttpActionResult JoinGroup([FromUri] int userID, [FromUri]string groupIDFromUser)
         {
+            int groupID=Int32.Parse(groupIDFromUser);
 
+    
             var checkGroup = context.GroupInfoes.Where(x => x.ID == groupID).FirstOrDefault();
 
             if(checkGroup== null)

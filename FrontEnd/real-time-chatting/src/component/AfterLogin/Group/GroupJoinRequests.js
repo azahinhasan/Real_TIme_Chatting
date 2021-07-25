@@ -2,9 +2,11 @@ import React, {  useState,useEffect, useRef } from 'react';
 import ScrollToBottom, { useScrollToBottom, useSticky } from 'react-scroll-to-bottom';
 //npm i react-scroll-to-bottom
 import Classes from '../AfterLogin.css';
+import GroupClasses from './Group.css';
 import * as action from '../../../store/actions/index';
 import {useHistory} from 'react-router-dom';
 import axios from '../../../hoc/auxx';
+
 
 import { connect } from 'react-redux';
 import NavBar from '../navBar';
