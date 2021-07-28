@@ -9,9 +9,10 @@ import axios from '../../../hoc/auxx';
 import { connect } from 'react-redux';
 import NavBar from '../navBar';
 
-const GroupJoin=(props)=> {
+const GroupCreate=(props)=> {
 
    const [groupKey,setGroupKey]=useState('');
+   const [groupType,setGroupType]=useState('close');
    const [userID,setUserID]=useState(localStorage.getItem('UserID'));
    const [msg, setMsg]=useState('');
 
@@ -26,11 +27,17 @@ const GroupJoin=(props)=> {
       <div className={Classes.FriendsPage} style={{textAlign:'center'}}>
          <h3>Join Group</h3>
             <br/>
-            <input type="number" onChange={e=>setGroupKey(e.target.value)} placeholder="Enter Group Key"/>
+            <input type="" onChange={e=>setGroupKey(e.target.value)} placeholder="Group Name"/>
+            <br/>
+            Type:
+            <select onChange={r=>setGroupType(e.target.value)}>
+               <option value="close">CLOSE</option>
+               <option value="open">OPEN</option>
+            </select>
             <br/>
             {msg}
             <br/>
-            <button disabled={groupKey==''?true:false} onClick={()=>sendGroupReq()}>SEND</button>
+            <button disabled={groupKey==''?true:false} onClick={()=>sendGroupReq()}>SAVE</button>
       </div>
    
    );
@@ -49,7 +56,7 @@ const mapDispatchToProps=dispatch=>{
 
    }
 }
-export default  connect(mapStateToProps,mapDispatchToProps)(GroupJoin); 
+export default  connect(mapStateToProps,mapDispatchToProps)(GroupCreate); 
 
 
 
