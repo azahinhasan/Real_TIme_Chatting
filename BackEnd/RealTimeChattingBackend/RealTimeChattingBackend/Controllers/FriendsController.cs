@@ -312,7 +312,7 @@ namespace RealTimeChattingBackend.Controllers
         [Route("api/groups/members/{groupID}"), HttpGet]
         public IHttpActionResult GroupMamberList([FromUri] int groupID)
         {
-            return Ok(context.GroupMembers.Where(x => x.GroupID == groupID).ToList());
+            return Ok(context.GroupMembers.Where(x => x.GroupID == groupID && x.Rank!= "not_member").ToList());
         }
 
 
@@ -346,6 +346,22 @@ namespace RealTimeChattingBackend.Controllers
             context.GroupRequests.Remove(context.GroupRequests.Find(data.ID));
             context.SaveChanges();
             return Ok(GroupMamberRequest(groupID));
+        }
+
+
+        [Route("api/groups/removeMember/{groupID}/{userID}"), HttpPost]
+        public IHttpActionResult RemoveMemberFromGroup([FromUri] int groupID, [FromUri] int userID)
+        {
+
+            var find = context.GroupMembers.Where(x => x.UserID == userID && x.GroupID == groupID).FirstOrDefault();
+
+            find.Rank = "not_member";
+
+            context.Entry(find).State = System.Data.Entity.EntityState.Modified;
+            context.SaveChanges();
+
+
+            return Ok("OK");
         }
 
     }    

@@ -5,7 +5,7 @@ import Classes from '../AfterLogin.css';
 import GroupClasses from './Group.css';
 import * as action from '../../../store/actions/index';
 import {useHistory} from 'react-router-dom';
-import GroupJoin from './GroupJoin';
+import GroupOtherOption from './GroupOther';
 import { connect } from 'react-redux';
 import NavBar from '../navBar';
 
@@ -125,7 +125,7 @@ const GroupChattingPage=(props)=> {
       )
    }
    else if(showJoinGroupPage){
-      chattingPart=<GroupJoin/>
+      chattingPart=<GroupOtherOption/>
    }
    else{
       chattingPart=<h4>Nothing Choosed!</h4>
