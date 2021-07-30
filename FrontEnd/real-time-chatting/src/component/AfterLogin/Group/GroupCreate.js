@@ -16,6 +16,13 @@ const GroupCreate=(props)=> {
    const [userID,setUserID]=useState(localStorage.getItem('UserID'));
    const [msg, setMsg]=useState('');
 
+
+   const resetPage=()=>{
+      setGroupName('');
+      setGroupType('none');
+      setMsg("New Group Created!");
+   }
+
    const createGroup=()=>{
       axios.post('/groups/create/',{
          GroupName:groupName,
@@ -25,18 +32,18 @@ const GroupCreate=(props)=> {
          CurrentMemberNum:1
       })
          .then(r=>{
-            setMsg(r.data);
+            resetPage();
          })
    }
 
    return (
       <div className={Classes.FriendsPage} style={{textAlign:'center'}}>
-         <h3>Join Group</h3>
+         <h3>Create Group</h3>
             <br/>
-            <input type="" onChange={e=>setGroupName(e.target.value)} placeholder="Group Name"/>
+            <input value={groupName} onChange={e=>setGroupName(e.target.value)} placeholder="Group Name"/>
             <br/>
             {/* <span style={{fontWeight:'bold',marginRight:'2px'}}>Type:</span> */}
-            <select style={{textAlign:'center'}} onChange={e=>setGroupType(e.target.value)}>
+            <select value={groupType} style={{textAlign:'center'}} onChange={e=>setGroupType(e.target.value)}>
                <option value="none">TYPE</option>
                <option value="close">CLOSE</option>
                <option value="open">OPEN</option>

@@ -52,6 +52,7 @@ const GroupChattingPage=(props)=> {
 
    const showGroupInfo=(GroupID)=>{
       setShowJoinGroupPage(false);
+      setHideChattingPart(false);
       setGroupID(GroupID);
 
    }
