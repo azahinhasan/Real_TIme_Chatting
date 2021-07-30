@@ -3,7 +3,7 @@
 h1,h2{
    text-decoration: underline;
 }
-input,textarea{
+input,textarea,select{
    outline: none;
 }
 
@@ -157,7 +157,7 @@ hr{
    
 }
 
-.FriendsPage input{
+.FriendsPage input,select{
    border: 2px black solid;
    margin: 5px;
    padding: 5px;

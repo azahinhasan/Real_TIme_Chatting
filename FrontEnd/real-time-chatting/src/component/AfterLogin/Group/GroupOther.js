@@ -8,6 +8,7 @@ import axios from '../../../hoc/auxx';
 
 import { connect } from 'react-redux';
 import Join from './GroupJoin';
+import Create from './GroupCreate';
 import GroupMembers from './GroupMembers';
 
 const GroupOther=(props)=> {
@@ -20,11 +21,11 @@ const GroupOther=(props)=> {
    let showPage="";
 
    if(showPageOf=='join'){
-      showPage= <Join groupKey={props.groupKey} adminID={props.adminID}/>
+      showPage= <Join/>
 
    }
    else if(showPageOf=='create'){
-      showPage= <GroupMembers groupKey={props.groupKey} adminID={props.adminID}/>
+      showPage= <Create/>
    }
 
    return (

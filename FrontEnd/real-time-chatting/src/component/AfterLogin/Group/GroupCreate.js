@@ -11,13 +11,19 @@ import NavBar from '../navBar';
 
 const GroupCreate=(props)=> {
 
-   const [groupKey,setGroupKey]=useState('');
-   const [groupType,setGroupType]=useState('close');
+   const [groupName,setGroupName]=useState('');
+   const [groupType,setGroupType]=useState('none');
    const [userID,setUserID]=useState(localStorage.getItem('UserID'));
    const [msg, setMsg]=useState('');
 
-   const sendGroupReq=()=>{
-      axios.post('/groups/joingroup/'+userID+'/'+groupKey)
+   const createGroup=()=>{
+      axios.post('/groups/create/',{
+         GroupName:groupName,
+         CreatorID:localStorage.getItem('UserID'),
+         GroupType:groupType,
+         Maxmember:50,
+         CurrentMemberNum:1
+      })
          .then(r=>{
             setMsg(r.data);
          })
@@ -27,17 +33,18 @@ const GroupCreate=(props)=> {
       <div className={Classes.FriendsPage} style={{textAlign:'center'}}>
          <h3>Join Group</h3>
             <br/>
-            <input type="" onChange={e=>setGroupKey(e.target.value)} placeholder="Group Name"/>
+            <input type="" onChange={e=>setGroupName(e.target.value)} placeholder="Group Name"/>
             <br/>
-            Type:
-            <select onChange={r=>setGroupType(e.target.value)}>
+            {/* <span style={{fontWeight:'bold',marginRight:'2px'}}>Type:</span> */}
+            <select style={{textAlign:'center'}} onChange={e=>setGroupType(e.target.value)}>
+               <option value="none">TYPE</option>
                <option value="close">CLOSE</option>
                <option value="open">OPEN</option>
             </select>
             <br/>
             {msg}
             <br/>
-            <button disabled={groupKey==''?true:false} onClick={()=>sendGroupReq()}>SAVE</button>
+            <button disabled={groupName=='' || groupType=='none'?true:false} onClick={()=>createGroup()}>SAVE</button>
       </div>
    
    );
