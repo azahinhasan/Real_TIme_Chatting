@@ -30,6 +30,10 @@ const GroupOtherOptions=(props)=> {
    return (
       <div className={Classes.FriendsReqPage}>
          <div className={Classes.homePageData}>
+               <div style={{fontWeight:'bold'}}>
+                  Group Key - {props.groupKey}
+               </div>
+            <hr/>
             <br/>
             <button className={Classes.blackBtn} onClick={()=>setShowPageOf('members')}>Members</button>
             {props.adminID==userID? <button className={Classes.blackBtn} onClick={()=>setShowPageOf('request')}>Request</button>: null}

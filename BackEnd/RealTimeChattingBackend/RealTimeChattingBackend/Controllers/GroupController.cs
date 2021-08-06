@@ -46,8 +46,8 @@ namespace RealTimeChattingBackend.Controllers
             context.SaveChanges();
 
 
-            var groupInfo = context.GroupInfoes.Where(x => x.ID == GroupID).FirstOrDefault();
-            return Ok(groupInfo);
+            //var groupInfo = context.GroupInfoes.Where(x => x.ID == GroupID).FirstOrDefault();
+            return Ok("OK");
         }
 
         [Route("api/groups/memberValidation/{userID}/{groupID}"), HttpGet]

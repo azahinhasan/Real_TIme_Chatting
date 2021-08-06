@@ -36,7 +36,7 @@ const GroupChattingPage=(props)=> {
       if(groupID!==''){
          const interval = setInterval(() => {
             props.groupData(localStorage.getItem(groupID,userID));
-         }, 50000);
+         }, 5000);
          return () => clearInterval(interval);
       }
    }, []);
@@ -61,6 +61,7 @@ const GroupChattingPage=(props)=> {
       
       props.sendGroupMsg(localStorage.getItem('UserID'),GroupID,msg);
       setMsg('');
+      props.groupList(localStorage.getItem('UserID'));
    }
    // console.log(props.friendsList)
 
@@ -84,14 +85,14 @@ const GroupChattingPage=(props)=> {
                      return(
                         
                         <div>
-                           <br/><br/>
+                           <br/>
                            <span className={d.SenderID==localStorage.getItem('UserID')? Classes.messageSender:Classes.messageReciver}>
-                              
+                              {console.log(d, 'dd')}
                               {d.Msg}
                               <div style={{fontSize:'10px'}}>-Sent From {d.UserInfo.Name}</div>
                            </span>
 
-                           <br/><br/>
+                           <br/>
                         </div>
                            
                

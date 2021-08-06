@@ -139,7 +139,8 @@ export const sendGroupMsg = (SenderID,GroupID,Msg) => {
          .then(r=>{
             
             console.log(r.data);
-            dispatch(saveGroupData(r.data,r.data.GroupMsgs));
+            //dispatch(saveGroupData(r.data,r.data.GroupMsgs));
+            dispatch(groupData(GroupID,SenderID));
 
          })
    

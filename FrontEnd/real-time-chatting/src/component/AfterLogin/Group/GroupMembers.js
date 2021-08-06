@@ -71,7 +71,7 @@ const GroupMembers=(props)=> {
                                        {data.UserID!=userID?
                                           <button className={Classes.redBtn} onClick={()=>removeFromGroup(data.GroupID,data.UserID)} disabled={props.adminID==localStorage.getItem('UserID')?false:true}>Remove</button>
                                        :
-                                          <button style={{width:'70px'}} className={Classes.redBtn} onClick={()=>removeFromGroup(data.GroupID,props.adminID)} disabled={props.adminID==localStorage.getItem('UserID')?false:true}>Leave</button>
+                                          <button style={{width:'70px'}} className={Classes.redBtn} onClick={()=>removeFromGroup(data.GroupID,props.adminID)} disabled={props.adminID==localStorage.getItem('UserID')?false:false}>Leave</button>
                                        }
                                     </td>
                                  </tr>
