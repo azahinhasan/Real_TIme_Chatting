@@ -183,19 +183,26 @@ namespace RealTimeChattingBackend.Controllers
         }
 
 
-        [Route("api/groups/removeMember/{groupID}/{userID}"), HttpPost]
-        public IHttpActionResult RemoveMemberFromGroup([FromUri] int groupID, [FromUri] int userID)
+        [Route("api/groups/removeMember/{groupID}/{removeUserID}/{userID}"), HttpPost]
+        public IHttpActionResult RemoveMemberFromGroup([FromUri] int groupID, [FromUri] int removeUserID, [FromUri] int userID) 
         {
 
-            var find = context.GroupMembers.Where(x => x.UserID == userID && x.GroupID == groupID).FirstOrDefault();
+            var verifyAdmin = context.GroupInfoes.Where(x => x.CreatorID == userID && x.ID == groupID).FirstOrDefault();
 
-            find.Rank = "not_member";
+            if (verifyAdmin!= null)
+            {
+                var find = context.GroupMembers.Where(x => x.UserID == removeUserID && x.GroupID == groupID).FirstOrDefault();
 
-            context.Entry(find).State = System.Data.Entity.EntityState.Modified;
-            context.SaveChanges();
+                find.Rank = "not_member";
 
+                context.Entry(find).State = System.Data.Entity.EntityState.Modified;
+                context.SaveChanges();
+                return Ok("OK");
+            }
 
-            return Ok("OK");
+           
+
+            return Ok("notOK");
         }
 
         [Route("api/groups/create"), HttpPost]

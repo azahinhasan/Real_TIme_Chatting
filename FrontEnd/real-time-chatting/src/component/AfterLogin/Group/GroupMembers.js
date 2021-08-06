@@ -42,8 +42,8 @@ const GroupMembers=(props)=> {
       
    }
 
-   const removeFromGroup=(groupID,userID)=>{
-      axios.post('/groups/removeMember/'+groupID+'/'+userID)
+   const removeFromGroup=(groupID,removeUserID)=>{
+      axios.post('/groups/removeMember/'+groupID+'/'+removeUserID+'/'+userID)
          .then(r=>{
             console.log(r.data,' req');
             //setReqs(r.data);
@@ -62,13 +62,20 @@ const GroupMembers=(props)=> {
                   {reqs.map(data=>{
                         return(
                            <div key={data.ID} style={{border:'2px black solid',marginTop:'5px'}}>
-                              <tr>
-                                 <td style={{width:'63%',borderRight:'2px black solid',textAlign:'center'}}> <span>{data.UserID}</span></td>
-                                 <td>
-                                    <button className={Classes.greenBtn} onClick={""}>Promotion</button>
-                                    <button className={Classes.redBtn} onClick={()=>removeFromGroup(data.GroupID,data.UserID)}>Remove</button>
-                                 </td>
-                              </tr>
+                        
+                                 <tr>
+                                    <td style={{width:'86.2%',borderRight:'2px black solid',textAlign:'center'}}> <span>{data.UserID}</span></td>
+                                    <td>
+                                       {/* <button className={Classes.greenBtn} onClick={""}>Promotion</button> */}
+
+                                       {data.UserID!=userID?
+                                          <button className={Classes.redBtn} onClick={()=>removeFromGroup(data.GroupID,data.UserID)} disabled={props.adminID==localStorage.getItem('UserID')?false:true}>Remove</button>
+                                       :
+                                          <button style={{width:'70px'}} className={Classes.redBtn} onClick={()=>removeFromGroup(data.GroupID,props.adminID)} disabled={props.adminID==localStorage.getItem('UserID')?false:true}>Leave</button>
+                                       }
+                                    </td>
+                                 </tr>
+                              
                            </div>
                         )
                   })}
