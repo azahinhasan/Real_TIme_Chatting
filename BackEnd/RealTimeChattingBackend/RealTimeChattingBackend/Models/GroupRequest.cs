@@ -17,5 +17,7 @@ namespace RealTimeChattingBackend.Models
         public int ID { get; set; }
         public Nullable<int> UserID { get; set; }
         public Nullable<int> GroupID { get; set; }
+    
+        public virtual UserInfo UserInfo { get; set; }
     }
 }

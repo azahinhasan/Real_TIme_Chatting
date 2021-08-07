@@ -157,6 +157,18 @@
       </Dependent>
     </ReferentialConstraint>
   </Association>
+  <Association Name="FK_GroupMembers_UserInfo">
+    <End Role="UserInfo" Type="Self.UserInfo" Multiplicity="0..1" />
+    <End Role="GroupMembers" Type="Self.GroupMembers" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="UserInfo">
+        <PropertyRef Name="ID" />
+      </Principal>
+      <Dependent Role="GroupMembers">
+        <PropertyRef Name="UserID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
   <Association Name="FK_GroupMsg_UserInfo">
     <End Role="GroupInfo" Type="Self.GroupInfo" Multiplicity="0..1" />
     <End Role="GroupMsg" Type="Self.GroupMsg" Multiplicity="*" />
@@ -178,6 +190,18 @@
       </Principal>
       <Dependent Role="GroupMsg">
         <PropertyRef Name="SenderID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_GroupRequest_UserInfo">
+    <End Role="UserInfo" Type="Self.UserInfo" Multiplicity="0..1" />
+    <End Role="GroupRequest" Type="Self.GroupRequest" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="UserInfo">
+        <PropertyRef Name="ID" />
+      </Principal>
+      <Dependent Role="GroupRequest">
+        <PropertyRef Name="UserID" />
       </Dependent>
     </ReferentialConstraint>
   </Association>
@@ -212,6 +236,10 @@
       <End Role="UserInfo" EntitySet="UserInfo" />
       <End Role="GroupInfo" EntitySet="GroupInfo" />
     </AssociationSet>
+    <AssociationSet Name="FK_GroupMembers_UserInfo" Association="Self.FK_GroupMembers_UserInfo">
+      <End Role="UserInfo" EntitySet="UserInfo" />
+      <End Role="GroupMembers" EntitySet="GroupMembers" />
+    </AssociationSet>
     <AssociationSet Name="FK_GroupMsg_UserInfo" Association="Self.FK_GroupMsg_UserInfo">
       <End Role="GroupInfo" EntitySet="GroupInfo" />
       <End Role="GroupMsg" EntitySet="GroupMsg" />
@@ -219,6 +247,10 @@
     <AssociationSet Name="FK_GroupMsg_UserInfo1" Association="Self.FK_GroupMsg_UserInfo1">
       <End Role="UserInfo" EntitySet="UserInfo" />
       <End Role="GroupMsg" EntitySet="GroupMsg" />
+    </AssociationSet>
+    <AssociationSet Name="FK_GroupRequest_UserInfo" Association="Self.FK_GroupRequest_UserInfo">
+      <End Role="UserInfo" EntitySet="UserInfo" />
+      <End Role="GroupRequest" EntitySet="GroupRequest" />
     </AssociationSet>
   </EntityContainer>
 </Schema>

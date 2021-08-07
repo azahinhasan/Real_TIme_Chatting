@@ -23,6 +23,8 @@ namespace RealTimeChattingBackend.Models
             this.FriendRequests1 = new HashSet<FriendRequest>();
             this.GroupInfoes = new HashSet<GroupInfo>();
             this.GroupMsgs = new HashSet<GroupMsg>();
+            this.GroupMembers = new HashSet<GroupMember>();
+            this.GroupRequests = new HashSet<GroupRequest>();
         }
     
         public int ID { get; set; }
@@ -43,5 +45,9 @@ namespace RealTimeChattingBackend.Models
         public virtual ICollection<GroupInfo> GroupInfoes { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<GroupMsg> GroupMsgs { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<GroupMember> GroupMembers { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<GroupRequest> GroupRequests { get; set; }
     }
 }

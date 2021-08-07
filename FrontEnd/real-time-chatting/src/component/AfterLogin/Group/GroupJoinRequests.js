@@ -30,13 +30,14 @@ const GroupJoinRequests=(props)=> {
          .then(r=>{
             
             setReqs(r.data);
+            //console.log(r.data,' loadReq');
          })
    }
 
    const reqAction=(senderID,action)=>{
       axios.post('/groups/joinrequest/action/'+props.groupKey+'/'+props.adminID+'/'+senderID+'/'+action)
          .then(r=>{
-            console.log(r.data,' req');
+            //console.log(r.data,' req');
             setReqs(r.data);
          })
       
@@ -53,7 +54,7 @@ const GroupJoinRequests=(props)=> {
                         return(
                            <div key={data.ID} style={{border:'2px black solid',marginTop:'5px'}}>
                               <tr>
-                                 <td style={{width:'65%',borderRight:'2px black solid',textAlign:'center'}}> <span>{data.UserID}</span></td>
+                                 <td style={{width:'65%',borderRight:'2px black solid',textAlign:'center'}}> <span>{data.UserInfo.Name}</span></td>
                                  <td>
                                     <button className={Classes.greenBtn} onClick={()=>reqAction(data.UserID,'accept')}>ACCEPT</button>
                                     <button className={Classes.redBtn} onClick={()=>reqAction(data.UserID,'reject')}>REJECT</button>

@@ -20,5 +20,7 @@ namespace RealTimeChattingBackend.Models
         public string JoinTime { get; set; }
         public string Rank { get; set; }
         public string GroupName { get; set; }
+    
+        public virtual UserInfo UserInfo { get; set; }
     }
 }

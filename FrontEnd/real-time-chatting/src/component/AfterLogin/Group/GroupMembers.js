@@ -45,7 +45,7 @@ const GroupMembers=(props)=> {
    const removeFromGroup=(groupID,removeUserID)=>{
       axios.post('/groups/removeMember/'+groupID+'/'+removeUserID+'/'+userID)
          .then(r=>{
-            console.log(r.data,' req');
+            //console.log(r.data,' req');
             //setReqs(r.data);
             loadReq();
          })
@@ -64,7 +64,7 @@ const GroupMembers=(props)=> {
                            <div key={data.ID} style={{border:'2px black solid',marginTop:'5px'}}>
                         
                                  <tr>
-                                    <td style={{width:'86.2%',borderRight:'2px black solid',textAlign:'center'}}> <span>{data.UserID}</span></td>
+                                    <td style={{width:'86.2%',borderRight:'2px black solid',textAlign:'center'}}> <span>{data.UserInfo.Name}</span></td>
                                     <td>
                                        {/* <button className={Classes.greenBtn} onClick={""}>Promotion</button> */}
 
