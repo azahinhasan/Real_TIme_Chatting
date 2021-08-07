@@ -87,7 +87,6 @@ const GroupChattingPage=(props)=> {
                         <div>
                            <br/>
                            <span className={d.SenderID==localStorage.getItem('UserID')? Classes.messageSender:Classes.messageReciver}>
-                              {console.log(d, 'dd')}
                               {d.Msg}
                               <div style={{fontSize:'10px'}}>-Sent From {d.UserInfo.Name}</div>
                            </span>

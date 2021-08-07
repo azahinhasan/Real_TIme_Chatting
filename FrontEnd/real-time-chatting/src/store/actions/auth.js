@@ -91,7 +91,7 @@ export const trackLocation=()=>{
    return (dispatch)=>{
       axios.get('https://extreme-ip-lookup.com/json/')
          .then(r=>{
-            //console.log(r.data);
+            console.log(r.data, " loginActivityStore");
 
             axios.post('/loginActivityStore',{
                IP:r.data.query,
