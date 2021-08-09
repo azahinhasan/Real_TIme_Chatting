@@ -191,6 +191,41 @@ namespace RealTimeChattingBackend.Controllers
 
             if (verifyAdmin!= null)
             {
+
+
+                var verify = context.GroupInfoes.Where(x => x.CreatorID == removeUserID && x.ID == groupID).FirstOrDefault();
+
+                if (verify != null)
+                {
+                    var data = context.GroupMsgs.Where(x => x.GroupID == groupID);
+
+                    foreach (var delete in data)
+                    {
+                        context.GroupMsgs.Remove(delete);
+                    }
+
+                    var data2 = context.GroupMembers.Where(x => x.GroupID == groupID);
+
+                    foreach (var delete in data2)
+                    {
+                        context.GroupMembers.Remove(delete);
+                    }
+
+                    var data3 = context.GroupRequests.Where(x => x.GroupID == groupID);
+
+                    foreach (var delete in data3)
+                    {
+                        context.GroupRequests.Remove(delete);
+                    }
+
+                    context.GroupInfoes.Remove(context.GroupInfoes.Find(groupID));
+
+                    context.SaveChanges();
+
+                    return Ok("groupDistorted");
+
+                }
+
                 var find = context.GroupMembers.Where(x => x.UserID == removeUserID && x.GroupID == groupID).FirstOrDefault();
 
                 find.Rank = "not_member";
@@ -198,6 +233,11 @@ namespace RealTimeChattingBackend.Controllers
                 context.Entry(find).State = System.Data.Entity.EntityState.Modified;
                 context.SaveChanges();
                 return Ok("OK");
+            }
+            else
+            {
+
+                
             }
 
            

@@ -45,11 +45,10 @@ const GroupMembers=(props)=> {
    const removeFromGroup=(groupID,removeUserID)=>{
       axios.post('/groups/removeMember/'+groupID+'/'+removeUserID+'/'+userID)
          .then(r=>{
-            //console.log(r.data,' req');
+            console.log(r.data,' leave');
             //setReqs(r.data);
             loadReq();
          })
-      
    }
 
    return (
