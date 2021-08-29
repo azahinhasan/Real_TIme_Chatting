@@ -38,7 +38,10 @@ namespace RealTimeChattingBackend.Controllers
 
             GroupMsg newMsg = new GroupMsg();
 
-            newMsg.Msg = data.Msg;
+            byte[] msg = System.Text.ASCIIEncoding.ASCII.GetBytes(data.Msg);
+            newMsg.Msg = System.Convert.ToBase64String(msg);
+
+          //  newMsg.Msg = data.Msg;
             newMsg.SenderID = SenderID;
             newMsg.GroupID = GroupID;
             //newMsg.Time = time.ToString();
