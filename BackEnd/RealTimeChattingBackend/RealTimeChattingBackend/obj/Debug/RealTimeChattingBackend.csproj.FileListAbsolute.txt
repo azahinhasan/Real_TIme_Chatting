@@ -60,7 +60,6 @@ C:\Users\zahin\Desktop\IDE\SelfProject\RealTime-Chatting\BackEnd\RealTimeChattin
 C:\Users\zahin\Desktop\IDE\SelfProject\RealTime-Chatting\BackEnd\RealTimeChattingBackend\RealTimeChattingBackend\bin\System.Web.Http.xml
 C:\Users\zahin\Desktop\IDE\SelfProject\RealTime-Chatting\BackEnd\RealTimeChattingBackend\RealTimeChattingBackend\bin\System.Web.Http.WebHost.xml
 C:\Users\zahin\Desktop\IDE\SelfProject\RealTime-Chatting\BackEnd\RealTimeChattingBackend\RealTimeChattingBackend\bin\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.xml
-C:\Users\zahin\Desktop\IDE\SelfProject\RealTime-Chatting\BackEnd\RealTimeChattingBackend\RealTimeChattingBackend\obj\Debug\RealTimeChattingBackend.csprojAssemblyReference.cache
 C:\Users\zahin\Desktop\IDE\SelfProject\RealTime-Chatting\BackEnd\RealTimeChattingBackend\RealTimeChattingBackend\obj\Debug\RealTimeChattingBackend.csproj.CoreCompileInputs.cache
 C:\Users\zahin\Desktop\IDE\SelfProject\RealTime-Chatting\BackEnd\RealTimeChattingBackend\RealTimeChattingBackend\obj\Debug\RealTimeChattingBackend.csproj.CopyComplete
 C:\Users\zahin\Desktop\IDE\SelfProject\RealTime-Chatting\BackEnd\RealTimeChattingBackend\RealTimeChattingBackend\obj\Debug\RealTimeChattingBackend.dll
@@ -105,3 +104,4 @@ C:\Users\zahin\Desktop\IDE\SelfProject\RealTime-Chatting\BackEnd\RealTimeChattin
 C:\Users\zahin\Desktop\IDE\SelfProject\RealTime-Chatting\BackEnd\RealTimeChattingBackend\RealTimeChattingBackend\bin\System.Runtime.CompilerServices.Unsafe.xml
 C:\Users\zahin\Desktop\IDE\SelfProject\RealTime-Chatting\BackEnd\RealTimeChattingBackend\RealTimeChattingBackend\bin\System.Text.Encodings.Web.xml
 C:\Users\zahin\Desktop\IDE\SelfProject\RealTime-Chatting\BackEnd\RealTimeChattingBackend\RealTimeChattingBackend\bin\System.Web.Http.Cors.xml
+C:\Users\Zahin\Desktop\IDE\SelfProject\RealTime-Chatting\BackEnd\RealTimeChattingBackend\RealTimeChattingBackend\obj\Debug\RealTimeChattingBackend.csproj.AssemblyReference.cache

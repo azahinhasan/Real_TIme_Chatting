@@ -66,7 +66,8 @@ const LoginPage=(props)=> {
                         <div>
                            <br/><br/>
                            <span className={data.SenderID==localStorage.getItem('UserID')? Classes.messageSender:Classes.messageReciver}>
-                              {data.Msg}
+                              {/* {data.Msg} */}
+                              {new Buffer(data.Msg, 'base64').toString('ascii')}
                            </span>
                            <br/><br/>
                         </div>

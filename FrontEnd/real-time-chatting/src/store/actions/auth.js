@@ -47,7 +47,7 @@ export const SignIn=(Username,Password)=>{
 
    axios.post('/login',{Username,Password})
       .then(r=>{
-
+        // console.log(r.data,' login');
          if(r.data[0]!='userNotValid'){
             localStorage.setItem('Username',Username);
             localStorage.setItem('Token',r.data[1]);

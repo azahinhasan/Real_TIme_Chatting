@@ -4,6 +4,10 @@ using System.Linq;
 using System.Web;
 using RealTimeChattingBackend.Models;
 using System.Web.Http;
+using System.Text;
+using System.Threading;
+using System.Security.Principal;
+
 
 namespace RealTimeChattingBackend.Controllers
 {
@@ -15,7 +19,13 @@ namespace RealTimeChattingBackend.Controllers
         public IHttpActionResult UserAndOrderInfo([FromBody] UserInfo data)
         {
 
-            var check = context.UserInfoes.Where(x => x.Username == data.Username && x.Password == data.Password).FirstOrDefault();
+
+            byte[] decode = System.Text.ASCIIEncoding.ASCII.GetBytes(data.Password);
+            var pass = System.Convert.ToBase64String(decode);
+
+           // return Ok(pass);
+
+            var check = context.UserInfoes.Where(x => x.Username == data.Username && x.Password == pass.ToString()).FirstOrDefault();
 
             if (check != null)
             {
@@ -61,6 +71,10 @@ namespace RealTimeChattingBackend.Controllers
             Random r = new Random();
             int num = r.Next();
             data.UserConnectID = num.ToString();
+
+            byte[] pass = System.Text.ASCIIEncoding.ASCII.GetBytes(data.Password);
+            data.Password = System.Convert.ToBase64String(pass);
+
             context.UserInfoes.Add(data);
             context.SaveChanges();
             return Ok("OK");
@@ -118,6 +132,29 @@ namespace RealTimeChattingBackend.Controllers
         public IHttpActionResult Messages([FromUri]int ReceiverID, [FromUri]int SenderID)
         {
             var messages = context.Messages.Where(x => x.ReceiverID ==ReceiverID && x.SenderID == SenderID || x.SenderID == ReceiverID && x.ReceiverID == SenderID).ToList();
+            // var prop =[];
+
+            foreach (var  prop in messages)
+            {
+
+                //Encode
+/*                byte[] data = System.Text.ASCIIEncoding.ASCII.GetBytes(prop.Msg);
+                prop.Msg = System.Convert.ToBase64String(data);*/
+
+
+                //Decode
+                /*   string base64Encoded = "YmFzZTY0IGVuY29kZWQgc3RyaW5n";
+                   string base64Decoded;
+                   byte[] data = System.Convert.FromBase64String(base64Encoded);
+                   base64Decoded = System.Text.ASCIIEncoding.ASCII.GetString(data);*/
+
+
+
+                //   prop.Msg = base64Encoded;
+
+            }
+
+
             return Ok(messages);
         }
 
@@ -129,7 +166,11 @@ namespace RealTimeChattingBackend.Controllers
             DateTime time = DateTime.Today;
 
             Message newMsg = new Message();
-            newMsg.Msg = data.Msg;
+
+            byte[] msg = System.Text.ASCIIEncoding.ASCII.GetBytes(data.Msg);
+            newMsg.Msg = System.Convert.ToBase64String(msg);
+
+          //  newMsg.Msg = data.Msg;
             newMsg.ReceiverID = ReceiverID;
             newMsg.SenderID = SenderID;
             newMsg.Time = time.ToString();
