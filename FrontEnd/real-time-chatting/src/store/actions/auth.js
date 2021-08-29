@@ -55,9 +55,11 @@ export const SignIn=(Username,Password)=>{
             localStorage.setItem('UserID',r.data[2]);
             localStorage.setItem('UserConnectID',r.data[3]);
             
-           dispatch(authSuccess());
-           dispatch(authCheckState());
-           dispatch(trackLocation());
+            dispatch(authSuccess());
+            dispatch(authCheckState());
+            dispatch(trackLocation());
+
+          //  Window.location.reload();
 
          }else{
             dispatch(loginFailed());

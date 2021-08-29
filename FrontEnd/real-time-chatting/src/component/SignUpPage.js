@@ -11,6 +11,7 @@ const SignUpPage=(props)=> {
    const [userNameVerify, setUserNameVerify]=useState(true);
    const [name, setNmae]=useState('');
    const [password,setPassword]=useState('');
+   const [msg,setMsg]=useState('');
    const [formValid,setFormValid]=useState(false);
    const redirectTo = useHistory();
 

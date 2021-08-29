@@ -5,7 +5,7 @@ const initialState={
    error:'',
    loading:false,
    loginErrorMsg:'',
-   loginActivityList:[]
+   signUpMsg:false,
 }
 
 
