@@ -36,7 +36,7 @@ const LoginHistory=(props)=> {
             <h2>Login Activity Page</h2>
             <table style={{width:'100%'}}>
             <ScrollToBottom  className={Classes.allLoginActivity}>
-            {props.loginActivityList!=undefined?
+            {props.loginActivityList!=undefined && props.loginActivityList.length>0 ?
                props.loginActivityList.map(data=>{
                   return(
                      <div key={data.ID} style={{border:'2px black solid',marginTop:'10px'}}>
