@@ -13,16 +13,19 @@ const LoginHistory=(props)=> {
 
    const [logOutFromOther,setlogOutFromOther]=useState('');
    const [friendKey,setFriendKey]=useState('');
+   const [data,setData]=useState([]);
 
 
    useEffect(() => {
       props.loginActivityGet();
+      console.log(props.loginActivityList,' Login Histroy');
    }, []);
 
    const logOutFromOtherDevice=()=>{
 
       props.logOutFromOtherDevice();
       setlogOutFromOther('LogOut From Other Device Success!');
+     
    }
 
 
@@ -33,7 +36,7 @@ const LoginHistory=(props)=> {
             <h2>Login Activity Page</h2>
             <table style={{width:'100%'}}>
             <ScrollToBottom  className={Classes.allLoginActivity}>
-            {props.loginActivityList!=''?
+            {props.loginActivityList!=undefined?
                props.loginActivityList.map(data=>{
                   return(
                      <div key={data.ID} style={{border:'2px black solid',marginTop:'10px'}}>

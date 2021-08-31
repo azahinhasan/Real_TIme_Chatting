@@ -34,9 +34,11 @@ export const loginFailed = () => {
 
 
 export const loginActivityLsit = (data) => {
+  
    return {
        type: actionTypes.LOGINACTIVITYLIST,
        loginActivityList: data
+
    };
 };
 
@@ -156,6 +158,7 @@ export const loginActivityGet=()=>{
 
       axios.get('/loginActivity/'+localStorage.getItem('UserID'))
          .then(r=>{
+            console.log(r.data,' auth Chatting action');
             dispatch(loginActivityLsit(r.data));
          })
          
