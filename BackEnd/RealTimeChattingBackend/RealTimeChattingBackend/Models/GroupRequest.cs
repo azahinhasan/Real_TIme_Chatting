@@ -11,13 +11,15 @@ namespace RealTimeChattingBackend.Models
 {
     using System;
     using System.Collections.Generic;
-    
+    using Newtonsoft.Json;
+    using System.Xml.Serialization;
+
     public partial class GroupRequest
     {
         public int ID { get; set; }
         public Nullable<int> UserID { get; set; }
         public Nullable<int> GroupID { get; set; }
-    
+
         public virtual UserInfo UserInfo { get; set; }
     }
 }

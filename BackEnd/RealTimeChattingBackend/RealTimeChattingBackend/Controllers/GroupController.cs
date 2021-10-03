@@ -92,28 +92,27 @@ namespace RealTimeChattingBackend.Controllers
                 }
                 else
                 {
-                    return Ok(SendJoinGroupRequest(groupID, userID, checkMember));
+                    return Ok(SendJoinGroupRequest(groupID, userID, checkMember,"notAccpt"));
                 }
             }
             else
             {
-                return Ok(SendJoinGroupRequest(groupID, userID, null));
+                return Ok(SendJoinGroupRequest(groupID, userID, null, "notAccpt"));
             }
 
             // return Ok("Request Send!");
 
         }
 
-        protected string SendJoinGroupRequest(int groupId, int userId, GroupMember checkMember)
+        protected string SendJoinGroupRequest(int groupId, int userId, GroupMember checkMember,string action)
         {
 
             var groupData = context.GroupInfoes.Where(x => x.ID == groupId).FirstOrDefault();
 
-            if (groupData.GroupType == "open")
+            if (groupData.GroupType == "open" || action == "accept")
             {
                 if (checkMember != null)
                 {
-
                     checkMember.Rank = "member";
                     context.Entry(checkMember).State = System.Data.Entity.EntityState.Modified;
                     context.SaveChanges();
@@ -121,6 +120,7 @@ namespace RealTimeChattingBackend.Controllers
                 else
                 {
                     //return "cc";
+                  
                     GroupMember gm = new GroupMember();
                     gm.GroupID = groupId;
                     gm.UserID = userId;
@@ -146,7 +146,8 @@ namespace RealTimeChattingBackend.Controllers
             return "Request Send!";
         }
 
-        [Route("api/groups/members/{groupID}"), HttpGet]
+
+         [Route("api/groups/members/{groupID}"), HttpGet]
         public IHttpActionResult GroupMamberList([FromUri] int groupID)
         {
             return Ok(context.GroupMembers.Where(x => x.GroupID == groupID && x.Rank != "not_member").ToList());
@@ -157,6 +158,7 @@ namespace RealTimeChattingBackend.Controllers
         public IHttpActionResult GroupMamberRequest([FromUri] int groupID)
         {
             return Ok(context.GroupRequests.Where(x => x.GroupID == groupID).ToList());
+           
         }
 
         [Route("api/groups/joinrequest/action/{groupID}/{adminID}/{reqSender}/{actionType}"), HttpPost]
@@ -171,17 +173,25 @@ namespace RealTimeChattingBackend.Controllers
                 if (prevMember != null)
                 {
 
-                    msg = SendJoinGroupRequest(groupID, reqSender, prevMember);
+                    msg = SendJoinGroupRequest(groupID, reqSender, prevMember, "accept");
+                  // return Ok(msg);
                 }
 
                 else
                 {
-                    msg = SendJoinGroupRequest(groupID, reqSender, null);
+     
+                    msg = SendJoinGroupRequest(groupID, reqSender, null, "accept");
+                 //   return Ok(msg);
                 }
+
+/*                context.GroupRequests.Remove(data);
+                context.SaveChanges();*/
             }
 
             context.GroupRequests.Remove(context.GroupRequests.Find(data.ID));
             context.SaveChanges();
+
+            //return Ok("OK");
             return Ok(GroupMamberRequest(groupID));
         }
 

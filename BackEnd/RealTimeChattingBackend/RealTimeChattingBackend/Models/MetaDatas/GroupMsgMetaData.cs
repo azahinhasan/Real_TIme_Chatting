@@ -15,6 +15,7 @@ namespace RealTimeChattingBackend.Models.MetaDatas
         public Nullable<int> SenderID { get; set; }
         [JsonIgnore, XmlIgnore]
         public virtual GroupInfo GroupInfo { get; set; }
+
         public virtual UserInfo UserInfo { get; set; }
     }
 }

@@ -35,6 +35,7 @@ const GroupJoinRequests=(props)=> {
    }
 
    const reqAction=(senderID,action)=>{
+      console.log('/groups/joinrequest/action/'+props.groupKey+'/'+props.adminID+'/'+senderID+'/'+action)
       axios.post('/groups/joinrequest/action/'+props.groupKey+'/'+props.adminID+'/'+senderID+'/'+action)
          .then(r=>{
             //console.log(r.data,' req');

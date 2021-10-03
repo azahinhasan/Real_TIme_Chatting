@@ -32,7 +32,7 @@ const LoginPage=(props)=> {
         
             props.filterMessage(resiverID,localStorage.getItem('UserID'));
          
-         }, 500);
+         }, 50);
          return () => clearInterval(interval);
       }
      

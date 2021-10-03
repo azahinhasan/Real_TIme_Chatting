@@ -11,7 +11,9 @@ namespace RealTimeChattingBackend.Models
 {
     using System;
     using System.Collections.Generic;
-    
+    using Newtonsoft.Json;
+    using System.Xml.Serialization;
+
     public partial class GroupMember
     {
         public int ID { get; set; }
@@ -20,7 +22,6 @@ namespace RealTimeChattingBackend.Models
         public string JoinTime { get; set; }
         public string Rank { get; set; }
         public string GroupName { get; set; }
-    
         public virtual UserInfo UserInfo { get; set; }
     }
 }
