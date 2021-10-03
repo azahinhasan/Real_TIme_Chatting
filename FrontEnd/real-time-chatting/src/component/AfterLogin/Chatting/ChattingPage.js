@@ -20,21 +20,21 @@ const LoginPage=(props)=> {
    //    messagesEndRef.current?.scrollIntoView({ behavior: "smooth" })
    //  }
 
+   // useEffect(() => {
+   //    props.friendsNameList(localStorage.getItem('UserID'),'chatting');
+   //    //scrollToBottom();
+
+   // }, []);
+
    useEffect(() => {
       props.friendsNameList(localStorage.getItem('UserID'),'chatting');
-      //scrollToBottom();
 
-   }, []);
-
-   useEffect(() => {
-      if(resiverID!==''){
+      // if(resiverID!=''){
          const interval = setInterval(() => {
-        
             props.filterMessage(resiverID,localStorage.getItem('UserID'));
-         
-         }, 50);
+         }, 300);
          return () => clearInterval(interval);
-      }
+      //}
      
     }, []);
 

@@ -37,7 +37,6 @@ const GroupOtherOptions=(props)=> {
             <br/>
             <button className={Classes.blackBtn} onClick={()=>setShowPageOf('members')}>Members</button>
             {props.adminID==userID? <button className={Classes.blackBtn} onClick={()=>setShowPageOf('request')}>Request</button>: null}
-           
       
             <hr/>
          </div>

@@ -33,12 +33,12 @@ const GroupChattingPage=(props)=> {
    }, []);
 
    useEffect(() => {
-      if(groupID!==''){
+      // if(groupID!=''){
          const interval = setInterval(() => {
             props.groupData(localStorage.getItem(groupID,userID));
-         }, 5000);
+         }, 300);
          return () => clearInterval(interval);
-      }
+     // }
    }, []);
 
 
